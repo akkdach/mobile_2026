@@ -10,8 +10,9 @@ import React, { useEffect } from 'react';
 import { PermissionsAndroid } from 'react-native';
 import RoutingPage from './src/app.routing';
 import { NotifyContextProvider } from './src/reducer/NotifyContext';
-import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { NavigationContainer } from '@react-navigation/native';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 const requestCameraPermission = async () => {
   try {
@@ -41,15 +42,19 @@ const App = () => {
   useEffect(() => {
     requestCameraPermission();
   }, []);
-
+  
   return (
-    <NavigationContainer>
-      <SafeAreaProvider>
-        <NotifyContextProvider>
-          <RoutingPage />
-        </NotifyContextProvider>
-      </SafeAreaProvider>
-    </NavigationContainer>
+      <>
+        <GestureHandlerRootView>
+          <NavigationContainer>
+            <SafeAreaProvider>
+              <NotifyContextProvider>
+                <RoutingPage></RoutingPage>
+              </NotifyContextProvider>
+            </SafeAreaProvider>
+          </NavigationContainer>
+        </GestureHandlerRootView>
+      </>
   );
 };
 

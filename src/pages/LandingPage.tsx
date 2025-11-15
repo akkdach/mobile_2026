@@ -1,20 +1,26 @@
-import React, { useEffect, useRef } from 'react';
-import { StyleSheet, Image, Animated, View } from 'react-native';
-import * as router from 'react-native-router-flux';
+import React, {useEffect, useRef} from 'react';
+import {StyleSheet, Image, Animated, View} from 'react-native';
 import styleSheet from '../components/StyleSheet';
-import { isSignedIn } from '../services/auth';
+import {isSignedIn} from '../services/auth';
+import { useNavigation, StackActions } from '@react-navigation/native';
 
 const logo = require('../../assets/images/logo.png');
 const landing = require('../../assets/images/landing.png');
 const LandingPage = () => {
   const fadeInAnim = useRef(new Animated.Value(0)).current;
+  const navigation = useNavigation();
+
   useEffect(() => {
     async function handleUserNextScreen() {
       const isLogin = await isSignedIn();
       if (isLogin) {
-        router.Actions.replace('main');
+        navigation.dispatch(
+          StackActions.replace('appMain')
+        );
       } else {
-        router.Actions.replace('login');
+        navigation.dispatch(
+          StackActions.replace('Login')
+        );
       }
     }
     handleUserNextScreen();
@@ -35,10 +41,9 @@ const BackGroundImageLanding = (fadeInAnim: any) => {
     <View
       style={{
         flex: 4,
-      }}
-    >
+      }}>
       <Image
-        style={[styleSheet.backgroundImage, { opacity: 0.8 }]}
+        style={[styleSheet.backgroundImage, {opacity: 0.8}]}
         width={800}
         source={landing}
         key="image-background"
@@ -51,9 +56,8 @@ const BackGroundImageLanding = (fadeInAnim: any) => {
           bottom: 0,
           left: 0,
           right: 0,
-        }}
-      >
-        <Animated.View style={[styles.container, { opacity: fadeInAnim }]}>
+        }}>
+        <Animated.View style={[styles.container, {opacity: fadeInAnim}]}>
           <Image style={styles.logo} source={logo} />
         </Animated.View>
       </View>

@@ -3,7 +3,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
 import { Animated, Dimensions, Image, Keyboard, StyleSheet, Text, View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
-import * as router from 'react-native-router-flux';
 import VersionInfo from 'react-native-version-info';
 import Loading from '../components/loading';
 import { COLOR } from '../constants/Colors';
@@ -12,6 +11,7 @@ import LocalStorageKey from '../constants/LocalStorageKey';
 import { myErrorHandler } from '../constants/myErrorHandler';
 import { signIn, updateTokenNotify } from '../services/auth';
 import { _getData, _storeData } from '../utils/AsyncStorage';
+import { StackActions, useNavigation } from '@react-navigation/native';
 //const logo = require('../../assets/images/logo.png');
 //const landing = require('../../assets/images/landing.png');
 const landing = require('../../assets/images/wallpaper_mobile.png');
@@ -28,6 +28,7 @@ const LoginPage = () => {
     handleSubmit,
   } = useForm<Inputs>();
   const [isLoading, setIsLoading] = useState(false);
+  const navigation = useNavigation();
 
   const onSubmit: SubmitHandler<Inputs> = async data => {
     Keyboard.dismiss();
@@ -61,7 +62,9 @@ const LoginPage = () => {
           // }
         })
         .catch(console.log);
-      router.Actions.replace('main');
+        navigation.dispatch(
+          StackActions.replace('appMain')
+        );
     } catch (error: any) {
       setError(myErrorHandler(error));
     } finally {
