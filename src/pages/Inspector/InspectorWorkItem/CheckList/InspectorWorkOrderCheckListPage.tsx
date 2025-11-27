@@ -7,7 +7,6 @@ import {
   Dimensions,
   FlatList,
   Image,
-  SafeAreaView,
   StyleSheet,
   Text,
   TouchableHighlight,
@@ -45,6 +44,7 @@ import {
 import { _getData } from '../../../../utils/AsyncStorage';
 import InspectorWorkOrderCheckListPMPage from './InspectorWorkOrderCheckListPMPage';
 import { useNavigation, StackActions } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const screenHeight = Dimensions.get('window').height;
 

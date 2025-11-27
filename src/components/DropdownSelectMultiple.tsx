@@ -1,7 +1,6 @@
 import { Icon } from '@ant-design/react-native';
 import React, { useState } from 'react';
 import {
-  SafeAreaView,
   ScrollView,
   StyleProp,
   StyleSheet,
@@ -15,6 +14,7 @@ import { Button, Checkbox, Modal, Portal, Text } from 'react-native-paper';
 import { COLOR } from '../constants/Colors';
 import { Fonts } from '../constants/fonts';
 import styleSheet from '../components/StyleSheet';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const DropdownSelectMultiple = (props: DropdownSelectMultipleInterface) => {
   const [visible, setVisible] = React.useState(false);

@@ -2,7 +2,6 @@ import { Icon } from '@ant-design/react-native';
 import React, { useEffect, useState } from 'react';
 import {
   FlatList,
-  SafeAreaView,
   StyleProp,
   StyleSheet,
   TextStyle,
@@ -15,6 +14,7 @@ import {
 import { Modal, Portal, RadioButton, Text } from 'react-native-paper';
 import { Fonts } from '../constants/fonts';
 import styleSheet from '../components/StyleSheet';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;

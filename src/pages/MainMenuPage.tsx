@@ -7,7 +7,6 @@ import {
   Dimensions,
   Image,
   ImageBackground,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
@@ -29,6 +28,7 @@ import {
 import { updatedNotificationService } from '../services/notify';
 import { _getData } from '../utils/AsyncStorage';
 import { useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 const logo = require('../../assets/logo.png');
 const MainMenuPage = () => {
   const colorCockOut = '#E74C3C';

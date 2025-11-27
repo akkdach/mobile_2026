@@ -4,7 +4,6 @@ import { Controller, useForm } from 'react-hook-form';
 import {
   Alert,
   FlatList,
-  SafeAreaView,
   ScrollView,
   Text,
   TextInput,
@@ -25,6 +24,7 @@ import styleSheet from '../../../components/StyleSheet';
 import styles from './InspectorWorkOrderQualityIndexCss';
 import { getQualityIndexInspector, getQualityIndexMasterInspector, postQualityIndexInspector } from '../../../services/visitInspector';
 import { useNavigation, StackActions } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type InterfaceProps = {
   workOrderData: {

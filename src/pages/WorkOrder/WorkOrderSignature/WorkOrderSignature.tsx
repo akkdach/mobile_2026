@@ -5,7 +5,6 @@ import {
   Alert,
   Dimensions,
   Image,
-  SafeAreaView,
   StyleSheet,
   Text,
   TextInput,
@@ -32,6 +31,7 @@ import WorkOrderSignatureComponent from './WorkOrderSignatureComponent';
 // import {_getData, _storeData} from '../../../utils/AsyncStorage';
 // import { fetchWorkOrderImageGet, fetchWorkOrderImageUpdate } from "../../../services/workOrderCamera";
 import { useNavigation, StackActions } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type InterfaceProps = {
   workOrderData: {

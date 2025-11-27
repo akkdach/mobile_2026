@@ -1,6 +1,6 @@
 import {Button, Icon} from '@ant-design/react-native';
 import React, {FC, useEffect, useState} from 'react';
-import {Dimensions, Linking, Platform, SafeAreaView, Text, View} from 'react-native';
+import {Dimensions, Linking, Platform, Text, View} from 'react-native';
 import MapView, {Marker, PROVIDER_GOOGLE, Region} from 'react-native-maps';
 import Animated from 'react-native-reanimated';
 import AppBar from '../../../components/AppBar';
@@ -11,6 +11,7 @@ import {IWorkOrderMap} from '../../../models/WorkOrderMap';
 import {fetchtWorkOrderMap} from '../../../services/workOrderMap';
 import {default as styles, default as workOrderMapCss} from './WorkOrderMapCss';
 import { ScreenWidth } from 'react-native-elements/dist/helpers';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type InterfaceProps = {
   workOrderData: {

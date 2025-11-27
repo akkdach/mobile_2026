@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Alert, SafeAreaView, Text, View } from "react-native";
+import { Alert, Text, View } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import { RadioButton } from "react-native-paper";
 import { COLOR } from "../../../../constants/Colors";
 import { Fonts } from "../../../../constants/fonts";
 import { getCheckListVisitInspectorService, getOperationVisitInspectorMaster } from "../../../../services/work_order_check_list";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 
 type Props = {

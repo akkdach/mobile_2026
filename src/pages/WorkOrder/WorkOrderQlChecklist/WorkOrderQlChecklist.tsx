@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Alert, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { Alert, StyleSheet, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Button } from 'react-native-paper';
 import AppBar from '../../../components/AppBar';
@@ -21,6 +21,7 @@ import WorkOrderPmCheckListPage from '../WorkOrderPmCheckList/WorkOrderPmCheckLi
 import WorkOrderQlChecklistItem from './itemCheckList/WorkOrderQlChecklistItem';
 import { ScreenWidth } from 'react-native-elements/dist/helpers';
 import { useNavigation, StackActions } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type InterfaceProps = {
   backReloadPage: boolean;

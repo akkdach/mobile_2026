@@ -6,7 +6,6 @@ import {
   FlatList,
   Modal,
   Pressable,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
@@ -33,6 +32,7 @@ import {
 import styles from './QualityIndexCss';
 import { NetInfoCellularGeneration } from '@react-native-community/netinfo';
 import { StackActions, useNavigation } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type InterfaceProps = {
   workOrderData: {

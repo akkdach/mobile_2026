@@ -4,7 +4,6 @@ import { Controller, useForm } from 'react-hook-form';
 import {
   Alert,
   Image,
-  SafeAreaView,
   StyleSheet,
   Text,
   TextInput,
@@ -29,6 +28,7 @@ import QICloseWorkPage from '../../QICloseWork/QICloseWork';
 import CheckListVisitInspectorCloseWork from './CheckListVisitInspectorCloseWork/CheckListVisitInspectorCloseWork';
 // import { fetchWorkOrderImageGet, fetchWorkOrderImageUpdate } from "../../../services/workOrderCamera";
 import { useNavigation, StackActions } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 type InterfaceProps = {
   workOrderData: {

@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   Modal,
   StyleSheet,
-  SafeAreaView,
   FlatList,
   ScrollView,
   Alert,
@@ -18,6 +17,7 @@ import { COLOR } from '../../../constants/Colors';
 import { fetchGetMaterialMaster, fetchGetRecommentPart, fetchSaveRecommentPart } from '../../../services/sparePart';
 import Loading from '../../../components/loading';
 import { on } from 'form-data';
+import { SafeAreaView } from 'react-native-safe-area-context';
 // import { useNavigation } from '@react-navigation/native';
 
 type Part = {

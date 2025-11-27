@@ -1,6 +1,6 @@
 import { Button, Flex, Icon, Modal } from '@ant-design/react-native';
 import React, { useEffect, useState } from "react";
-import { Alert, Animated, Dimensions, Image, SafeAreaView, ScrollView, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from "react-native";
+import { Alert, Animated, Dimensions, Image, ScrollView, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import { RadioButton } from "react-native-paper";
 import Lightbox from 'react-native-lightbox';
@@ -19,6 +19,7 @@ import { getDefaultProps } from '@ant-design/react-native/lib/picker';
 import InspectorWorkOrderCheckListPage from '../CheckList/InspectorWorkOrderCheckListPage';
 import { BottomSheet, ListItem } from 'react-native-elements';
 import { useNavigation, StackActions } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 const defaultImage = require('../../../../../assets/images/default.jpeg');
 type InterfaceProps = {
   backReloadPage: boolean;

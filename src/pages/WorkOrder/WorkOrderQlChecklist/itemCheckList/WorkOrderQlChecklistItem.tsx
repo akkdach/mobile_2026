@@ -2,7 +2,7 @@ import { Modal } from "@ant-design/react-native";
 import Icon from "@ant-design/react-native/lib/icon";
 import React, { useEffect, useRef, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { Dimensions, FlatList, SafeAreaView, Text, TouchableHighlight, TouchableOpacity, View } from "react-native";
+import { Dimensions, FlatList, Text, TouchableHighlight, TouchableOpacity, View } from "react-native";
 import { Card, RadioButton, Title } from "react-native-paper";
 import { COLOR } from "../../../../constants/Colors";
 import { Fonts } from "../../../../constants/fonts";
@@ -12,6 +12,7 @@ import moment from 'moment-timezone';
 import styles from '../WorkOrderQlChecklistCss';
 import TextInputComponent from "../../../../components/TextInput";
 import {styleLg,styleSm} from './WorkOrderQlChecklistItemCSS'
+import { SafeAreaView } from "react-native-safe-area-context";
 
 interface Props {
   submitData?: (allValues: any, keyItem: any) => void,

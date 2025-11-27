@@ -8,7 +8,6 @@ import {
   Dimensions,
   Image,
   Linking,
-  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
