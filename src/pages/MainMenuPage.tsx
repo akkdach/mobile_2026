@@ -15,7 +15,6 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
-import * as router from 'react-native-router-flux';
 import { FlatGrid } from 'react-native-super-grid';
 import { COLOR } from '../constants/Colors';
 import { Fonts } from '../constants/fonts';
@@ -29,6 +28,7 @@ import {
 } from '../services/cockinService';
 import { updatedNotificationService } from '../services/notify';
 import { _getData } from '../utils/AsyncStorage';
+import { useNavigation } from '@react-navigation/native';
 const logo = require('../../assets/logo.png');
 const MainMenuPage = () => {
   const colorCockOut = '#E74C3C';
@@ -41,6 +41,7 @@ const MainMenuPage = () => {
   const [times, setTime] = useState<any>('00:00');
   const [userInfo, setUserInfo] = useState<LoginResponseInterface>();
   const [menuTab, setMenuTab] = useState<any>();
+  const navigation = useNavigation();
 
   const _onClickModalCheckInCheckOut = () => {
     const timesCurrent = moment().locale('th').add(543, 'year').format('HH:mm');
@@ -532,7 +533,8 @@ const MainMenuPage = () => {
                 return buildItemMenu(
                   item?.icon,
                   item?.title,
-                  () => router.Actions.push(item?.route),
+                  // () => router.Actions.push(item?.route),
+                  () => navigation.navigate(item?.route),
                   { fontSize: 14 },
                 );
               }
@@ -553,7 +555,8 @@ const MainMenuPage = () => {
                 spacing={20}
                 renderItem={({ item }) =>
                   buildItemMenu(item?.icon, item?.title, () =>
-                    router.Actions.push(item.route),
+                    // router.Actions.push(item.route),
+                    navigation.navigate(item?.route),
                   )
                 }
               />
@@ -572,7 +575,8 @@ const MainMenuPage = () => {
                 spacing={10}
                 renderItem={({ item }) =>
                   buildItemMenu(item?.icon, item?.title, () =>
-                    router.Actions.push(item.route),
+                    // navigation.navigate(item?.route),
+                    navigation.navigate(item?.route),
                   )
                 }
               />

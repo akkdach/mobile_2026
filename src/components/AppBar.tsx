@@ -3,13 +3,14 @@ import {Appbar, Text} from 'react-native-paper';
 import {Fonts} from '../constants/fonts';
 import {COLOR} from '../constants/Colors';
 import {AppBarInterface} from '../models';
-import {Actions} from 'react-native-router-flux';
 import {Alert, Dimensions} from 'react-native';
 import {StyleSheet} from 'react-native';
+import { StackActions, useNavigation } from '@react-navigation/native';
 
 const AppBar = (props: AppBarInterface) => {
   const [screenInfo, setScreenInfo] = useState(Dimensions.get('screen'))
   const [styles, setStyles] = useState<any>({});
+  const navigation = useNavigation();
   useEffect(() => {
     // console.log(screenInfo)
     if (screenInfo.width < 500) {
@@ -54,16 +55,23 @@ const AppBar = (props: AppBarInterface) => {
     } else {
       if (props.replacePath) {
         if (props.replaceProps) {
-          Actions.replace(props.replacePath, props.replaceProps);
+          // Actions.replace(props.replacePath, props.replaceProps);
+          navigation.dispatch(StackActions.replace(props.replacePath, props.replaceProps));
         } else {
-          Actions.replace(props.replacePath);
+          // Actions.replace(props.replacePath);
+          navigation.dispatch(StackActions.replace(props.replacePath));
         }
       } else {
-        Actions.pop();
+        // Actions.pop();
+        navigation.dispatch(StackActions.pop());
       }
 
       if (props.onBackReload) {
-        setTimeout(() => Actions.refresh(), 500);
+        setTimeout(() => {
+          // setTimeout(() => Actions.refresh(), 500);
+          // TODO: เปลี่ยนแปลง params เพื่อ trigger re-render
+          navigation.setParams({ refreshKey: Date.now() });
+        }, 500);
       }
     }
   };
