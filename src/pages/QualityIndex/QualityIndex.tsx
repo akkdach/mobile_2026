@@ -16,7 +16,6 @@ import {
 } from 'react-native';
 import Orientation from 'react-native-orientation-locker';
 import Animated from 'react-native-reanimated';
-import { Actions } from 'react-native-router-flux';
 import AppBar from '../../components/AppBar';
 import BackGroundImage from '../../components/BackGroundImage';
 import DropdownSelect from '../../components/DropdownSelect';
@@ -33,6 +32,7 @@ import {
 } from '../../services/qualityIndexService';
 import styles from './QualityIndexCss';
 import { NetInfoCellularGeneration } from '@react-native-community/netinfo';
+import { StackActions, useNavigation } from '@react-navigation/native';
 
 type InterfaceProps = {
   workOrderData: {
@@ -51,6 +51,7 @@ const QualityIndex = (props: InterfaceProps) => {
   const [selected, setSelected] = useState<string | null>('yes');
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedReason, setSelectedReason] = useState<string | null>(null);
+  const navigation = useNavigation();
 
   let defectMaster = [
     {
@@ -223,7 +224,8 @@ const QualityIndex = (props: InterfaceProps) => {
                   text: 'ปิด',
                   onPress: async () => {
                     // Actions.replace(ROUTE.WORKORDERLIST, props)
-                    Actions.replace(ROUTE.QI_CHECK_LIST_NON_CSD, props)
+                    // Actions.replace(ROUTE.QI_CHECK_LIST_NON_CSD, props)
+                    navigation.dispatch(StackActions.replace(ROUTE.QI_CHECK_LIST_NON_CSD, props))
                   },
                 },
               ]);
@@ -236,7 +238,8 @@ const QualityIndex = (props: InterfaceProps) => {
         {
           text: 'ปิด',
           onPress: async () => {
-            Actions.replace(ROUTE.WORKORDERLIST, props)
+            // Actions.replace(ROUTE.WORKORDERLIST, props)
+            navigation.dispatch(StackActions.replace(ROUTE.WORKORDERLIST, props))
           },
         },
       ]);

@@ -1,10 +1,9 @@
 import { Button, Icon } from '@ant-design/react-native';
 import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import { ScrollView, Text, TextInput, View,Alert } from 'react-native';
+import { ScrollView, Text, TextInput, View,Alert, Dimensions } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 import Animated from 'react-native-reanimated';
-import * as router from 'react-native-router-flux';
 import AppBar from '../../components/AppBar';
 import BackGroundImage from '../../components/BackGroundImage';
 import Loading from '../../components/loading';
@@ -14,6 +13,7 @@ import { isNotCheckActionSignature } from '../../constants/Menu';
 import { ROUTE } from '../../constants/RoutePath';
 import { fetchWorkOrderCloseWork } from '../../services/workOrderSignature';
 import styles from './SatisfactionAssessmentFormMultipleCss';
+import { useNavigation, StackActions } from '@react-navigation/native';
 import { ScreenWidth } from 'react-native-elements/dist/helpers';
 
 type InterfaceProps = {
@@ -52,6 +52,7 @@ const SatisfactionAssessmentFormMultiplePage = (props: InterfaceProps) => {
     customerSignatureName: '',
     workerSignatureName: '',
   }) as any;
+  const navigation = useNavigation();
 
   const loadDataAll = async () => {
     setIsLoading(true);
@@ -61,7 +62,10 @@ const SatisfactionAssessmentFormMultiplePage = (props: InterfaceProps) => {
         setWorkOrderCloseWorkValue(result.dataResult);
       }else{
         Alert.alert('เตือน',result.message, [
-          { text: 'ตกลง', onPress: async () => router.Actions.pop() },
+          { text: 'ตกลง', onPress: async () => {
+            // router.Actions.pop()
+            navigation.dispatch(StackActions.pop())
+          } },
         ]);
       }
     } catch (error) {
@@ -85,11 +89,16 @@ const SatisfactionAssessmentFormMultiplePage = (props: InterfaceProps) => {
     const { remark } = getValues();
     workOrderCloseValue.remark = remark;
     setWorkOrderCloseWorkValue({ ...workOrderCloseValue });
-    router.Actions.push("WorkOrderSignatureMultiple", {
+    // router.Actions.push("WorkOrderSignatureMultiple", {
+    //   workOrderData: props,
+    //   satisfactionAssessment: workOrderCloseValue,
+    //   multipleOrderManage: props?.multipleOrderManage
+    // });
+    navigation.dispatch(StackActions.push("WorkOrderSignatureMultiple", {
       workOrderData: props,
       satisfactionAssessment: workOrderCloseValue,
       multipleOrderManage: props?.multipleOrderManage
-    });
+    }));
   };
 
   const RadioButtonItem = (value: any, textLabel: string) => {
