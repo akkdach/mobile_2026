@@ -11,7 +11,6 @@ import {
   View,
 } from 'react-native';
 import {Button, DataTable, Dialog, Portal} from 'react-native-paper';
-import {Actions} from 'react-native-router-flux';
 import AppBar from '../../components/AppBar';
 import BackGroundImage from '../../components/BackGroundImage';
 import Loading from '../../components/loading';
@@ -25,6 +24,7 @@ import {FullArrayTextSearch} from '../../utils/FullTextSearch';
 import styles from './SparePartStoreTransferCss';
 import { ScreenWidth } from 'react-native-elements/dist/helpers';
 import { Grid } from 'react-native-easy-grid';
+import { useNavigation, StackActions } from '@react-navigation/native'
 
 type InterfaceProps = {
   vanTo: string;
@@ -52,6 +52,7 @@ const SparePartStoreTransferPage: React.FC<InterfaceProps> = (
   >([]);
   const [modalImageVisible, setModalImageVisible] = useState(false);
   const [activeImageUriPreview, setActiveImageUriPreview] = useState('');
+  const navigation = useNavigation();
 
   watch(observe => {
     if (observe.searchSparePart && observe.searchSparePart.length > 3) {
@@ -135,7 +136,8 @@ const SparePartStoreTransferPage: React.FC<InterfaceProps> = (
         {
           text: 'ตกลง',
           onPress: async () => {
-            Actions.pop();
+            // Actions.pop();
+            navigation.dispatch(StackActions.pop());
           },
         },
       ]);
@@ -366,7 +368,10 @@ const SparePartStoreTransferPage: React.FC<InterfaceProps> = (
           </Button>
           <Button
             mode="contained"
-            onPress={() => Actions.pop()}
+            onPress={() => {
+              // Actions.pop()
+              navigation.dispatch(StackActions.pop());
+            }}
             style={{
               marginTop: 4,
               height: 62,

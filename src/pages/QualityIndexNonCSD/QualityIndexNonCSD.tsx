@@ -16,7 +16,6 @@ import {
 } from 'react-native';
 import Orientation from 'react-native-orientation-locker';
 import Animated from 'react-native-reanimated';
-import { Actions } from 'react-native-router-flux';
 import AppBar from '../../components/AppBar';
 import BackGroundImage from '../../components/BackGroundImage';
 import DropdownSelect from '../../components/DropdownSelect';
@@ -32,6 +31,7 @@ import {
   postQualityIndex,
 } from '../../services/qualityIndexService';
 import styles from './QualityIndexNonCSDCSS';
+import { useNavigation, StackActions } from '@react-navigation/native';
 
 type InterfaceProps = {
   workOrderData: {
@@ -49,7 +49,7 @@ const QualityIndexNonCSD = (props: InterfaceProps) => {
   const [selected, setSelected] = useState<string | null>('yes');
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedReason, setSelectedReason] = useState<string | null>(null);
-
+  const navigation = useNavigation();
 
   let defectMaster = [
     {
@@ -232,7 +232,8 @@ const QualityIndexNonCSD = (props: InterfaceProps) => {
                 {
                   text: 'ปิด',
                   onPress: async () => {
-                    Actions.replace(ROUTE.WORKORDERLIST, props)
+                    // Actions.replace(ROUTE.WORKORDERLIST, props)
+                    navigation.dispatch(StackActions.replace(ROUTE.WORKORDERLIST, props))
                   },
                 },
               ]);
@@ -245,7 +246,8 @@ const QualityIndexNonCSD = (props: InterfaceProps) => {
         {
           text: 'ปิด',
           onPress: async () => {
-            Actions.replace(ROUTE.WORKORDERLIST, props)
+            // Actions.replace(ROUTE.WORKORDERLIST, props)
+            navigation.dispatch(StackActions.replace(ROUTE.WORKORDERLIST, props))
           },
         },
       ]);

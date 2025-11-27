@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { Alert, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Button } from 'react-native-paper';
-import { Actions } from 'react-native-router-flux';
 import AppBar from '../../../components/AppBar';
 import Loading from '../../../components/loading';
 import { COLOR } from '../../../constants/Colors';
@@ -21,6 +20,7 @@ import { _getData } from '../../../utils/AsyncStorage';
 import WorkOrderPmCheckListPage from '../WorkOrderPmCheckList/WorkOrderPmCheckList';
 import WorkOrderQlChecklistItem from './itemCheckList/WorkOrderQlChecklistItem';
 import { ScreenWidth } from 'react-native-elements/dist/helpers';
+import { useNavigation, StackActions } from '@react-navigation/native';
 
 type InterfaceProps = {
   backReloadPage: boolean;
@@ -57,6 +57,7 @@ const WorkQlChecklist = (props: { workOrderData: InterfaceProps }) => {
   const [dataListR, setDataListR] = useState<any>();
   const [typeOrderCheckList, setTypeOrderCheckList] = useState<any>();
   const [errorValidate, setErrorValidate] = useState<any>(false);
+  const navigation = useNavigation();
 
   const changeHandler = (
     name: string,
@@ -107,7 +108,8 @@ const WorkQlChecklist = (props: { workOrderData: InterfaceProps }) => {
         props.workOrderData.pmType === 'PME' ||
         props.workOrderData.pmType === 'PMM';
       if (isValidateObjType && isValidateType && isValidatePmType) {
-        Actions.push(ROUTE.QUALITY_INDEX, props);
+        // Actions.push(ROUTE.QUALITY_INDEX, props);
+        navigation.dispatch(StackActions.push(ROUTE.QUALITY_INDEX, props));
       } else {
         Alert.alert(
           'แจ้งเตือน',
@@ -321,7 +323,8 @@ const WorkQlChecklist = (props: { workOrderData: InterfaceProps }) => {
             {
               text: 'ปิด',
               onPress: async () => {
-                Actions.pop()
+                // Actions.pop()
+                navigation.dispatch(StackActions.pop());
               }
             },
           ]);
@@ -333,7 +336,8 @@ const WorkQlChecklist = (props: { workOrderData: InterfaceProps }) => {
         {
           text: 'ตกลง',
           onPress: async () => {
-            Actions.pop();
+            // Actions.pop();
+            navigation.dispatch(StackActions.pop());
           },
         },
       ]);
@@ -363,13 +367,17 @@ const WorkQlChecklist = (props: { workOrderData: InterfaceProps }) => {
             props.workOrderData.pmType === 'PME' ||
             props.workOrderData.pmType === 'PMM';
           if (isValidateObjType && isValidatePmType) {
-            Actions.push(ROUTE.QUALITY_INDEX, props);
+            // Actions.push(ROUTE.QUALITY_INDEX, props);
+            navigation.dispatch(StackActions.push(ROUTE.QUALITY_INDEX, props));
           } else {
             await fetchCloseQIInformation(props.workOrderData.orderId);
             Alert.alert('แจ้งเตือน', 'บันทึกข้อมูลสำเร็จ', [
               {
                 text: 'ปิด',
-                onPress: async () => Actions.pop(),
+                onPress: async () => {
+                  // Actions.pop()
+                  navigation.dispatch(StackActions.pop());
+                },
               },
             ]);
           }
@@ -378,7 +386,10 @@ const WorkQlChecklist = (props: { workOrderData: InterfaceProps }) => {
           Alert.alert('แจ้งเตือน', 'บันทึกข้อมูลสำเร็จ', [
             {
               text: 'ปิด',
-              onPress: async () => Actions.pop(),
+              onPress: async () => {
+                // Actions.pop()
+                navigation.dispatch(StackActions.pop());
+              },
             },
           ]);
         }

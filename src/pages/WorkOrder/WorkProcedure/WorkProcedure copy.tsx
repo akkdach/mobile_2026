@@ -16,7 +16,6 @@ import * as ImagePicker from 'react-native-image-picker';
 import ImageResizer, { ResizeFormat } from 'react-native-image-resizer';
 import Lightbox from 'react-native-lightbox';
 import Animated from 'react-native-reanimated';
-import * as router from 'react-native-router-flux';
 import AppBar from '../../../components/AppBar';
 import BackGroundImage from '../../../components/BackGroundImage';
 import Loading from '../../../components/loading';
@@ -34,6 +33,7 @@ import { customLog } from '../../../utils/CustomConsole';
 import styles from './WorkProcedureCss';
 const defaultImage = require('../../../../assets/images/default.jpeg');
 import Exif from 'react-native-exif';
+import { useNavigation, StackActions } from '@react-navigation/native';
 
 type InterfaceProps = {
   workOrderData: {
@@ -64,6 +64,7 @@ const WorkProcedurePage = (props: InterfaceProps) => {
   const [isVisibleModalPreviewImage, setIsVisibleModalPreviewImage] =
     useState(false);
   const [imgDefaultHeight, setImgDefaultHeight] = useState<number>(350);
+  const navigation = useNavigation();
 
   const loadAllData = async () => {
     setIsLoading(true);
@@ -102,7 +103,8 @@ const WorkProcedurePage = (props: InterfaceProps) => {
           {
             text: 'ตกลง',
             onPress: async () => {
-              router.Actions.pop();
+              // router.Actions.pop();
+              navigation.dispatch(StackActions.pop());
             },
           },
         ]);
@@ -398,7 +400,10 @@ const WorkProcedurePage = (props: InterfaceProps) => {
                 });
                 if (response.isSuccess) {
                   Alert.alert('แจ้งเตือน', 'บันทึกข้อมูลสำเร็จ', [
-                    { text: 'ตกลง', onPress: async () => router.Actions.pop() },
+                    { text: 'ตกลง', onPress: async () => {
+                      // router.Actions.pop();
+                      navigation.dispatch(StackActions.pop());
+                    } },
                   ]);
                 }else{
                   Alert.alert('เตือน',response.message)

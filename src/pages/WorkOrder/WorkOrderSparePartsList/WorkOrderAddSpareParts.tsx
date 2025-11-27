@@ -21,7 +21,6 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import * as router from 'react-native-router-flux';
 import AppBar from '../../../components/AppBar';
 import Loading from '../../../components/loading';
 import Scanner from '../../../components/Scanner';
@@ -34,6 +33,8 @@ import { fetchWorkOrderSparepartStorage } from '../../../services/workOrderSpare
 import { FullArrayTextSearch } from '../../../utils/FullTextSearch';
 import { styleLg, styleSm } from './WorkOrderSparePartListCss';
 import { Grid } from 'react-native-easy-grid';
+import { useNavigation, StackActions } from '@react-navigation/native';
+
 let screenWidth = Dimensions.get('window').width;
 
 if (screenWidth < 690) {
@@ -63,6 +64,8 @@ function WorkOrderAddSparePartsPage(props: any) {
 
   const [screenInfo, setScreenInfo] = useState(Dimensions.get('screen'))
   const [styles, setStyles] = useState<any>({});
+  const navigation = useNavigation();
+
   useEffect(() => {
     console.log(screenInfo)
     if (screenInfo.width < 400) {
@@ -223,9 +226,12 @@ function WorkOrderAddSparePartsPage(props: any) {
         delete item.add;
         return item;
       });
-    router.Actions.replace(ROUTE.WORKORDER_SPARE_PART_LIST, {
+    // router.Actions.replace(ROUTE.WORKORDER_SPARE_PART_LIST, {
+    //   componentStorageSelected,
+    // });
+    navigation.dispatch(StackActions.replace(ROUTE.WORKORDER_SPARE_PART_LIST, {
       componentStorageSelected,
-    });
+    }));
   };
 
 const SparePartModal = () => {

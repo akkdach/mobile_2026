@@ -11,7 +11,6 @@ import {
   View
 } from 'react-native';
 import { Avatar } from 'react-native-paper';
-import * as router from 'react-native-router-flux';
 import AppBar from '../../components/AppBar';
 import styleSheet from '../../components/StyleSheet';
 import LocalStorageKey from '../../constants/LocalStorageKey';
@@ -19,6 +18,7 @@ import { ROUTE } from '../../constants/RoutePath';
 import { LoginResponseInterface } from '../../models/login';
 import { IMenu } from '../../models/menu';
 import { _getData } from '../../utils/AsyncStorage';
+import { useNavigation, StackActions } from '@react-navigation/native'
 
 const logo = require('../../../assets/logo.png');
 
@@ -34,6 +34,8 @@ const ToolsPage = () => {
 
   const [screenInfo, setScreenInfo] = useState(Dimensions.get('screen'))
   const [styles, setStyles] = useState<any>({});
+  const navigation = useNavigation();
+
   useEffect(() => {
     console.log(screenInfo)
     if (screenInfo.width < 500) {
@@ -84,7 +86,10 @@ const ToolsPage = () => {
       <TouchableHighlight
         underlayColor="#fff"
         onPress={() => {
-          router.Actions.push(menu.route, {profile: userProfile});
+          // router.Actions.push(menu.route, {profile: userProfile});
+          navigation.dispatch(
+            StackActions.push(menu.route, {profile: userProfile})
+          );
         }}
         style={styles.flexListMenuItem}
         key={`${menu.title}-${idx}`}>

@@ -7,7 +7,6 @@ import {
 } from 'react-native';
 import Orientation from 'react-native-orientation-locker';
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import * as router from 'react-native-router-flux';
 import { Button, Checkbox, DataTable } from 'react-native-paper';
 import AppBar from '../../components/AppBar';
 import BackGroundImage from '../../components/BackGroundImage';
@@ -23,6 +22,7 @@ import Loading from '../../components/loading';
 import { _getData } from '../../utils/AsyncStorage';
 import LocalStorage from '../../constants/LocalStorageKey'
 import TextInputComponent from '../../components/TextInput';
+import { useNavigation, StackActions } from '@react-navigation/native';
 
 const logo = require('../../../assets/logo.png');
 
@@ -45,6 +45,7 @@ const ManagementPlanResourcePage: React.FC = (props: any) => {
   const [timeSelect, setTimeSelect] = useState<any>();
   const [isTimePickerVisible, setTimePickerVisibility] = useState(false);
   const ref_input = useRef();
+  const navigation = useNavigation();
 
   useEffect(() => {
     Orientation.lockToLandscapeRight();
@@ -136,7 +137,8 @@ const ManagementPlanResourcePage: React.FC = (props: any) => {
           {
             text: 'ตกลง',
             onPress: async () => {
-              router.Actions.pop();
+              // router.Actions.pop();
+              navigation.dispatch(StackActions.pop());
             },
           },
 

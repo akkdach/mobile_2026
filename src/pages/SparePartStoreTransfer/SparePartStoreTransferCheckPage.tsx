@@ -3,7 +3,6 @@ import React, { useEffect, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Alert, Animated, Dimensions, ScrollView, Text, View } from 'react-native';
 import { BarCodeReadEvent } from 'react-native-camera';
-import { Actions } from 'react-native-router-flux';
 import AppBar from '../../components/AppBar';
 import BackGroundImage from '../../components/BackGroundImage';
 import Loading from '../../components/loading';
@@ -16,6 +15,7 @@ import { ROUTE } from '../../constants/RoutePath';
 import { LoginResponseInterface } from '../../models/login';
 import { postSparePartTransferStore } from '../../services/sparePart';
 import { _getData } from '../../utils/AsyncStorage';
+import { useNavigation, StackActions } from '@react-navigation/native'
 
 type Inputs = {
   vanTo: string;
@@ -28,6 +28,8 @@ const SparePartStoreTransferCheckPage: React.FC = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const [screenInfo, setScreenInfo] = useState(Dimensions.get('screen'))
+  const navigation = useNavigation();
+
   // const [styles, setStyles] = useState<any>({});
   useEffect(() => {
     console.log(screenInfo)
@@ -67,7 +69,10 @@ const SparePartStoreTransferCheckPage: React.FC = () => {
         result.dataResult?.sparepartList 
         // result.dataResult?.sparepartList.length > 0
       ) {
-        Actions.push(ROUTE.SPARE_PART_STORE_TRANSFER, { profile, vanTo });
+        // Actions.push(ROUTE.SPARE_PART_STORE_TRANSFER, { profile, vanTo });
+        navigation.dispatch(
+          StackActions.replace(ROUTE.SPARE_PART_STORE_TRANSFER, { profile: profile, vanTo: vanTo })
+        );
       } else {
         Alert.alert('แจ้งเตือน', result.message);
       }

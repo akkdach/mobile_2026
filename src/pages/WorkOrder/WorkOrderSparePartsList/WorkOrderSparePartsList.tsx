@@ -20,7 +20,6 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import * as router from 'react-native-router-flux';
 import AppBar from '../../../components/AppBar';
 import Loading from '../../../components/loading';
 import Scanner from '../../../components/Scanner';
@@ -39,6 +38,7 @@ import {
 import { FullArrayTextSearch } from '../../../utils/FullTextSearch';
 import { styleSm, styleLg } from './WorkOrderSparePartListCss';
 import { Grid } from 'react-native-easy-grid';
+import { useNavigation, StackActions } from '@react-navigation/native';
 
 type InterfaceProps = {
   workOrderData: {
@@ -88,6 +88,8 @@ const WorkOrderSparePartsListPage: FC<InterfaceProps> = (
   const [itemSelected,setItemSelected] = useState<any>();
   const [screenInfo, setScreenInfo] = useState(Dimensions.get('screen'))
   const [styles, setStyles] = useState<any>({});
+  const navigation = useNavigation();
+
   useEffect(() => {
     console.log(screenInfo)
     if (screenInfo.width < 400) {
@@ -332,8 +334,10 @@ const WorkOrderSparePartsListPage: FC<InterfaceProps> = (
         Alert.alert('แจ้งเตือน', 'บันทึกข้อมูลสำเร็จ', [
           {
             text: 'ตกลง',
-            onPress: async () =>
-              router.Actions.replace(ROUTE.WORKORDERLIST, props.workOrderData),
+            onPress: async () => {
+              // router.Actions.replace(ROUTE.WORKORDERLIST, props.workOrderData),
+              navigation.dispatch(StackActions.replace(ROUTE.WORKORDERLIST, props.workOrderData));
+            }
           },
         ]);
       } else {
@@ -574,11 +578,16 @@ const WorkOrderSparePartsListPage: FC<InterfaceProps> = (
               <TouchableOpacity
                 activeOpacity={0.9}
                 onPress={() => {
-                  router.Actions.push(ROUTE.WORKORDER_SPARE_PART_ADD, {
+                  // router.Actions.push(ROUTE.WORKORDER_SPARE_PART_ADD, {
+                  //   orderId,
+                  //   componentVal: componentsValue,
+                  //   componentMasterVal: componentsMasterValue,
+                  // });
+                  navigation.dispatch(StackActions.push(ROUTE.WORKORDER_SPARE_PART_ADD, {
                     orderId,
                     componentVal: componentsValue,
                     componentMasterVal: componentsMasterValue,
-                  });
+                  }));
                 }}
                 style={{
                   borderRadius: 50,

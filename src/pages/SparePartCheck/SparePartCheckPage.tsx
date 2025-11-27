@@ -1,7 +1,6 @@
 import {Flex, Icon} from '@ant-design/react-native';
 import React, {useState} from 'react';
 import {Controller, useForm} from 'react-hook-form';
-import * as router from 'react-native-router-flux';
 import {
   Alert,
   Dimensions,
@@ -30,6 +29,8 @@ import {Fonts} from '../../constants/fonts';
 import {ROUTE} from '../../constants/RoutePath';
 import {IWorkOrderSparePart} from '../../models/WorkOrderSparePart';
 import styles from './SparePartCheckCss';
+import { useNavigation, StackActions } from '@react-navigation/native'
+
 const screenHeight = Dimensions.get('window').height;
 let screenWidth = Dimensions.get('window').width;
 
@@ -51,6 +52,7 @@ const SparePartCheckPage = (props: any) => {
   const [componentsMasterValue, setComponentsMasterValue] = useState<
     IWorkOrderSparePart[]
   >([]);
+  const navigation = useNavigation()
 
   const hideDialog = () => setVisible(false);
 
@@ -437,11 +439,16 @@ const SparePartCheckPage = (props: any) => {
               <TouchableOpacity
                 activeOpacity={0.9}
                 onPress={() => {
-                  router.Actions.push(ROUTE.WORKORDER_SPARE_PART_ADD, {
+                  // router.Actions.push(ROUTE.WORKORDER_SPARE_PART_ADD, {
+                  //   orderId: props.profile.wk_ctr,
+                  //   componentVal: componentsValue,
+                  //   componentMasterVal: componentsMasterValue,
+                  // });
+                  navigation.dispatch(StackActions.push(ROUTE.WORKORDER_SPARE_PART_ADD, {
                     orderId: props.profile.wk_ctr,
                     componentVal: componentsValue,
                     componentMasterVal: componentsMasterValue,
-                  });
+                  }));
                 }}
                 style={{
                   borderRadius: 50,

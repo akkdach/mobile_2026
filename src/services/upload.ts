@@ -4,7 +4,6 @@ import ApiPath from '../constants/ApiPath';
 import { APIResponse } from '../models/apiResponse';
 import { customLog } from '../utils/CustomConsole';
 import { getToken, signOut } from './auth';
-import * as router from 'react-native-router-flux';
 import { ROUTE } from '../constants/RoutePath';
 import FormData from 'form-data';
 import moment from 'moment';

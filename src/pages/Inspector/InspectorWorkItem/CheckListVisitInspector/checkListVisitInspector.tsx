@@ -3,7 +3,6 @@ import React, { useEffect, useState } from "react";
 import { Alert, Animated, Dimensions, Image, SafeAreaView, ScrollView, Text, TextInput, TouchableHighlight, TouchableOpacity, View } from "react-native";
 import DropDownPicker from "react-native-dropdown-picker";
 import { RadioButton } from "react-native-paper";
-import { Actions } from 'react-native-router-flux';
 import Lightbox from 'react-native-lightbox';
 import AppBar from "../../../../components/AppBar";
 import Loading from "../../../../components/loading";
@@ -19,6 +18,7 @@ import { removeImagesVisitInspector, uploadImageVisitInspect } from '../../../..
 import { getDefaultProps } from '@ant-design/react-native/lib/picker';
 import InspectorWorkOrderCheckListPage from '../CheckList/InspectorWorkOrderCheckListPage';
 import { BottomSheet, ListItem } from 'react-native-elements';
+import { useNavigation, StackActions } from '@react-navigation/native';
 const defaultImage = require('../../../../../assets/images/default.jpeg');
 type InterfaceProps = {
   backReloadPage: boolean;
@@ -45,6 +45,8 @@ const CheckListVisitInspectorPage = (props: { workOrderData: InterfaceProps }) =
 
   const [screenInfo, setScreenInfo] = useState(Dimensions.get('screen'))
   const [styles, setStyles] = useState<any>({});
+  const navigation = useNavigation();
+
   useEffect(() => {
     console.log(screenInfo)
     if (screenInfo.width < 500) {
@@ -220,7 +222,10 @@ const CheckListVisitInspectorPage = (props: { workOrderData: InterfaceProps }) =
         Alert.alert('แจ้งเตือน', 'บันทึกข้อมูลสำเร็จ', [
           {
             text: 'ตกลง',
-            onPress: async () => Actions.pop(),
+            onPress: async () => {
+              // Actions.pop()
+              navigation.dispatch(StackActions.pop());
+            },
           },
         ]);
       }

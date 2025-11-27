@@ -8,14 +8,15 @@ import {INotification} from '../../models';
 import {useFetchNotification} from '../../reducer/Notifiaction';
 import styleSheet from '../../components/StyleSheet';
 import {Card} from '@ant-design/react-native';
-import * as router from 'react-native-router-flux';
 import { getNotifyService } from '../../services/notify';
 import DataNotFound from '../../components/DataNotFound';
+import { useNavigation, StackActions } from '@react-navigation/native';
 
 // const NotificationPage: React.FC = (props: any) => {
 const NotificationPage = (props: any) => {
   const {data: notifications} = useFetchNotification();
   const [dataList, setDataList] = useState<any>();
+  const navigation = useNavigation();
 
   
 
@@ -47,7 +48,8 @@ const NotificationPage = (props: any) => {
 
 
   const onClickDetail = (notification: any) => {
-    router.Actions.push('notificationDetail', { notification });
+    // router.Actions.push('notificationDetail', { notification });
+    navigation.dispatch(StackActions.push('notificationDetail', { notification }));
   }
 
   

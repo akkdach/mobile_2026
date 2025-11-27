@@ -19,7 +19,6 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import {Actions} from 'react-native-router-flux';
 import AppBar from '../../../components/AppBar';
 import Loading from '../../../components/loading';
 import Scanner from '../../../components/Scanner';
@@ -30,6 +29,8 @@ import {ROUTE} from '../../../constants/RoutePath';
 import {ISparePartRequest} from '../../../models/WorkOrderSparePart';
 import {fetchSparePartAddTransferRequest} from '../../../services/sparePart';
 import {FullArrayTextSearch} from '../../../utils/FullTextSearch';
+import { useNavigation, StackActions } from '@react-navigation/native'
+
 const screenHeight = Dimensions.get('window').height;
 
 function ToolAddRequestTransferPage(props: any) {
@@ -55,6 +56,8 @@ function ToolAddRequestTransferPage(props: any) {
 
   const [screenInfo, setScreenInfo] = useState(Dimensions.get('screen'))
   const [styles, setStyles] = useState<any>({});
+  const navigation = useNavigation();
+
   useEffect(() => {
     console.log(screenInfo)
     if (screenInfo.width < 500) {
@@ -192,10 +195,14 @@ function ToolAddRequestTransferPage(props: any) {
         delete item.add;
         return item;
       });
-    Actions.replace(ROUTE.TOOLS_REQUEST_TRANSFER, {
+    // Actions.replace(ROUTE.TOOLS_REQUEST_TRANSFER, {
+    //   profile: props.profile,
+    //   componentStorageSelected,
+    // });
+    navigation.dispatch(StackActions.replace(ROUTE.TOOLS_REQUEST_TRANSFER, {
       profile: props.profile,
       componentStorageSelected,
-    });
+    }));
   };
 
   const ToolModal = () => {

@@ -20,7 +20,6 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import {Actions} from 'react-native-router-flux';
 import AppBar from '../../components/AppBar';
 import Loading from '../../components/loading';
 import Scanner from '../../components/Scanner';
@@ -32,6 +31,7 @@ import {ISparePartRequest} from '../../models/WorkOrderSparePart';
 import {fetchSparePartAddTransferRequest} from '../../services/sparePart';
 import {FullArrayTextSearch} from '../../utils/FullTextSearch';
 import {styleSm,styleLg} from './SparePartRequestTransferVanCss';
+import { useNavigation, StackActions } from '@react-navigation/native'
 
 const screenHeight = Dimensions.get('window').height;
 
@@ -58,6 +58,8 @@ function SparePartAddRequestTransferVan(props: any) {
   const [activeImageUriPreview, setActiveImageUriPreview] = useState('');
   const [screenInfo, setScreenInfo] = useState(Dimensions.get('screen'))
   const [styles, setStyles] = useState<any>({});
+  const navigation = useNavigation();
+
   useEffect(() => {
     console.log(screenInfo)
     if (screenInfo.width < 400) {
@@ -217,10 +219,14 @@ function SparePartAddRequestTransferVan(props: any) {
         delete item.add;
         return item;
       });
-    Actions.replace(ROUTE.SPARE_PART_REQUEST_TRANSFER, {
+    // Actions.replace(ROUTE.SPARE_PART_REQUEST_TRANSFER, {
+    //   profile: props.profile,
+    //   componentStorageSelected,
+    // });
+    navigation.dispatch(StackActions.replace(ROUTE.SPARE_PART_REQUEST_TRANSFER, {
       profile: props.profile,
       componentStorageSelected,
-    });
+    }));
   };
 
   const SparePartModal = () => {

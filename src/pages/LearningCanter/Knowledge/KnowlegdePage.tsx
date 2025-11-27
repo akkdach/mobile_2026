@@ -14,7 +14,6 @@ import {
   View,
 } from 'react-native';
 import { Card } from 'react-native-paper';
-import { Actions } from 'react-native-router-flux';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Video from 'react-native-video';
 import RNFetchBlob from 'rn-fetch-blob';
@@ -30,6 +29,7 @@ import { Input } from 'react-native-elements';
 import { TextInput } from 'react-native-gesture-handler';
 import { Controller, useForm } from 'react-hook-form';
 import { onChange } from 'react-native-reanimated';
+import { useNavigation, StackActions } from '@react-navigation/native';
 
 type InterfaceProps = {};
 type Inputs = {
@@ -44,6 +44,7 @@ const KnowledgePage: FC<InterfaceProps> = props => {
   const [dataList, setDataList] = useState<any>();
   const [dataListDefault, setDataListDefault] = useState<any>();
   const [isLoading, setIsLoading] = useState(false);
+  const navigation = useNavigation();
 
   useEffect(() => {
     getKnowLedgeList();
@@ -120,15 +121,21 @@ const KnowledgePage: FC<InterfaceProps> = props => {
         onPress={() => {
           switch (item.type) {
             case 'media':
-              Actions.push(ROUTE.KNOW_LEDGE_PREVIEW_PAGE, {
+              // Actions.push(ROUTE.KNOW_LEDGE_PREVIEW_PAGE, {
+              //   knowledgeInfo: { type: item.type, value: item.value, title: item.title },
+              // });
+              navigation.dispatch(StackActions.push(ROUTE.KNOW_LEDGE_PREVIEW_PAGE, {
                 knowledgeInfo: { type: item.type, value: item.value, title: item.title },
-              });
+              }));
               break;
             default:
               if (item.value && item.value.includes('.pdf')) {
-                Actions.push(ROUTE.KNOW_LEDGE_PREVIEW_PAGE, {
+                // Actions.push(ROUTE.KNOW_LEDGE_PREVIEW_PAGE, {
+                //   knowledgeInfo: { type: item.type, value: item.value, title: item.title },
+                // });
+                navigation.dispatch(StackActions.push(ROUTE.KNOW_LEDGE_PREVIEW_PAGE, {
                   knowledgeInfo: { type: item.type, value: item.value, title: item.title },
-                });
+                }));
               } else {
                 openFile(item.value)
               }

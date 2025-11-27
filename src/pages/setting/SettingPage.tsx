@@ -2,15 +2,17 @@ import { Icon, List, Switch } from '@ant-design/react-native';
 import React, { useEffect, useRef, useState } from 'react';
 import { Dimensions, StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { Card } from 'react-native-paper';
-import * as router from 'react-native-router-flux';
 import BackGroundImage from '../../components/BackGroundImage';
 import LocalStorageKey from '../../constants/LocalStorageKey';
 import { ROUTE } from '../../constants/RoutePath';
 import { signOut, updateTokenNotify } from '../../services/auth';
 import { _getData, _storeData } from '../../utils/AsyncStorage';
+import { useNavigation, StackActions } from '@react-navigation/native';
+
 const SettingPage = () => {
   const [notifyAction, setNotifyAction] = useState<boolean>(false);
   const isComponentMounted = useRef(true);
+  const navigation = useNavigation();
 
   useEffect(() => {
     if (isComponentMounted.current) {
@@ -41,15 +43,18 @@ const SettingPage = () => {
 
   const _Logout = async () => {
     signOut();
-    router.Actions.replace('login');
+    // router.Actions.replace('login');
+    navigation.dispatch(StackActions.replace('Login'));
   };
 
   const navigate = (route: any) => {
-    router.Actions.push(route);
+    // router.Actions.push(route);
+    navigation.dispatch(StackActions.push(route));
   };
 
   const _syncWorkOrder = async () => {
-    router.Actions.push('syncWorkOrder');
+    // router.Actions.push('syncWorkOrder');
+    navigation.dispatch(StackActions.push('visitSettingWorkOrderPage' ));
   };
 
 

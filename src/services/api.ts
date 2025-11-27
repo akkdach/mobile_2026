@@ -1,6 +1,5 @@
 import axios from 'axios';
 import { Alert } from 'react-native';
-// import * as router from 'react-native-router-flux';
 import ApiPath from '../constants/ApiPath';
 import { ROUTE } from '../constants/RoutePath';
 import { APIResponse } from '../models/apiResponse';

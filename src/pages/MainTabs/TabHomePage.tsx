@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text } from 'react-native';
-import * as router from 'react-native-router-flux';
 
 const logo = require('../../../assets/logo.png');
 const TabHomePage = () => {

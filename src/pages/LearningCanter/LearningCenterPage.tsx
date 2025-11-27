@@ -8,18 +8,19 @@ import {
   View,
 } from 'react-native';
 import {Appbar, Avatar} from 'react-native-paper';
-import * as router from 'react-native-router-flux';
 import AppBar from '../../components/AppBar';
 import BackGroundImage from '../../components/BackGroundImage';
 import styles from '../../components/StyleSheet';
 import {ROUTE} from '../../constants/RoutePath';
 import {IMenu} from '../../models/menu';
 import learningCenterCss from './LearningCenterCss';
+import { useNavigation, StackActions } from '@react-navigation/native';
 
 const logo = require('../../../assets/logo.png');
 
 const LearningCenterPage: React.FC = () => {
   const [menus, menusSet] = useState<IMenu[]>([]);
+  const navigation = useNavigation();
 
   useEffect(() => {
     menusSet([
@@ -49,7 +50,8 @@ const LearningCenterPage: React.FC = () => {
       <TouchableHighlight
         underlayColor="#fff"
         onPress={() => {
-          router.Actions.push(menu.route);
+          // router.Actions.push(menu.route);
+          navigation.dispatch(StackActions.push(menu.route));
         }}
         style={learningCenterCss.flexListMenuItem}
         key={`${menu.title}-${idx}`}>

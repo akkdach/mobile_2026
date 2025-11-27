@@ -16,7 +16,6 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import * as router from 'react-native-router-flux';
 import AppBar from '../../components/AppBar';
 import BackGroundImage from '../../components/BackGroundImage';
 import DropdownSelect from '../../components/DropdownSelect';

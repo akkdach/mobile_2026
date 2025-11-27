@@ -16,7 +16,6 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import * as router from 'react-native-router-flux';
 import AppBar from '../../../components/AppBar';
 import BackGroundImage from '../../../components/BackGroundImage';
 import DropdownSelect from '../../../components/DropdownSelect';
@@ -31,6 +30,7 @@ import {
 } from '../../../services/sparePart';
 import {ellipsis} from '../../../utils/helper';
 import {styleSm,styleLg} from './ToolRequestTransferCss';
+import { useNavigation, StackActions } from '@react-navigation/native'
 
 type InterfaceProps = {
   profile: any;
@@ -64,6 +64,8 @@ const ToolRequestTransferPage: FC<InterfaceProps> = (props: InterfaceProps) => {
 
   const [screenInfo, setScreenInfo] = useState(Dimensions.get('screen'))
   const [styles, setStyles] = useState<any>({});
+  const navigation = useNavigation();
+
   useEffect(() => {
     console.log(screenInfo)
     if (screenInfo.width < 500) {
@@ -365,12 +367,20 @@ const ToolRequestTransferPage: FC<InterfaceProps> = (props: InterfaceProps) => {
                   Alert.alert('แจ้งเตือน', `กรุณาเลือกขอโอนจาก`);
                   return;
                 }
-                router.Actions.push(ROUTE.TOOLS_ADD_REQUEST_TRANSFER, {
-                  profile: props.profile,
-                  stge_loc: selectTransferTo,
-                  componentVal: componentsValue,
-                  componentMasterVal: componentsMasterValue,
-                });
+                // router.Actions.push(ROUTE.TOOLS_ADD_REQUEST_TRANSFER, {
+                //   profile: props.profile,
+                //   stge_loc: selectTransferTo,
+                //   componentVal: componentsValue,
+                //   componentMasterVal: componentsMasterValue,
+                // });
+                navigation.dispatch(
+                  StackActions.push(ROUTE.TOOLS_ADD_REQUEST_TRANSFER, {
+                    profile: props.profile,
+                    stge_loc: selectTransferTo,
+                    componentVal: componentsValue,
+                    componentMasterVal: componentsMasterValue,
+                  })
+                );
               }}
               style={{
                 borderRadius: 50,

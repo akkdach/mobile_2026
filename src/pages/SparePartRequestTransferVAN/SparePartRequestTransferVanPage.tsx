@@ -16,7 +16,6 @@ import {
   heightPercentageToDP as hp,
   widthPercentageToDP as wp,
 } from 'react-native-responsive-screen';
-import * as router from 'react-native-router-flux';
 import AppBar from '../../components/AppBar';
 import BackGroundImage from '../../components/BackGroundImage';
 import DropdownSelect from '../../components/DropdownSelect';
@@ -30,6 +29,7 @@ import {
   postSparePartReservationRequest,
 } from '../../services/sparePart';
 import { styleSm, styleLg } from './SparePartRequestTransferVanCss';
+import { useNavigation, StackActions } from '@react-navigation/native'
 
 type InterfaceProps = {
   profile: any;
@@ -65,6 +65,8 @@ const SparePartRequestTransferVanPage: FC<InterfaceProps> = (
 
   const [screenInfo, setScreenInfo] = useState(Dimensions.get('screen'))
   const [styles, setStyles] = useState<any>({});
+  const navigation = useNavigation();
+
   useEffect(() => {
     console.log(screenInfo)
     if (screenInfo.width < 500) {
@@ -378,12 +380,18 @@ const SparePartRequestTransferVanPage: FC<InterfaceProps> = (
                   Alert.alert('แจ้งเตือน', `กรุณาเลือกขอโอนจาก`);
                   return;
                 }
-                router.Actions.push(ROUTE.SPARE_PART_ADD_REQUEST_TRANSFER, {
+                // router.Actions.push(ROUTE.SPARE_PART_ADD_REQUEST_TRANSFER, {
+                //   profile: props.profile,
+                //   stge_loc: selectTransferTo,
+                //   componentVal: componentsValue,
+                //   componentMasterVal: componentsMasterValue,
+                // });
+                navigation.dispatch(StackActions.push(ROUTE.SPARE_PART_ADD_REQUEST_TRANSFER, {
                   profile: props.profile,
                   stge_loc: selectTransferTo,
                   componentVal: componentsValue,
                   componentMasterVal: componentsMasterValue,
-                });
+                }));
               }}
                style={{
                   borderRadius: 50,

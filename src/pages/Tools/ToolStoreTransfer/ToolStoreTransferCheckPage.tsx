@@ -3,7 +3,6 @@ import React, {useEffect, useState} from 'react';
 import {Controller, useForm} from 'react-hook-form';
 import {Alert, FlatList, Image, Pressable, Text, View} from 'react-native';
 import {Button, DataTable, Dialog, Portal} from 'react-native-paper';
-import {Actions} from 'react-native-router-flux';
 import AppBar from '../../../components/AppBar';
 import BackGroundImage from '../../../components/BackGroundImage';
 import TextInputComponent from '../../../components/TextInput';
@@ -14,6 +13,7 @@ import {LoginResponseInterface} from '../../../models/login';
 import {postSparePartTransferStore} from '../../../services/sparePart';
 import {FullArrayTextSearch} from '../../../utils/FullTextSearch';
 import styles from './ToolStoreTransferCss';
+import { useNavigation, StackActions } from '@react-navigation/native'
 
 type InterfaceProps = {
   vanTo: string;
@@ -39,6 +39,7 @@ const ToolStoreTransferCheckPage: React.FC<InterfaceProps> = (
   >([]);
   const [modalImageVisible, setModalImageVisible] = useState(false);
   const [activeImageUriPreview, setActiveImageUriPreview] = useState('');
+  const navigation = useNavigation();
 
   watch(observe => {
     if (observe.searchTool && observe.searchTool.length > 3) {
@@ -100,7 +101,8 @@ const ToolStoreTransferCheckPage: React.FC<InterfaceProps> = (
         {
           text: 'ตกลง',
           onPress: async () => {
-            Actions.pop();
+            // Actions.pop();
+            navigation.dispatch(StackActions.pop());
           },
         },
       ]);
@@ -254,7 +256,10 @@ const ToolStoreTransferCheckPage: React.FC<InterfaceProps> = (
           </Button>
           <Button
             mode="contained"
-            onPress={() => Actions.pop()}
+            onPress={() => {
+              // Actions.pop()
+              navigation.dispatch(StackActions.pop());
+            }}
             style={{
               marginTop: 4,
               height: 62,

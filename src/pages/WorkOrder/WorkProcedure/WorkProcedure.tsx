@@ -16,7 +16,6 @@ import * as ImagePicker from 'react-native-image-picker';
 import ImageResizer, { ResizeFormat } from 'react-native-image-resizer';
 import Lightbox from 'react-native-lightbox';
 import Animated from 'react-native-reanimated';
-import * as router from 'react-native-router-flux';
 import AppBar from '../../../components/AppBar';
 import BackGroundImage from '../../../components/BackGroundImage';
 import Loading from '../../../components/loading';
@@ -34,6 +33,7 @@ import { customLog } from '../../../utils/CustomConsole';
 import { styleLg, styleSm } from './WorkProcedureCss';
 const defaultImage = require('../../../../assets/images/default.jpeg');
 import Exif from 'react-native-exif';
+import { useNavigation, StackActions } from '@react-navigation/native';
 
 type InterfaceProps = {
   orderId: string
@@ -67,6 +67,7 @@ const WorkProcedurePage = (props: InterfaceProps) => {
 
   const [screenInfo, setScreenInfo] = useState(Dimensions.get('screen'))
   const [styles, setStyles] = useState<any>(styleSm);
+  const navigation = useNavigation();
   useEffect(() => {
     if (screenInfo.width < 500) {
       setStyles(styleSm);
@@ -114,7 +115,8 @@ const WorkProcedurePage = (props: InterfaceProps) => {
           {
             text: 'ตกลง',
             onPress: async () => {
-              router.Actions.pop();
+              // router.Actions.pop();
+              navigation.dispatch(StackActions.pop());
             },
           },
         ]);
@@ -425,7 +427,10 @@ const WorkProcedurePage = (props: InterfaceProps) => {
                 if (response.isSuccess) {
                   _removeData({ key: 'startTimeTemp' + orderId });
                   Alert.alert('แจ้งเตือน', 'บันทึกข้อมูลสำเร็จ', [
-                    { text: 'ตกลง', onPress: async () => router.Actions.pop() },
+                    { text: 'ตกลง', onPress: async () => {
+                      // router.Actions.pop();
+                      navigation.dispatch(StackActions.pop());
+                    } },
                   ]);
 
                 } else {

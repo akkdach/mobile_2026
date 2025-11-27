@@ -11,7 +11,6 @@ import {
   View,
 } from 'react-native';
 import { Button, Checkbox, Colors } from 'react-native-paper';
-import { Actions } from 'react-native-router-flux';
 import AppBar from '../../components/AppBar';
 import BackGroundImage from '../../components/BackGroundImage';
 import DropdownSelect from '../../components/DropdownSelect';
@@ -26,6 +25,7 @@ import {
   fetchSparePartTransferRequest,
 } from '../../services/sparePart';
 import { styleLg, styleSm } from '../InfomationCloseWork/InformationCloseWorkCss';
+import { useNavigation, StackActions } from '@react-navigation/native'
 
 type InterfaceProps = {
   profile: any;
@@ -53,6 +53,8 @@ const SparePartVanCheckPage: FC<InterfaceProps> = (props: InterfaceProps) => {
 
   const [screenInfo, setScreenInfo] = useState(Dimensions.get('screen'))
   const [styles, setStyles] = useState<any>({});
+  const navigation = useNavigation();
+
   useEffect(() => {
     console.log(screenInfo)
     if (screenInfo.width < 500) {
@@ -264,13 +266,20 @@ const SparePartVanCheckPage: FC<InterfaceProps> = (props: InterfaceProps) => {
     setVisibleTOModal(false)
     const toNumbers = selectsItem.filter(val => val.checked).map(val => val.value)
     if (toNumbers.length > 0) {
-      Actions.push(ROUTE.SPARE_PART_VAN_CHECK_LIST, {
+      // Actions.push(ROUTE.SPARE_PART_VAN_CHECK_LIST, {
+      //   search: {
+      //     selectReceiveTransferFrom: selectReceiveTransferFrom as string,
+      //     toNumbers
+      //   },
+      //   profile: props.profile,
+      // });
+      navigation.dispatch(StackActions.push(ROUTE.SPARE_PART_VAN_CHECK_LIST, {
         search: {
           selectReceiveTransferFrom: selectReceiveTransferFrom as string,
           toNumbers
         },
         profile: props.profile,
-      });
+      }));
       setValueSelectsItem([])
     }
   };
@@ -278,13 +287,20 @@ const SparePartVanCheckPage: FC<InterfaceProps> = (props: InterfaceProps) => {
     setVisibleTOModal(false)
     const toNumbers = selectsItem.filter(val => val.checked).map(val => val.value)
     if (toNumbers.length > 0) {
-      Actions.push(ROUTE.SPARE_PART_VAN_CHECK_LIST, {
+      // Actions.push(ROUTE.SPARE_PART_VAN_CHECK_LIST, {
+      //   search: {
+      //     selectReceiveTransferFrom: selectReceiveTransferFrom as string,
+      //     toNumbers
+      //   },
+      //   profile: props.profile,
+      // });
+      navigation.dispatch(StackActions.push(ROUTE.SPARE_PART_VAN_CHECK_LIST, {
         search: {
           selectReceiveTransferFrom: selectReceiveTransferFrom as string,
           toNumbers
         },
         profile: props.profile,
-      });
+      }));
       setValueSelectsItem([])
     }
   };

@@ -11,7 +11,6 @@ import {
   View
 } from 'react-native';
 import { Avatar } from 'react-native-paper';
-import * as router from 'react-native-router-flux';
 import AppBar from '../../components/AppBar';
 import styles from '../../components/StyleSheet';
 import LocalStorageKey from '../../constants/LocalStorageKey';
@@ -23,6 +22,7 @@ import sparePartCss from './SparePartCss';
 import { ScreenWidth } from 'react-native-elements/dist/helpers';
 import { useFetchNotification } from '../../reducer/Notifiaction';
 import { UseNotiContext } from '../../reducer/NotifyContext';
+import { useNavigation, StackActions } from '@react-navigation/native'
 
 const logo = require('../../../assets/logo.png');
 const innitMenu = [
@@ -93,6 +93,7 @@ const SparePartPage: React.FC = () => {
   const [userProfile, setUserProfile] = useState<LoginResponseInterface>();
   const [screenInfo, setScreenInfo] = useState(Dimensions.get('screen'))
   const [workNotify, setWorkNotify, notiCount, fetNoniCount] = UseNotiContext()
+  const navigation = useNavigation()
 
   const getUserProfile = async () => {
 
@@ -132,7 +133,8 @@ const SparePartPage: React.FC = () => {
       {ScreenWidth > 500 && <TouchableHighlight
         underlayColor="#fff"
         onPress={() => {
-          router.Actions.push(menu.route, { profile: userProfile });
+          // router.Actions.push(menu.route, { profile: userProfile });
+          navigation.dispatch(StackActions.push(menu.route, { profile: userProfile }));
         }}
         style={sparePartCss.flexListMenuItem}
         key={`${menu.title}-${idx}`}>
@@ -148,7 +150,8 @@ const SparePartPage: React.FC = () => {
       {ScreenWidth <= 500 && <TouchableHighlight
         underlayColor="#fff"
         onPress={() => {
-          router.Actions.push(menu.route, { profile: userProfile });
+          // router.Actions.push(menu.route, { profile: userProfile });
+          navigation.dispatch(StackActions.push(menu.route, { profile: userProfile }));
         }}
         style={sparePartCss.flexListMenuItem2}
         key={`${menu.title}-${idx}`}>
@@ -173,7 +176,8 @@ const SparePartPage: React.FC = () => {
       <TouchableHighlight
         underlayColor="#fff"
         onPress={() => {
-          router.Actions.push(menu.route, { profile: userProfile });
+          // router.Actions.push(menu.route, { profile: userProfile });
+          navigation.dispatch(StackActions.push(menu.route, { profile: userProfile }));
         }}
         style={isLargeScreen ? sparePartCss.flexListMenuItem : sparePartCss.flexListMenuItem2}
         key={`${menu.title}-${idx}`}
