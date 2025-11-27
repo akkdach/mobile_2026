@@ -19,7 +19,6 @@ import { Col, Grid, Row } from 'react-native-easy-grid';
 import { Appbar, Checkbox, DataTable, RadioButton } from 'react-native-paper';
 import Animated from 'react-native-reanimated';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
-import { Actions } from 'react-native-router-flux';
 import AppBar from '../../../components/AppBar';
 import { DropdownSelectMultipleItemProps } from '../../../components/DropdownSelectMultiple';
 import Loading from '../../../components/loading';
@@ -42,6 +41,7 @@ import { _getData, _getDataJson, _storeData } from '../../../utils/AsyncStorage'
 import { getUser } from '../../../utils/helper';
 import localStyle from './WorkOrderDetailsWorkCss';
 import { stylesLg, stylesSm } from './WorkOrderDetailsWorkCss';
+import { useNavigation, StackActions } from '@react-navigation/native';
 const background = require('../../../../assets/images/bg.png');
 
 type InterfaceProps = {
@@ -93,6 +93,8 @@ const WorkOrderDetailsWorkPage = (props: { workOrderData: InterfaceProps }) => {
 
   const [screenInfo, setScreenInfo] = useState(Dimensions.get('screen'))
   const [styles, setStyles] = useState<any>({});
+  const navigation = useNavigation();
+
   useEffect(() => {
     // console.log(screenInfo)
     if (screenInfo.width < 500) {
@@ -327,18 +329,25 @@ const WorkOrderDetailsWorkPage = (props: { workOrderData: InterfaceProps }) => {
           Alert.alert('แจ้งเตือน', 'บันทึกข้อมูลสำเร็จ', [
             {
               text: 'ปิด', onPress: () =>
-                Actions.pop() ////2013
+                // Actions.pop() ////2013
+              navigation.dispatch(StackActions.pop())
               // Actions.reset()
               //Actions.back()
               //Actions.replace(ROUTE.WORKORDERLIST,props)
             },
           ]);
         } else {
-          Alert.alert('แจ้งเตือน', response.message, [{ text: 'ปิด.', onPress: () => Actions.pop() }]);
+          Alert.alert('แจ้งเตือน', response.message, [{ text: 'ปิด.', onPress: () => {
+            // Actions.pop()
+            navigation.dispatch(StackActions.pop())
+          } }]);
         }
       }
     } catch (error) {
-      Alert.alert('แจ้งเตือน', `${error}`, [{ text: 'ปิด..', onPress: () => Actions.pop() }]);
+      Alert.alert('แจ้งเตือน', `${error}`, [{ text: 'ปิด..', onPress: () => {
+        // Actions.pop()
+        navigation.dispatch(StackActions.pop())
+      } }]);
       console.log('error ====>', error);
     } finally {
       setIsLoading(false);
