@@ -95,3 +95,26 @@ To learn more about React Native, take a look at the following resources:
 - [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
 - [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
 - [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+
+# การ Patch Package Third-Party Library
+ในกรณีที่เราใช้ Third-Party Library ที่มีบั๊ก หรือต้องการแก้ไขโค้ดภายใน Library นั้น ๆ เราสามารถใช้เครื่องมือที่ชื่อว่า `patch-package` เพื่อทำการแก้ไขโค้ดเหล่านั้นได้ โดยไม่ต้องรอให้เจ้าของ Library แก้ไขและปล่อยเวอร์ชันใหม่ วิธีการใช้งาน `patch-package` มีดังนี้:
+1. แก้ไขโค้ดใน Library ที่ต้องการ:
+   ไปที่โฟลเดอร์ `node_modules` และแก้ไขไฟล์ที่ต้องการใน Library นั้น ๆ ตามที่ต้องการ
+2. สร้างไฟล์แพตช์:
+   หลังจากที่แก้ไขโค้ดเสร็จแล้ว ให้รันคำสั่งต่อไปนี้เพื่อสร้างไฟล์แพตช์:
+   ```bash
+   npx patch-package <package-name>
+   ```
+    โดยที่ `<package-name>` คือชื่อของ Library ที่เราแก้ไข
+3. ไฟล์ patchs จะถูก generate ออกมาในโฟลเดอร์ patches เช่น
+   ```
+   patches/
+   └── rn-fetch-blob+0.12.0.patch
+   ```
+4. ใช้แพตช์เมื่อทำการติดตั้งแพ็กเกจ:
+   เมื่อเราทำการติดตั้งแพ็กเกจใหม่หรือรันคำสั่ง `npm install` หรือ `yarn install` ไฟล์แพตช์จะถูกนำมาใช้โดยอัตโนมัติ จาก script ที่เราเพิ่มไว้ใน `package.json`:
+   ```json
+   "scripts": {
+     "postinstall": "patch-package"
+   }
+   ```
