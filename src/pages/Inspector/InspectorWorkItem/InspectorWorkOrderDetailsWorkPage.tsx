@@ -17,7 +17,6 @@ import {
 } from 'react-native';
 import { Checkbox, DataTable, RadioButton } from 'react-native-paper';
 import Animated from 'react-native-reanimated';
-import { Actions } from 'react-native-router-flux';
 import AppBar from '../../../components/AppBar';
 import { DropdownSelectMultipleItemProps } from '../../../components/DropdownSelectMultiple';
 import Loading from '../../../components/loading';
@@ -45,6 +44,7 @@ import {
 } from 'react-native-responsive-screen';
 import { Col, Row, Grid } from 'react-native-easy-grid';
 import { getTimeOperationWorkerInspector, postTimeOperationWorkerInspector } from '../../../services/visitInspector';
+import { useNavigation, StackActions } from '@react-navigation/native';
 
 type InterfaceProps = {
   backReloadPage: boolean;
@@ -88,6 +88,8 @@ const InspectorWorkOrderDetailsWorkPage = (props: { workOrderData: InterfaceProp
 
   const [screenInfo, setScreenInfo] = useState(Dimensions.get('screen'))
   const [localStyle, setStyles] = useState<any>({});
+  const navigation = useNavigation();
+
   useEffect(() => {
     console.log(screenInfo)
     if (screenInfo.width < 500) {
@@ -341,11 +343,17 @@ const InspectorWorkOrderDetailsWorkPage = (props: { workOrderData: InterfaceProp
         let response = await postTimeOperationWorkerInspector(data, true);
         if (response.isSuccess) {
           Alert.alert('แจ้งเตือน', 'บันทึกข้อมูลสำเร็จ', [
-            { text: 'ปิด', onPress: () => Actions.pop() },
+            { text: 'ปิด', onPress: () => {
+              // Actions.pop();
+              navigation.dispatch(StackActions.pop());
+            } },
           ]);
         } else {
           Alert.alert('แจ้งเตือน', response.message, [
-            { text: 'ปิด', onPress: () => Actions.pop() },
+            { text: 'ปิด', onPress: () => {
+              // Actions.pop();
+              navigation.dispatch(StackActions.pop());
+            } },
           ]);
         }
       }

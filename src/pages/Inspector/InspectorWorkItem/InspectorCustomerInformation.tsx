@@ -12,7 +12,6 @@ import {
   View,
 } from 'react-native';
 import {DataTable, List} from 'react-native-paper';
-import * as router from 'react-native-router-flux';
 import AppBar from '../../../components/AppBar';
 import BackGroundImage from '../../../components/BackGroundImage';
 import {COLOR} from '../../../constants/Colors';
@@ -24,6 +23,7 @@ import {CustomerMas} from '../../../models';
 import moment from 'moment-timezone';
 import { fetchtWorkOrderCustomer } from '../../../services/workOrderCustomer';
 import { IWorkOrderCustomer } from '../../../models/WorkOrderCustomer';
+import { useNavigation, StackActions } from '@react-navigation/native';
 
 type InspectorCustomerInformationProps = {
     orderId: string
@@ -45,6 +45,7 @@ const InspectorCustomerInformation: React.FC<InspectorCustomerInformationProps> 
     const [customerMas, setCustomerMaster] = useState<IWorkOrderCustomer | null>(null);
     const [screenInfo, setScreenInfo] = useState(Dimensions.get('screen'))
     const [styles, setStyles] = useState<any>({});
+    const navigation = useNavigation();
 
     useEffect(() => {
       console.log(screenInfo)
@@ -75,7 +76,8 @@ const InspectorCustomerInformation: React.FC<InspectorCustomerInformationProps> 
 
     const _onClickMapCustomer = () => {
         setStateVisibleModal(false);
-        router.Actions.push(ROUTE.WORK_ORDER_MAP, {workOrderData: customerMas});
+        // router.Actions.push(ROUTE.WORK_ORDER_MAP, {workOrderData: customerMas});
+        navigation.dispatch(StackActions.push(ROUTE.WORK_ORDER_MAP, {workOrderData: customerMas}));
     };
   
     const DrawHorizontalWidget = () => {

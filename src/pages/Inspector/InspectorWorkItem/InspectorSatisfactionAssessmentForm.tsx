@@ -4,7 +4,6 @@ import { Controller, useForm } from 'react-hook-form';
 import { Alert, Dimensions, ScrollView, Text, TextInput, View } from 'react-native';
 import { RadioButton } from 'react-native-paper';
 import Animated from 'react-native-reanimated';
-import * as router from 'react-native-router-flux';
 import AppBar from '../../../components/AppBar';
 import BackGroundImage from '../../../components/BackGroundImage';
 import Loading from '../../../components/loading';
@@ -17,6 +16,7 @@ import { IWorkOrderCloseWork } from '../../../models/WorkOrderCloseWork';
 import { fetchWorkOrderCloseWorkInspector } from '../../../services/visitInspector';
 import {fetchWorkOrderCloseWork} from '../../../services/workOrderSignature';
 import {stylesLg,stylesSm} from './InspectorSatisfactionAssessmentFormCss';
+import { useNavigation, StackActions } from '@react-navigation/native';
 
 type InterfaceProps = {
   workOrderData: {
@@ -35,6 +35,8 @@ type Inputs = {
 const InspectorSatisfactionAssessmentFormPage = (props: InterfaceProps) => {
   const [screenInfo, setScreenInfo] = useState(Dimensions.get('screen'))
   const [styles, setStyles] = useState<any>({});
+  const navigation = useNavigation();
+
   useEffect(() => {
     console.log(screenInfo)
     if (screenInfo.width < 500) {
@@ -79,7 +81,10 @@ const InspectorSatisfactionAssessmentFormPage = (props: InterfaceProps) => {
         setWorkOrderCloseWorkValue(result.dataResult);
       }else{
         Alert.alert('เตือน',result.message, [
-          { text: 'ตกลง', onPress: async () => router.Actions.pop() },
+          { text: 'ตกลง', onPress: async () => {
+            // router.Actions.pop();
+            navigation.dispatch(StackActions.pop());
+          } },
         ]);
       }
     } catch (error) {
@@ -103,10 +108,14 @@ const InspectorSatisfactionAssessmentFormPage = (props: InterfaceProps) => {
     const { remark } = getValues();
     workOrderCloseValue.remark = remark;
     setWorkOrderCloseWorkValue({ ...workOrderCloseValue });
-    router.Actions.push(ROUTE.INSPECTOR_WORK_ORDER_SIGNATURE, {
+    // router.Actions.push(ROUTE.INSPECTOR_WORK_ORDER_SIGNATURE, {
+    //   workOrderData: props?.workOrderData,
+    //   satisfactionAssessment: workOrderCloseValue,
+    // });
+    navigation.dispatch(StackActions.push(ROUTE.INSPECTOR_WORK_ORDER_SIGNATURE, {
       workOrderData: props?.workOrderData,
       satisfactionAssessment: workOrderCloseValue,
-    });
+    }));
   };
 
   const RadioButtonItem = (value: any, textLabel: string) => {

@@ -8,7 +8,6 @@ import {
   View,
 } from 'react-native';
 import {Avatar} from 'react-native-paper';
-import * as router from 'react-native-router-flux';
 import AppBar from '../../components/AppBar';
 import BackGroundImage from '../../components/BackGroundImage';
 import styles from '../../components/StyleSheet';

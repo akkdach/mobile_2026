@@ -1,9 +1,17 @@
 import React, { useEffect } from 'react';
-import * as router from 'react-native-router-flux';
 import { View, StyleSheet, Image, Animated } from 'react-native';
+import { useNavigation, StackActions } from '@react-navigation/native';
 
 const FadeInView = () => {
-    useEffect(loading, []);
+    const navigation = useNavigation();
+
+    useEffect(() => {
+        setTimeout(() => {
+            // router.Actions.replace('login');
+            navigation.dispatch(StackActions.replace('Login'));
+        }, 3500);
+    }, [navigation]);
+
     return (
         <>
             <Animated.View style={styles.container}>
@@ -14,12 +22,6 @@ const FadeInView = () => {
             </Animated.View>
         </>
     );
-};
-
-const loading = () => {
-    setTimeout(() => {
-        router.Actions.replace('login');
-    }, 3500);
 };
 
 const styles = StyleSheet.create({

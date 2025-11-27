@@ -17,7 +17,6 @@ import {
 import CountDown from 'react-native-countdown-component';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {Card, Checkbox} from 'react-native-paper';
-import * as router from 'react-native-router-flux';
 import Swipeout from 'react-native-swipeout';
 import AppBar from '../../components/AppBar';
 import DataNotFound from '../../components/DataNotFound';
@@ -41,6 +40,7 @@ import {convertDateToThaiMonthDayThai} from '../../utils/Date';
 import {FullTextSearch} from '../../utils/FullTextSearch';
 import {generateKey} from '../../utils/Random';
 import {styleLg,styleSm} from './InspectorPageCss';
+import { useNavigation, StackActions } from '@react-navigation/native';
 
 const coca_logo = require('../../../assets/images/coca_logo.png');
 
@@ -124,6 +124,8 @@ const InspectorPage = (props: any) => {
 
   const [screenInfo, setScreenInfo] = useState(Dimensions.get('screen'))
   const [styles, setStyles] = useState<any>({});
+  const navigation = useNavigation();
+
   useEffect(() => {
     console.log(screenInfo)
     if (screenInfo.width < 500) {
@@ -822,9 +824,12 @@ const InspectorPage = (props: any) => {
                             if (route != null) {
                               route;
                             } else {
-                              router.Actions.push(ROUTE.INSPECTOR_WORK_ITEM, {
+                              // router.Actions.push(ROUTE.INSPECTOR_WORK_ITEM, {
+                              //   workDetail: JSON.stringify(val),
+                              // });
+                              navigation.dispatch(StackActions.push(ROUTE.INSPECTOR_WORK_ITEM, {
                                 workDetail: JSON.stringify(val),
-                              });
+                              }));
                             }
                           }}>
                           <View style={[{marginLeft: 4}]}>
@@ -998,9 +1003,12 @@ const InspectorPage = (props: any) => {
                         if (route != null) {
                           route;
                         } else {
-                          router.Actions.push(ROUTE.INSPECTOR_WORK_ITEM, {
+                          // router.Actions.push(ROUTE.INSPECTOR_WORK_ITEM, {
+                          //   workDetail: JSON.stringify(val),
+                          // });
+                          navigation.dispatch(StackActions.push(ROUTE.INSPECTOR_WORK_ITEM, {
                             workDetail: JSON.stringify(val),
-                          });
+                          }));
                         }
                       }}>
                       <View style={[{marginLeft: 4}]}>

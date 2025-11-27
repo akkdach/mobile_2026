@@ -10,7 +10,6 @@ import {
   View
 } from 'react-native';
 import { List } from 'react-native-paper';
-import * as router from 'react-native-router-flux';
 import AppBar from '../../../components/AppBar';
 import BackGroundImage from '../../../components/BackGroundImage';
 import { COLOR } from '../../../constants/Colors';
@@ -21,6 +20,7 @@ import { generateKey } from '../../../utils/Random';
 import InspectorCustomerInformation from './InspectorCustomerInformation';
 import InspectorShopCheckIn from './InspectorShopCheckIn';
 import {styleSm,styleLg} from './InspectorWorkItenPageCss';
+import { useNavigation, StackActions } from '@react-navigation/native';
 
 interface CardWorkItemTypes {
   title: string;
@@ -60,6 +60,8 @@ const InspectorWorkItemPage: React.FC<InspectorWorkItemProps> = ({
 
   const [screenInfo, setScreenInfo] = useState(Dimensions.get('screen'))
   const [styles, setStyles] = useState<any>({});
+  const navigation = useNavigation();
+
   useEffect(() => {
     console.log(screenInfo)
     if (screenInfo.width < 500) {
@@ -176,7 +178,8 @@ const InspectorWorkItemPage: React.FC<InspectorWorkItemProps> = ({
                   {
                     text: 'ตกลง',
                     onPress: async () =>
-                      router.Actions.replace(ROUTE.START_WORK),
+                      // router.Actions.replace(ROUTE.START_WORK),
+                      navigation.dispatch(StackActions.replace(ROUTE.START_WORK)),
                   },
                 ],
               );
@@ -191,7 +194,8 @@ const InspectorWorkItemPage: React.FC<InspectorWorkItemProps> = ({
                   data = {
                     workOrderData: JSON.parse(workDetail),
                   };
-                  router.Actions.push(args?.route, data);
+                  // router.Actions.push(args?.route, data);
+                  navigation.dispatch(StackActions.push(args?.route, data));
                 }
               }
             }
@@ -332,7 +336,8 @@ const InspectorWorkItemPage: React.FC<InspectorWorkItemProps> = ({
         <View style={{ flex: 1, marginRight: 5 }}>
           {BottomWidget(
             'เช็คอิน',
-            () => router.Actions.push(ROUTE.WORK_PROCEDURE, { workOrderData: { orderId: workDetails.orderId }, workType: workDetails.workType }),
+            // () => router.Actions.push(ROUTE.WORK_PROCEDURE, { workOrderData: { orderId: workDetails.orderId }, workType: workDetails.workType }),
+            () => navigation.dispatch(StackActions.push(ROUTE.WORK_PROCEDURE, { workOrderData: { orderId: workDetails.orderId }, workType: workDetails.workType })),
             COLOR.secondary_primary_color,
           )}
         </View>

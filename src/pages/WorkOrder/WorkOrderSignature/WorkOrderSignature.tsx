@@ -14,7 +14,6 @@ import {
 import RNFS from 'react-native-fs';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Checkbox } from 'react-native-paper';
-import { Actions } from 'react-native-router-flux';
 import AppBar from '../../../components/AppBar';
 import Loading from '../../../components/loading';
 import styleSheet from '../../../components/StyleSheet';
@@ -32,6 +31,7 @@ import WorkOrderQlChecklistCloseWork from '../WorkOrderQlChecklistCloseWork/Work
 import WorkOrderSignatureComponent from './WorkOrderSignatureComponent';
 // import {_getData, _storeData} from '../../../utils/AsyncStorage';
 // import { fetchWorkOrderImageGet, fetchWorkOrderImageUpdate } from "../../../services/workOrderCamera";
+import { useNavigation, StackActions } from '@react-navigation/native';
 
 type InterfaceProps = {
   workOrderData: {
@@ -69,6 +69,8 @@ const WorkOrderSignature = (props: InterfaceProps) => {
 
   const [screenInfo, setScreenInfo] = useState(Dimensions.get('screen'))
   const [styles, setStyles] = useState<any>({});
+  const navigation = useNavigation();
+
   useEffect(() => {
       console.log(screenInfo)
       if (screenInfo.width < 500) {
@@ -249,8 +251,9 @@ const WorkOrderSignature = (props: InterfaceProps) => {
             text: 'ปิด',
             onPress: async () => {
               //Actions.replace(ROUTE.WORKORDERLIST, props); ////2023
-              Actions.pop()
-              Actions.pop()
+              // Actions.pop()
+              // Actions.pop()
+              navigation.dispatch(StackActions.pop(2));
             },
           },
         ]);

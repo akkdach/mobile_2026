@@ -9,7 +9,6 @@ import {
   View,
 } from 'react-native';
 import {DataTable} from 'react-native-paper';
-import * as router from 'react-native-router-flux';
 import {COLOR} from '../../../constants/Colors';
 import {Fonts} from '../../../constants/fonts';
 import {ROUTE} from '../../../constants/RoutePath';

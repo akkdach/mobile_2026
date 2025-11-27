@@ -13,7 +13,6 @@ import {
 import RNFS from 'react-native-fs';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Checkbox } from 'react-native-paper';
-import { Actions } from 'react-native-router-flux';
 import AppBar from '../../components/AppBar';
 import Loading from '../../components/loading';
 import styleSheet from '../../components/StyleSheet';
@@ -26,6 +25,7 @@ import { IWorkOrderCloseWork } from '../../models/WorkOrderCloseWork';
 import { uploadImage } from '../../services/upload';
 import { fetchWorkOrderCloseWorkPost } from '../../services/workOrderSignature';
 import WorkOrderSignatureMultipleComponent from './WorkOrderSignatureMultipleComponent';
+import { useNavigation, StackActions } from '@react-navigation/native';
 
 type InterfaceProps = {
   workOrderData: {
@@ -58,6 +58,7 @@ const WorkOrderSignatureMultiple = (props: InterfaceProps) => {
   const [satisfactionAssessment, setSatisfactionAssessment] =
     useState<IWorkOrderCloseWork>(props.satisfactionAssessment);
   const [warranty, setWarranty] = useState<any>(false);
+  const navigation = useNavigation();
 
   useEffect(() => {
     if (props.satisfactionAssessment.customerSignatureUrl) {
@@ -185,7 +186,8 @@ const WorkOrderSignatureMultiple = (props: InterfaceProps) => {
                 {
                   text: 'ปิด',
                   onPress: async () => {
-                    Actions.replace(ROUTE.WORKORDER);
+                    // Actions.replace(ROUTE.WORKORDER);
+                    navigation.dispatch(StackActions.replace(ROUTE.WORKORDER));
                   },
                 },
               ]);

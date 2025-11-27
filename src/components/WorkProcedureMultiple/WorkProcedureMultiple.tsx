@@ -17,7 +17,6 @@ import * as ImagePicker from 'react-native-image-picker';
 import ImageResizer, { ResizeFormat } from 'react-native-image-resizer';
 import Lightbox from 'react-native-lightbox';
 import Animated from 'react-native-reanimated';
-import * as router from 'react-native-router-flux';
 import { COLOR } from '../../constants/Colors';
 import { Fonts } from '../../constants/fonts';
 import { IGpsTracking } from '../../models/gps-tracking';
@@ -33,6 +32,7 @@ import BackGroundImage from '../BackGroundImage';
 import Loading from '../loading';
 import styles from './WorkProcedureMultipleCss';
 import { ScreenWidth } from 'react-native-elements/dist/helpers';
+import { useNavigation, StackActions } from '@react-navigation/native';
 
 const defaultImage = require('../../../assets/images/default.jpeg');
 
@@ -62,6 +62,7 @@ const WorkProcedureMultiple = (props: InterfaceProps) => {
   const [isVisibleModalPreviewImage, setIsVisibleModalPreviewImage] =
     useState(false);
   const [imgDefaultHeight, setImgDefaultHeight] = useState<number>(350);
+  const navigation = useNavigation();
 
   const loadAllData = async () => {
     setIsLoading(true);
@@ -96,7 +97,8 @@ const WorkProcedureMultiple = (props: InterfaceProps) => {
           {
             text: 'ตกลง',
             onPress: async () => {
-              router.Actions.pop();
+              // router.Actions.pop();
+              navigation.dispatch(StackActions.pop());
             },
           },
         ]);
@@ -337,7 +339,10 @@ const WorkProcedureMultiple = (props: InterfaceProps) => {
                         Alert.alert('แจ้งเตือน', 'บันทึกข้อมูลสำเร็จ', [
                           {
                             text: 'ตกลง',
-                            onPress: async () => router.Actions.pop(),
+                            onPress: async () => {
+                              // router.Actions.pop();
+                              navigation.dispatch(StackActions.pop());
+                            },
                           },
                         ]);
                       }

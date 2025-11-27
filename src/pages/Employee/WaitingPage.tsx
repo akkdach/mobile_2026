@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, Image, Animated } from 'react-native';
-import * as router from 'react-native-router-flux';
 
 const logo = require('../../assets/logo.png');
 const WaitingPage

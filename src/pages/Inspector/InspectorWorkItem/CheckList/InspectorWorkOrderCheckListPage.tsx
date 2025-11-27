@@ -20,7 +20,6 @@ import ImageResizer, { ResizeFormat } from 'react-native-image-resizer';
 import Lightbox from 'react-native-lightbox';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { Button, Card, RadioButton } from 'react-native-paper';
-import { Actions } from 'react-native-router-flux';
 import AppBar from '../../../../components/AppBar';
 import Loading from '../../../../components/loading';
 import TextInputComponent from '../../../../components/TextInput';
@@ -45,6 +44,8 @@ import {
 } from '../../../../services/work_order_check_list';
 import { _getData } from '../../../../utils/AsyncStorage';
 import InspectorWorkOrderCheckListPMPage from './InspectorWorkOrderCheckListPMPage';
+import { useNavigation, StackActions } from '@react-navigation/native';
+
 const screenHeight = Dimensions.get('window').height;
 
 type InterfaceProps = {
@@ -83,6 +84,7 @@ const InspectorWorkOrderCheckListPage = (props: {
 
   const [screenInfo, setScreenInfo] = useState(Dimensions.get('screen'))
   const [styles, setStyles] = useState<any>({});
+  const navigation = useNavigation();
   useEffect(() => {
     console.log(screenInfo)
     if (screenInfo.width < 500) {
@@ -220,7 +222,8 @@ const InspectorWorkOrderCheckListPage = (props: {
         props.workOrderData.pmType === 'PME' ||
         props.workOrderData.pmType === 'PMM';
       if (isValidateObjType && isValidateType && isValidatePmType) {
-        Actions.push(ROUTE.QUALITY_INDEX, props);
+        // Actions.push(ROUTE.QUALITY_INDEX, props);
+        navigation.dispatch(StackActions.push(ROUTE.QUALITY_INDEX, props));
       } else {
         Alert.alert(
           'แจ้งเตือน',
@@ -577,7 +580,10 @@ const InspectorWorkOrderCheckListPage = (props: {
           Alert.alert('แจ้งเตือน', 'บันทึกข้อมูลสำเร็จ', [
             {
               text: 'ปิด',
-              onPress: async () => Actions.pop(),
+              onPress: async () => {
+                // Actions.pop();
+                navigation.dispatch(StackActions.pop());
+              },
             },
           ]);
         }
@@ -587,7 +593,8 @@ const InspectorWorkOrderCheckListPage = (props: {
         {
           text: 'ตกลง',
           onPress: async () => {
-            Actions.pop();
+            // Actions.pop();
+            navigation.dispatch(StackActions.pop());
           },
         },
       ]);
@@ -618,13 +625,17 @@ const InspectorWorkOrderCheckListPage = (props: {
           props.workOrderData.pmType === 'PME' ||
           props.workOrderData.pmType === 'PMM';
         if (isValidateObjType && isValidateType && isValidatePmType) {
-          Actions.push(ROUTE.QUALITY_INDEX, props);
+          // Actions.push(ROUTE.QUALITY_INDEX, props);
+          navigation.dispatch(StackActions.push(ROUTE.QUALITY_INDEX, props));
         } else {
           await fetchCloseQIInformation(props.workOrderData.orderId);
           Alert.alert('แจ้งเตือน', 'บันทึกข้อมูลสำเร็จ', [
             {
               text: 'ปิด',
-              onPress: async () => Actions.pop(),
+              onPress: async () => {
+                // Actions.pop();
+                navigation.dispatch(StackActions.pop());
+              },
             },
           ]);
         }

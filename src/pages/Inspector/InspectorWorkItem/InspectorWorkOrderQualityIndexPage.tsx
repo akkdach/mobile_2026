@@ -12,7 +12,6 @@ import {
 } from 'react-native';
 import Orientation from 'react-native-orientation-locker';
 import Animated from 'react-native-reanimated';
-import { Actions } from 'react-native-router-flux';
 import AppBar from '../../../components/AppBar';
 import BackGroundImage from '../../../components/BackGroundImage';
 import DropdownSelect from '../../../components/DropdownSelect';
@@ -25,6 +24,7 @@ import QualityIndex from '../../QualityIndex/QualityIndex';
 import styleSheet from '../../../components/StyleSheet';
 import styles from './InspectorWorkOrderQualityIndexCss';
 import { getQualityIndexInspector, getQualityIndexMasterInspector, postQualityIndexInspector } from '../../../services/visitInspector';
+import { useNavigation, StackActions } from '@react-navigation/native';
 
 type InterfaceProps = {
   workOrderData: {
@@ -89,6 +89,7 @@ const InspectorWorkOrderQualityIndexPage = (props: InterfaceProps) => {
   const [qiResult, setQIResult] = useState<any>(0.0);
   const { control, getValues, setValue } = useForm<any>();
   const [isLoading, setIsLoading] = useState(false);
+  const navigation = useNavigation();
 
 
   const [defectValue, setDefectValue] = useState<any>([
@@ -199,7 +200,8 @@ const InspectorWorkOrderQualityIndexPage = (props: InterfaceProps) => {
                 {
                   text: 'ปิด',
                   onPress: async () => {
-                    Actions.replace(ROUTE.INSPECTOR_WORK_ITEM, props)
+                    // Actions.replace(ROUTE.INSPECTOR_WORK_ITEM, props)
+                    navigation.dispatch(StackActions.replace(ROUTE.INSPECTOR_WORK_ITEM, props))
                   },
                 },
               ]);
@@ -212,7 +214,8 @@ const InspectorWorkOrderQualityIndexPage = (props: InterfaceProps) => {
         {
           text: 'ปิด',
           onPress: async () => {
-            Actions.replace(ROUTE.INSPECTOR_WORK_ITEM, props)
+            // Actions.replace(ROUTE.INSPECTOR_WORK_ITEM, props)
+            navigation.dispatch(StackActions.replace(ROUTE.INSPECTOR_WORK_ITEM, props))
           },
         },
       ]);

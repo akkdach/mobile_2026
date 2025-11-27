@@ -2,13 +2,14 @@ import { Button, WhiteSpace } from '@ant-design/react-native';
 import React, { useEffect } from 'react';
 import { StyleSheet, Image, Animated, Text } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
-import * as router from 'react-native-router-flux';
 import { ROUTE } from '../constants/RoutePath';
+import { useNavigation, StackActions } from '@react-navigation/native';
 
 const logo2 = require('../../assets/worker.png');
 
 const DrawerMenu = () => {
     useEffect(loading, []);
+    const navigation = useNavigation();
     return (
         <>
             <Animated.View style={styles.children}>
@@ -19,7 +20,10 @@ const DrawerMenu = () => {
                 <Text style={{ fontWeight: 'bold', marginTop: 10, fontSize: 24 }}>
                     Ekapol Lim
                 </Text>
-                <TouchableHighlight underlayColor="#fff" onPress={() => { router.Actions.push(ROUTE.PROFILE); }}>
+                <TouchableHighlight underlayColor="#fff" onPress={() => { 
+                    // router.Actions.push(ROUTE.PROFILE); 
+                    navigation.dispatch(StackActions.push(ROUTE.PROFILE));
+                }}>
                     <Text style={{ fontWeight: 'bold', marginTop: 10, fontSize: 24,  color: '#33C3FF', textDecorationLine: 'underline' }}>
                         Profile
                     </Text>

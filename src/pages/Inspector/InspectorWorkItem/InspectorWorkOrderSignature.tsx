@@ -13,7 +13,6 @@ import {
 import RNFS from 'react-native-fs';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Checkbox } from 'react-native-paper';
-import { Actions } from 'react-native-router-flux';
 import AppBar from '../../../components/AppBar';
 import Loading from '../../../components/loading';
 import styleSheet from '../../../components/StyleSheet';
@@ -29,6 +28,7 @@ import InformationCloseWorkPage from '../../InfomationCloseWork/InformationClose
 import QICloseWorkPage from '../../QICloseWork/QICloseWork';
 import CheckListVisitInspectorCloseWork from './CheckListVisitInspectorCloseWork/CheckListVisitInspectorCloseWork';
 // import { fetchWorkOrderImageGet, fetchWorkOrderImageUpdate } from "../../../services/workOrderCamera";
+import { useNavigation, StackActions } from '@react-navigation/native';
 
 type InterfaceProps = {
   workOrderData: {
@@ -62,6 +62,7 @@ const InspectorWorkOrderSignature = (props: InterfaceProps) => {
   const [satisfactionAssessment, setSatisfactionAssessment] =
     useState<IWorkOrderCloseWork>(props.satisfactionAssessment);
   // const [warranty, setWarranty] = useState<any>(false);
+  const navigation = useNavigation();
 
   useEffect(() => {
     loadDataAll();
@@ -248,9 +249,12 @@ const InspectorWorkOrderSignature = (props: InterfaceProps) => {
           {
             text: 'ปิด',
             onPress: async () => {
-              Actions.replace(ROUTE.INSPECTOR, {
+              // Actions.replace(ROUTE.INSPECTOR, {
+              //   refresh: true
+              // });
+              navigation.dispatch(StackActions.replace(ROUTE.INSPECTOR, {
                 refresh: true
-              });
+              }));
               // setTimeout(() => {
               //   Actions.refresh()
               //   console.log('refresh')
