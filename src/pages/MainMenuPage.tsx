@@ -890,6 +890,3 @@ const stylesSM = StyleSheet.create({
 });
 
 export default MainMenuPage;
-function setTime(arg0: string) {
-  throw new Error('Function not implemented.');
-}
