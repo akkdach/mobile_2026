@@ -10,7 +10,7 @@ import {
   View
 } from 'react-native';
 import { Button, Checkbox } from 'react-native-paper';
-import { Actions } from 'react-native-router-flux';
+import { StackActions, useNavigation } from '@react-navigation/native';
 import AppBar from '../../../components/AppBar';
 import BackGroundImage from '../../../components/BackGroundImage';
 import DropdownSelect from '../../../components/DropdownSelect';
@@ -47,6 +47,7 @@ const ToolVanCheckPage: FC<InterfaceProps> = (props: InterfaceProps) => {
   const [selectsItem, setValueSelectsItem] = useState<
     DropdownSelectMultipleItemProps[]
   >([]);
+  const navigation = useNavigation();
 
   const loadAll = async () => {
     try {
@@ -179,13 +180,13 @@ const ToolVanCheckPage: FC<InterfaceProps> = (props: InterfaceProps) => {
       .filter(val => val.checked)
       .map(val => val.value);
     if (toNumbers.length > 0) {
-      Actions.push(ROUTE.SPARE_PART_VAN_CHECK_LIST, {
+      navigation.dispatch(StackActions.push(ROUTE.SPARE_PART_VAN_CHECK_LIST, {
         search: {
           selectReceiveTransferFrom: selectReceiveTransferFrom as string,
           toNumbers,
         },
         profile: props.profile,
-      });
+      }));
       setValueSelectsItem([]);
     }
   };

@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import {Avatar, Button, RadioButton} from 'react-native-paper';
 import Animated from 'react-native-reanimated';
-import {Actions} from 'react-native-router-flux';
+import {StackActions, useNavigation} from '@react-navigation/native';
 import AppBar from '../../../components/AppBar';
 import BackGroundImage from '../../../components/BackGroundImage';
 import DropdownSelect, {ItemProps} from '../../../components/DropdownSelect';
@@ -41,6 +41,7 @@ type Props = {
 };
 
 const WorkOrderProblemIssuePage: React.FC<Props> = ({workOrderData}) => {
+  const navigation = useNavigation();
   const initProblem = {
     problemPicker: [],
     damagePicker: [],
@@ -276,7 +277,7 @@ const WorkOrderProblemIssuePage: React.FC<Props> = ({workOrderData}) => {
     try {
       const response = await createAllProblem(payload);
       if (response.data.isSuccess) {
-        Actions.pop();
+        navigation.dispatch(StackActions.pop());
       } else {
         Alert.alert('แจ้งเตือน', response.data.message);
       }

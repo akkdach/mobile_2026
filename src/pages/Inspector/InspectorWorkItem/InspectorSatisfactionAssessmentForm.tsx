@@ -82,7 +82,6 @@ const InspectorSatisfactionAssessmentFormPage = (props: InterfaceProps) => {
       }else{
         Alert.alert('เตือน',result.message, [
           { text: 'ตกลง', onPress: async () => {
-            // router.Actions.pop();
             navigation.dispatch(StackActions.pop());
           } },
         ]);
@@ -108,10 +107,6 @@ const InspectorSatisfactionAssessmentFormPage = (props: InterfaceProps) => {
     const { remark } = getValues();
     workOrderCloseValue.remark = remark;
     setWorkOrderCloseWorkValue({ ...workOrderCloseValue });
-    // router.Actions.push(ROUTE.INSPECTOR_WORK_ORDER_SIGNATURE, {
-    //   workOrderData: props?.workOrderData,
-    //   satisfactionAssessment: workOrderCloseValue,
-    // });
     navigation.dispatch(StackActions.push(ROUTE.INSPECTOR_WORK_ORDER_SIGNATURE, {
       workOrderData: props?.workOrderData,
       satisfactionAssessment: workOrderCloseValue,

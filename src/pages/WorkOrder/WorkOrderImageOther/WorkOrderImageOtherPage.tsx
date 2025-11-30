@@ -1,7 +1,7 @@
 import { Button } from '@ant-design/react-native';
 import React, { useEffect, useState } from 'react';
 import { Alert, ImageBackground, Text, useWindowDimensions, View } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import { StackActions, useNavigation } from '@react-navigation/native';
 import AppBar from '../../../components/AppBar';
 import ImagesOther from '../../../components/ImagesOther/ImagesOther';
 import Loading from '../../../components/loading';
@@ -21,6 +21,7 @@ type InterfaceProps = {
 };
 
 const WorkOrderImagesOtherPage = (props: InterfaceProps) => {
+  const navigation = useNavigation();
   const {
     allValues,
     fileDataAfter,
@@ -54,9 +55,9 @@ const WorkOrderImagesOtherPage = (props: InterfaceProps) => {
           {
             text: 'ปิด',
             onPress: async () => {
-              Actions.pop(),
-                updateFileDataBefore([]),
-                updateFileDataAfter([])
+              navigation.dispatch(StackActions.pop())
+              updateFileDataBefore([])
+              updateFileDataAfter([])
             },
           },
         ]);
@@ -73,7 +74,7 @@ const WorkOrderImagesOtherPage = (props: InterfaceProps) => {
       Alert.alert('แจ้งเตือน', error.message, [
         {
           text: 'ปิด',
-          onPress: async () => Actions.pop(),
+          onPress: async () => navigation.dispatch(StackActions.pop()),
         },
       ]);
     }

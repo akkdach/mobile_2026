@@ -11,7 +11,7 @@ import {
   Alert,
   TextInput,
 } from 'react-native';
-import { Actions } from 'react-native-router-flux';
+import { StackActions, useNavigation } from '@react-navigation/native';
 import AppBar from '../../../components/AppBar';
 import { COLOR } from '../../../constants/Colors';
 import { fetchGetMaterialMaster, fetchGetRecommentPart, fetchSaveRecommentPart } from '../../../services/sparePart';
@@ -45,6 +45,7 @@ const generateParts = (start: number, count: number): Part[] =>
   }));
 
 const RecommendPartsScreen = (props: any) => {
+  const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(false);
   const { orderId, type, orderTypeDescription, IsConnectivity } =
     props?.workOrderData;
@@ -94,7 +95,7 @@ const RecommendPartsScreen = (props: any) => {
     if (res.isSuccess) {
       setIsLoading(false);
       Alert.alert('บันทึกสำเร็จ', '', [
-        { text: 'ปิด', onPress: () => Actions.pop() },
+        { text: 'ปิด', onPress: () => navigation.dispatch(StackActions.pop()) },
       ]);
     } else {
       Alert.alert(res.message);
@@ -138,7 +139,7 @@ const RecommendPartsScreen = (props: any) => {
 
   };
   const handleClose = () => {
-    Actions.pop()
+    navigation.dispatch(StackActions.pop())
   }
 
   const filteredParts = useMemo(() => {

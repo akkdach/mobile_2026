@@ -8,7 +8,7 @@ import {
   View,
 } from 'react-native';
 import {Avatar} from 'react-native-paper';
-import * as router from 'react-native-router-flux';
+import {StackActions, useNavigation} from '@react-navigation/native';
 import AppBar from '../../components/AppBar';
 import BackGroundImage from '../../components/BackGroundImage';
 import styles from '../../components/StyleSheet';
@@ -19,6 +19,7 @@ const logo = require('../../../assets/logo.png');
 
 const VisitPage = () => {
   const [menus, menusSet] = useState<IMenu[]>([]);
+  const navigation = useNavigation();
 
   useEffect(() => {
     menusSet([
@@ -36,7 +37,7 @@ const VisitPage = () => {
       <TouchableHighlight
         underlayColor="#fff"
         onPress={() => {
-          router.Actions.push(menu.route);
+          navigation.dispatch(StackActions.push(menu.route));
         }}
         style={learningCenterCss.flexListMenuItem}>
         <View style={styles.card}>

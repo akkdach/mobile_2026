@@ -9,7 +9,7 @@ import {
   View,
 } from 'react-native';
 import { Avatar } from 'react-native-paper';
-import * as router from 'react-native-router-flux';
+import { StackActions, useNavigation } from '@react-navigation/native';
 import AppBar from '../../components/AppBar';
 import BackGroundImage from '../../components/BackGroundImage';
 import styles from '../../components/StyleSheet';
@@ -24,10 +24,11 @@ const logo = require('../../../assets/logo.png');
 
 
 const WorklistPage = (props: any) => {
-
   const [menus, menusSet] = useState<IMenu[]>([]);
   const [userProfile, setUserProfile] = useState<LoginResponseInterface>();
   const [workNotify, setWorkNotify, notiCount, fetNoniCount] = UseNotiContext()
+  const navigation = useNavigation();
+
   const getUserProfile = async () => {
     const result = await _getData({ key: LocalStorageKey.userInfo });
     const userInformation = JSON.parse(String(result));
@@ -84,7 +85,7 @@ const WorklistPage = (props: any) => {
       <TouchableHighlight
         underlayColor="#fff"
         onPress={() => {
-          router.Actions.push(menu.route, { profile: userProfile });
+          navigation.dispatch(StackActions.push(menu.route, { profile: userProfile }));
         }}
         style={learningCenterCss.flexListMenuItem}
         key={`menu-${idx}`}>

@@ -50,7 +50,6 @@ const LearningCenterPage: React.FC = () => {
       <TouchableHighlight
         underlayColor="#fff"
         onPress={() => {
-          // router.Actions.push(menu.route);
           navigation.dispatch(StackActions.push(menu.route));
         }}
         style={learningCenterCss.flexListMenuItem}

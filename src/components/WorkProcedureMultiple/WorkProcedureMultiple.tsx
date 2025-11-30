@@ -97,7 +97,6 @@ const WorkProcedureMultiple = (props: InterfaceProps) => {
           {
             text: 'ตกลง',
             onPress: async () => {
-              // router.Actions.pop();
               navigation.dispatch(StackActions.pop());
             },
           },
@@ -340,7 +339,6 @@ const WorkProcedureMultiple = (props: InterfaceProps) => {
                           {
                             text: 'ตกลง',
                             onPress: async () => {
-                              // router.Actions.pop();
                               navigation.dispatch(StackActions.pop());
                             },
                           },

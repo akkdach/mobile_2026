@@ -4,7 +4,7 @@ import {Controller, SubmitHandler, useForm} from 'react-hook-form';
 import {Alert, ScrollView, Text, View} from 'react-native';
 import {BarCodeReadEvent} from 'react-native-camera';
 import Animated from 'react-native-reanimated';
-import { Actions } from 'react-native-router-flux';
+import {StackActions, useNavigation} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import AppBar from '../../../components/AppBar';
 import BackGroundImage from '../../../components/BackGroundImage';
@@ -37,6 +37,7 @@ type Inputs = {
 };
 
 const WorkOrderConnectivityPage: React.FC<Props> = ({workOrderData}) => {
+  const navigation = useNavigation();
   const initialValue = new WorkOrderConnectinvity({});
   const {control, handleSubmit, reset, setValue} = useForm<Inputs>({
     defaultValues: initialValue,
@@ -84,7 +85,7 @@ const WorkOrderConnectivityPage: React.FC<Props> = ({workOrderData}) => {
       const payload = {...data, workOrder: workOrderData.orderId};
       const updated = await updateConnectivity(payload);
       customLog(`updated +++>>>> ${JSON.stringify(updated, null, 2)}`);
-      Actions.pop()
+      navigation.dispatch(StackActions.pop())
     } catch (error: any) {
       Alert.alert('แจ้งเตือน', error.message);
     } finally {

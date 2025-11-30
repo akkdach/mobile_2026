@@ -17,7 +17,7 @@ import ImageResizer, { ResizeFormat } from 'react-native-image-resizer';
 import Lightbox from 'react-native-lightbox';
 import { Item } from 'react-native-paper/lib/typescript/components/List/List';
 import Animated from 'react-native-reanimated';
-import { Actions } from 'react-native-router-flux';
+import { StackActions, useNavigation } from '@react-navigation/native';
 import AppBar from '../../../components/AppBar';
 import BackGroundImage from '../../../components/BackGroundImage';
 import DataNotFound from '../../../components/DataNotFound';
@@ -35,12 +35,12 @@ import {
 import { fetWorkorderStandardImage, fetWorkorderStandardImageGet } from '../../../services/workOrderImage';
 import styles from './WorkImageCss';
 import { BASE_URL, IMG_URL } from '../../../utils/Env';
-import * as router from 'react-native-router-flux';
 const defaultImage = require('../../../../assets/images/default.jpeg');
 
 const screenHeight = Dimensions.get('window').height;
 
 const WorkImagePage = (props: any) => {
+  const navigation = useNavigation();
   const { orderId, type, orderTypeDescription, IsConnectivity } =
     props?.workOrderData;
   const [screenInfo, setScreenInfo] = useState(Dimensions.get('screen'))
@@ -310,7 +310,7 @@ const WorkImagePage = (props: any) => {
 
 
     Alert.alert('แจ้งเตือน', 'บันทึกข้อมูลสำเร็จ', [
-      { text: 'ตกลง', onPress: async () => router.Actions.pop() },
+      { text: 'ตกลง', onPress: async () => navigation.dispatch(StackActions.pop()) },
     ]);
     return;
     try {
@@ -339,7 +339,7 @@ const WorkImagePage = (props: any) => {
             });
             if (response.isSuccess) {
               Alert.alert('บันทึกรูปสำเร็จ', 'ระบบทำการบันทึกรูปเรียบร้อย', [
-                { text: 'ปิด', onPress: () => Actions.pop() },
+                { text: 'ปิด', onPress: () => navigation.dispatch(StackActions.pop()) },
               ]);
             } else {
               throw new Error(response.message);

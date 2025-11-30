@@ -4,7 +4,7 @@ import { Controller, useForm } from 'react-hook-form';
 import { ScrollView, Text, TextInput, View ,Alert, Dimensions} from 'react-native';
 import { Divider, RadioButton } from 'react-native-paper';
 import Animated, { Value } from 'react-native-reanimated';
-import * as router from 'react-native-router-flux';
+import { StackActions, useNavigation } from '@react-navigation/native';
 import AppBar from '../../../components/AppBar';
 import BackGroundImage from '../../../components/BackGroundImage';
 import Loading from '../../../components/loading';
@@ -34,6 +34,7 @@ type Inputs = {
 };
 
 const SatisfactionAssessmentFormPage = (props: InterfaceProps) => {
+  const navigation = useNavigation();
   if (!isNotCheckActionSignature(props.workOrderData.type)) {
     return (
       <>
@@ -81,7 +82,7 @@ const SatisfactionAssessmentFormPage = (props: InterfaceProps) => {
         setWorkOrderCloseWorkValue(result.dataResult);
       }else{
         Alert.alert('เตือน',result.message, [
-          { text: 'ตกลง', onPress: async () => router.Actions.pop() },
+          { text: 'ตกลง', onPress: async () => navigation.dispatch(StackActions.pop()) },
         ]);
       }
     } catch (error) {
@@ -105,10 +106,10 @@ const SatisfactionAssessmentFormPage = (props: InterfaceProps) => {
     const { remark } = getValues();
     workOrderCloseValue.remark = remark;
     setWorkOrderCloseWorkValue({ ...workOrderCloseValue });
-    router.Actions.push(ROUTE.SIGNATURE, {
+    navigation.dispatch(StackActions.push(ROUTE.SIGNATURE, {
       workOrderData: props?.workOrderData,
       satisfactionAssessment: workOrderCloseValue,
-    });
+    }));
   };
 
   const RadioButtonItem = (value: any, textLabel: string) => {

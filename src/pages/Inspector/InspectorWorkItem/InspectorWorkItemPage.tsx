@@ -178,7 +178,6 @@ const InspectorWorkItemPage: React.FC<InspectorWorkItemProps> = ({
                   {
                     text: 'ตกลง',
                     onPress: async () =>
-                      // router.Actions.replace(ROUTE.START_WORK),
                       navigation.dispatch(StackActions.replace(ROUTE.START_WORK)),
                   },
                 ],
@@ -194,7 +193,6 @@ const InspectorWorkItemPage: React.FC<InspectorWorkItemProps> = ({
                   data = {
                     workOrderData: JSON.parse(workDetail),
                   };
-                  // router.Actions.push(args?.route, data);
                   navigation.dispatch(StackActions.push(args?.route, data));
                 }
               }
@@ -336,7 +334,6 @@ const InspectorWorkItemPage: React.FC<InspectorWorkItemProps> = ({
         <View style={{ flex: 1, marginRight: 5 }}>
           {BottomWidget(
             'เช็คอิน',
-            // () => router.Actions.push(ROUTE.WORK_PROCEDURE, { workOrderData: { orderId: workDetails.orderId }, workType: workDetails.workType }),
             () => navigation.dispatch(StackActions.push(ROUTE.WORK_PROCEDURE, { workOrderData: { orderId: workDetails.orderId }, workType: workDetails.workType })),
             COLOR.secondary_primary_color,
           )}

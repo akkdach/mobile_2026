@@ -24,7 +24,7 @@ import {
   View,
 } from 'react-native';
 import { Card, Checkbox } from 'react-native-paper';
-import * as router from 'react-native-router-flux';
+import { StackActions, useNavigation } from '@react-navigation/native';
 import Swipeout from 'react-native-swipeout';
 import AppBar from '../../components/AppBar';
 import DataNotFound from '../../components/DataNotFound';
@@ -62,6 +62,7 @@ type Inputs = {
 };
 
 const WorkOrderPage = (props: any) => {
+  const navigation = useNavigation();
   const [workNotify, setWorkNotify] = useContext(NotifyContext);
   const roleSelectWorkCenter = ['Admin', 'Manager', 'Supervisor'];
   const [visibleModal, setStateVisibleModal] = useState(false);
@@ -357,7 +358,7 @@ const PlanInfo = ({ row }:any) => {
                 reset({ searchText: '' });
                 const result: any = await _getData({ key: LocalStorageKey.userInfo });
                 const userInformation = JSON.parse(result);
-                router.Actions.push(ROUTE.WORKORDERLIST, {
+                navigation.dispatch(StackActions.push(ROUTE.WORKORDERLIST, {
                   backReloadPage: true,
                   orderId: row.orderId,
                   type: row.type,
@@ -368,7 +369,7 @@ const PlanInfo = ({ row }:any) => {
                   IsConnectivity: row?.isConnectivity,
                   errorMessage: row.errorMessage,
                   webStatus: row.webStatus,
-                });
+                }));
               }}>
               <View style={[{ marginTop: 10, marginLeft: 10, marginRight: 20 }]}>
                 <View style={{ flexDirection: 'row' }}>
@@ -1217,10 +1218,10 @@ const PlanInfo = ({ row }:any) => {
                 style={[styles.btn, { height: 46, borderRadius: 10, width: screenInfo.width > 500 ? 200 : 80, backgroundColor: COLOR.primary }]}
                 onPress={() => {
                   if (multipleOrderManage.length > 0) {
-                    router.Actions.push(ROUTE.WORK_PROCEDURE_MULTIPLE, {
+                    navigation.dispatch(StackActions.push(ROUTE.WORK_PROCEDURE_MULTIPLE, {
                       orderId: multipleOrderManage[0].orderId,
                       multipleOrderManage,
-                    });
+                    }));
                     setVisibleModalOrderSelect(!visibleModalOrderSelect);
                   }
                 }}>
@@ -1238,22 +1239,23 @@ const PlanInfo = ({ row }:any) => {
                       [
                         {
                           text: 'ตกลง',
-                          onPress: async () =>
-                            router.Actions.replace(ROUTE.START_WORK),
+                          onPress: async () => {
+                            navigation.dispatch(StackActions.replace(ROUTE.START_WORK))
+                          }
                         },
                       ],
                     );
                     return;
                   } else {
                     if (multipleOrderManage.length > 0) {
-                      router.Actions.push(
+                      navigation.dispatch(StackActions.push(
                         ROUTE.SATISFACTION_ASSESSMENT_MULTIPLE_FORM_PAGE,
                         {
                           orderId: multipleOrderManage[0].orderId,
                           multipleOrderManage,
                           type: multipleOrderManage[0].type,
                         },
-                      );
+                      ));
                       setVisibleModalOrderSelect(!visibleModalOrderSelect);
                     }
                   }
@@ -1364,7 +1366,7 @@ const PlanInfo = ({ row }:any) => {
                       reset({ searchText: '' });
                       const result: any = await _getData({ key: LocalStorageKey.userInfo });
                       const userInformation = JSON.parse(result);
-                      router.Actions.push(ROUTE.WORKORDERLIST, {
+                      navigation.dispatch(StackActions.push(ROUTE.WORKORDERLIST, {
                         backReloadPage: true,
                         orderId: val.orderId,
                         type: val.type,
@@ -1375,7 +1377,7 @@ const PlanInfo = ({ row }:any) => {
                         IsConnectivity: val?.isConnectivity,
                         errorMessage: val.errorMessage,
                         webStatus: val.webStatus,
-                      });
+                      }));
                       // }
                     }}>
                     <View

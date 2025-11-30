@@ -367,12 +367,6 @@ const ToolRequestTransferPage: FC<InterfaceProps> = (props: InterfaceProps) => {
                   Alert.alert('แจ้งเตือน', `กรุณาเลือกขอโอนจาก`);
                   return;
                 }
-                // router.Actions.push(ROUTE.TOOLS_ADD_REQUEST_TRANSFER, {
-                //   profile: props.profile,
-                //   stge_loc: selectTransferTo,
-                //   componentVal: componentsValue,
-                //   componentMasterVal: componentsMasterValue,
-                // });
                 navigation.dispatch(
                   StackActions.push(ROUTE.TOOLS_ADD_REQUEST_TRANSFER, {
                     profile: props.profile,

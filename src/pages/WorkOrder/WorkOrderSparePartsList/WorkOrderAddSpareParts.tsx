@@ -226,9 +226,6 @@ function WorkOrderAddSparePartsPage(props: any) {
         delete item.add;
         return item;
       });
-    // router.Actions.replace(ROUTE.WORKORDER_SPARE_PART_LIST, {
-    //   componentStorageSelected,
-    // });
     navigation.dispatch(StackActions.replace(ROUTE.WORKORDER_SPARE_PART_LIST, {
       componentStorageSelected,
     }));

@@ -335,7 +335,6 @@ const WorkOrderSparePartsListPage: FC<InterfaceProps> = (
           {
             text: 'ตกลง',
             onPress: async () => {
-              // router.Actions.replace(ROUTE.WORKORDERLIST, props.workOrderData),
               navigation.dispatch(StackActions.replace(ROUTE.WORKORDERLIST, props.workOrderData));
             }
           },
@@ -578,11 +577,6 @@ const WorkOrderSparePartsListPage: FC<InterfaceProps> = (
               <TouchableOpacity
                 activeOpacity={0.9}
                 onPress={() => {
-                  // router.Actions.push(ROUTE.WORKORDER_SPARE_PART_ADD, {
-                  //   orderId,
-                  //   componentVal: componentsValue,
-                  //   componentMasterVal: componentsMasterValue,
-                  // });
                   navigation.dispatch(StackActions.push(ROUTE.WORKORDER_SPARE_PART_ADD, {
                     orderId,
                     componentVal: componentsValue,

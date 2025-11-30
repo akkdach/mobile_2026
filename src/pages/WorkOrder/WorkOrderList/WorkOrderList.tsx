@@ -22,8 +22,7 @@ import Lightbox from 'react-native-lightbox';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { DataTable, Divider, List, RadioButton } from 'react-native-paper';
 import QRCodeScanner from 'react-native-qrcode-scanner';
-import * as router from 'react-native-router-flux';
-import { Actions } from 'react-native-router-flux';
+import { StackActions, useNavigation } from '@react-navigation/native';
 import AppBar from '../../../components/AppBar';
 import BackGroundImage from '../../../components/BackGroundImage';
 import DropdownSelect from '../../../components/DropdownSelect';
@@ -132,6 +131,7 @@ type InputMovementEquipment = {
 };
 
 const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
+  const navigation = useNavigation();
   console.log('props ====>', props);
   const [visibleModal, setStateVisibleModal] = useState(false);
   const [checkInModal, setStateCheckInModal] = useState(false);
@@ -510,7 +510,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
 
   const _onClickMapCustomer = () => {
     setStateVisibleModal(!visibleModal);
-    router.Actions.push(ROUTE.WORK_ORDER_MAP, { workOrderData: props });
+    navigation.dispatch(StackActions.push(ROUTE.WORK_ORDER_MAP, { workOrderData: props }));
   };
 
   const DrawHorizontalWidget = () => {
@@ -623,10 +623,10 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
   const onCandelOrder = async (orderid: string) => {
     cancelWorkOrder(orderid).then((result: any) => {
       if (!result?.isSuccess) {
-        // router.Actions.replace(ROUTE.WORKORDERLIST);
+        navigation.dispatch(StackActions.replace(ROUTE.WORKORDERLIST));
       } else {
         Alert.alert(result?.message ?? 'เกิดข้อผิดพลาดที่ไม่รู้จัก')
-        router.Actions.replace(ROUTE.WORKORDER);
+        navigation.dispatch(StackActions.replace(ROUTE.WORKORDER));
       }
     })
 
@@ -650,7 +650,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
                   {
                     text: 'ตกลง',
                     onPress: async () =>
-                      router.Actions.replace(ROUTE.START_WORK),
+                      navigation.dispatch(StackActions.replace(ROUTE.START_WORK)),
                   },
                 ],
               );
@@ -678,9 +678,9 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
                         {
                           text: 'ตกลง',
                           onPress: async () => {
-                            router.Actions.push(ROUTE.WORK_ORDER_DETAILS_WORK, {
+                            navigation.dispatch(StackActions.push(ROUTE.WORK_ORDER_DETAILS_WORK, {
                               workOrderData: props,
-                            });
+                            }));
                           },
                         },
                       ],
@@ -699,9 +699,9 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
                       {
                         text: 'ตกลง',
                         onPress: async () => {
-                          router.Actions.push(ROUTE.WORK_ORDER_DETAILS_WORK, {
+                          navigation.dispatch(StackActions.push(ROUTE.WORK_ORDER_DETAILS_WORK, {
                             workOrderData: props,
-                          });
+                          }));
                         },
                       },
                     ],
@@ -730,7 +730,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
               } else {
                 if (!nextPage) {
                   setNextPage(true);
-                  router.Actions.push(args?.route, { workOrderData: props });
+                  navigation.dispatch(StackActions.push(args?.route, { workOrderData: props }));
                 }
               }
             }
@@ -3028,7 +3028,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
     });
     setCauseCloseTypeModal(!causeCloseTypeModal);
     setCloseTypeCheckOutModal(!closeTypeCheckOutModal);
-    router.Actions.push(ROUTE.WORKORDER);
+    navigation.dispatch(StackActions.push(ROUTE.WORKORDER));
   };
 
   const postCheckOutCloseType = async (
@@ -3052,7 +3052,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
                 setCheckOutSparePartOutStandingModal(false);
                 setCloseTypeCheckOutModal(false);
                 setIsLoading(false);
-                router.Actions.push(ROUTE.WORKORDER);
+                navigation.dispatch(StackActions.push(ROUTE.WORKORDER));
               } else {
                 setIsLoading(false);
                 Alert.alert('แจ้งเตือน', response.message, [
@@ -3062,7 +3062,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
                       setCheckOutSparePartOutStandingModal(false);
                       setCloseTypeCheckOutModal(false);
                       setTimeout(() => {
-                        Actions.refresh();
+                        navigation.setParams({ refreshKey: Date.now() });
                       }, 500);
                     },
                   },
@@ -3082,7 +3082,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
             setCheckOutSparePartOutStandingModal(false);
             setCloseTypeCheckOutModal(false);
             setTimeout(() => {
-              Actions.refresh();
+              navigation.setParams({ refreshKey: Date.now() });
             }, 500);
           },
         },
@@ -3372,7 +3372,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
       setCheckOutEquipmentNotMatch(false);
       setCloseTypeCheckOutModal(false);
       setIsLoading(false);
-      router.Actions.push(ROUTE.WORKORDER);
+      navigation.dispatch(StackActions.push(ROUTE.WORKORDER));
     } catch (error: any) {
       setIsLoading(false);
       Alert.alert('แจ้งเตือน', error.message);
@@ -3627,7 +3627,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
           <View style={{ flex: 1, width: '100%' }}>
             {BottomWidget('เช็คอิน', () => {
 
-              router.Actions.push(ROUTE.MainCheckIn, props)
+              navigation.dispatch(StackActions.push(ROUTE.MainCheckIn, props))
 
             }
             )}

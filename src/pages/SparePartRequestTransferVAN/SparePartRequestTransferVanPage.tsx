@@ -380,12 +380,6 @@ const SparePartRequestTransferVanPage: FC<InterfaceProps> = (
                   Alert.alert('แจ้งเตือน', `กรุณาเลือกขอโอนจาก`);
                   return;
                 }
-                // router.Actions.push(ROUTE.SPARE_PART_ADD_REQUEST_TRANSFER, {
-                //   profile: props.profile,
-                //   stge_loc: selectTransferTo,
-                //   componentVal: componentsValue,
-                //   componentMasterVal: componentsMasterValue,
-                // });
                 navigation.dispatch(StackActions.push(ROUTE.SPARE_PART_ADD_REQUEST_TRANSFER, {
                   profile: props.profile,
                   stge_loc: selectTransferTo,

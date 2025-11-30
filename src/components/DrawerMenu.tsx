@@ -21,7 +21,6 @@ const DrawerMenu = () => {
                     Ekapol Lim
                 </Text>
                 <TouchableHighlight underlayColor="#fff" onPress={() => { 
-                    // router.Actions.push(ROUTE.PROFILE); 
                     navigation.dispatch(StackActions.push(ROUTE.PROFILE));
                 }}>
                     <Text style={{ fontWeight: 'bold', marginTop: 10, fontSize: 24,  color: '#33C3FF', textDecorationLine: 'underline' }}>

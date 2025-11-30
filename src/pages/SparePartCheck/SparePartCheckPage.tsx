@@ -439,11 +439,6 @@ const SparePartCheckPage = (props: any) => {
               <TouchableOpacity
                 activeOpacity={0.9}
                 onPress={() => {
-                  // router.Actions.push(ROUTE.WORKORDER_SPARE_PART_ADD, {
-                  //   orderId: props.profile.wk_ctr,
-                  //   componentVal: componentsValue,
-                  //   componentMasterVal: componentsMasterValue,
-                  // });
                   navigation.dispatch(StackActions.push(ROUTE.WORKORDER_SPARE_PART_ADD, {
                     orderId: props.profile.wk_ctr,
                     componentVal: componentsValue,

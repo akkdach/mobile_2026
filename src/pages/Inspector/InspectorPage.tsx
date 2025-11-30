@@ -824,9 +824,6 @@ const InspectorPage = (props: any) => {
                             if (route != null) {
                               route;
                             } else {
-                              // router.Actions.push(ROUTE.INSPECTOR_WORK_ITEM, {
-                              //   workDetail: JSON.stringify(val),
-                              // });
                               navigation.dispatch(StackActions.push(ROUTE.INSPECTOR_WORK_ITEM, {
                                 workDetail: JSON.stringify(val),
                               }));
@@ -1003,9 +1000,6 @@ const InspectorPage = (props: any) => {
                         if (route != null) {
                           route;
                         } else {
-                          // router.Actions.push(ROUTE.INSPECTOR_WORK_ITEM, {
-                          //   workDetail: JSON.stringify(val),
-                          // });
                           navigation.dispatch(StackActions.push(ROUTE.INSPECTOR_WORK_ITEM, {
                             workDetail: JSON.stringify(val),
                           }));

@@ -27,7 +27,7 @@ import {
 } from '../services/cockinService';
 import { updatedNotificationService } from '../services/notify';
 import { _getData } from '../utils/AsyncStorage';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, StackActions } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 const logo = require('../../assets/logo.png');
 const MainMenuPage = () => {
@@ -533,8 +533,9 @@ const MainMenuPage = () => {
                 return buildItemMenu(
                   item?.icon,
                   item?.title,
-                  // () => router.Actions.push(item?.route),
-                  () => navigation.navigate(item?.route),
+                  () => {
+                    navigation.dispatch(StackActions.push(item?.route))
+                  },
                   { fontSize: 14 },
                 );
               }
@@ -555,8 +556,7 @@ const MainMenuPage = () => {
                 spacing={20}
                 renderItem={({ item }) =>
                   buildItemMenu(item?.icon, item?.title, () =>
-                    // router.Actions.push(item.route),
-                    navigation.navigate(item?.route),
+                    navigation.dispatch(StackActions.push(item.route))
                   )
                 }
               />
@@ -575,8 +575,7 @@ const MainMenuPage = () => {
                 spacing={10}
                 renderItem={({ item }) =>
                   buildItemMenu(item?.icon, item?.title, () =>
-                    // navigation.navigate(item?.route),
-                    navigation.navigate(item?.route),
+                    navigation.dispatch(StackActions.push(item?.route))
                   )
                 }
               />

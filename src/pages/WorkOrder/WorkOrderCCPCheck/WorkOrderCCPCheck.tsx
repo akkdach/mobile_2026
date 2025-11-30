@@ -13,7 +13,7 @@ import Animated from 'react-native-reanimated';
 import {fetchCCPCheck} from '../../../services/workOrderCCP';
 import {customLog} from '../../../utils/CustomConsole';
 import {Controller, SubmitHandler, useForm} from 'react-hook-form';
-import * as router from 'react-native-router-flux';
+import {StackActions, useNavigation} from '@react-navigation/native';
 import { ROUTE } from '../../../constants/RoutePath';
 
 type Inputs = {
@@ -27,6 +27,7 @@ type InterfaceProps = {
 };
 
 const WorkOrderCCPCheck: FC<InterfaceProps> = (props: InterfaceProps) => {
+  const navigation = useNavigation();
   const { orderId } = props?.workOrderData
   const [stateForm, setStateForm] = useState({equipmentNo: ''});
   const [isVisibleModal, setIsVisibleModal] = useState(false);
@@ -53,7 +54,7 @@ const WorkOrderCCPCheck: FC<InterfaceProps> = (props: InterfaceProps) => {
   };
 
   const onGoToModalCheckOut = () => {
-    router.Actions.push(ROUTE.WORKORDERLIST, {checkoutData: { orderId, closeType: 2 }});
+    navigation.dispatch(StackActions.push(ROUTE.WORKORDERLIST, {checkoutData: { orderId, closeType: 2 }}));
   }
 
   const onClose = () => {

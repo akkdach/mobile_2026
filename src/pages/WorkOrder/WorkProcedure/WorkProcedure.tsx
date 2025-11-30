@@ -115,7 +115,6 @@ const WorkProcedurePage = (props: InterfaceProps) => {
           {
             text: 'ตกลง',
             onPress: async () => {
-              // router.Actions.pop();
               navigation.dispatch(StackActions.pop());
             },
           },
@@ -428,7 +427,6 @@ const WorkProcedurePage = (props: InterfaceProps) => {
                   _removeData({ key: 'startTimeTemp' + orderId });
                   Alert.alert('แจ้งเตือน', 'บันทึกข้อมูลสำเร็จ', [
                     { text: 'ตกลง', onPress: async () => {
-                      // router.Actions.pop();
                       navigation.dispatch(StackActions.pop());
                     } },
                   ]);

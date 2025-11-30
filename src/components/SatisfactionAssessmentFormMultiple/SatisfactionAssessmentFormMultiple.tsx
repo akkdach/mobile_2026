@@ -63,7 +63,6 @@ const SatisfactionAssessmentFormMultiplePage = (props: InterfaceProps) => {
       }else{
         Alert.alert('เตือน',result.message, [
           { text: 'ตกลง', onPress: async () => {
-            // router.Actions.pop()
             navigation.dispatch(StackActions.pop())
           } },
         ]);

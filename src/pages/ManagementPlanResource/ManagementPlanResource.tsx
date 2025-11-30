@@ -137,7 +137,6 @@ const ManagementPlanResourcePage: React.FC = (props: any) => {
           {
             text: 'ตกลง',
             onPress: async () => {
-              // router.Actions.pop();
               navigation.dispatch(StackActions.pop());
             },
           },

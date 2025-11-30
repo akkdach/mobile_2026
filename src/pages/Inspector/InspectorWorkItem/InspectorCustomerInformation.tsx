@@ -76,7 +76,6 @@ const InspectorCustomerInformation: React.FC<InspectorCustomerInformationProps> 
 
     const _onClickMapCustomer = () => {
         setStateVisibleModal(false);
-        // router.Actions.push(ROUTE.WORK_ORDER_MAP, {workOrderData: customerMas});
         navigation.dispatch(StackActions.push(ROUTE.WORK_ORDER_MAP, {workOrderData: customerMas}));
     };
   

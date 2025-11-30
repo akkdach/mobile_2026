@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import {BarCodeReadEvent} from 'react-native-camera';
 import {Card} from 'react-native-paper';
-import {Actions} from 'react-native-router-flux';
+import {StackActions, useNavigation} from '@react-navigation/native';
 import AppBar from '../../../components/AppBar';
 import Loading from '../../../components/loading';
 import Scanner from '../../../components/Scanner';
@@ -28,6 +28,7 @@ import sparePartCheckCss from './WorkOrderDeviceNumberCss';
 import { ScreenWidth } from 'react-native-elements/dist/helpers';
 
 const WorkOrderDeviceNumberPage: React.FC = (props: any) => {
+  const navigation = useNavigation();
   // console.log('props ====>', props.workOrderData.orderId);
   const [qrData, setQrData] = useState<string | undefined>('');
   const [scan, setScan] = useState(false);
@@ -99,7 +100,7 @@ const WorkOrderDeviceNumberPage: React.FC = (props: any) => {
               {
                 text: 'ปิด',
                 onPress: async () => {
-                  Actions.pop();
+                  navigation.dispatch(StackActions.pop());
                 },
               },
             ]);

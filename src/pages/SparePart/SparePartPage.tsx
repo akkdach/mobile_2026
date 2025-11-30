@@ -133,7 +133,6 @@ const SparePartPage: React.FC = () => {
       {ScreenWidth > 500 && <TouchableHighlight
         underlayColor="#fff"
         onPress={() => {
-          // router.Actions.push(menu.route, { profile: userProfile });
           navigation.dispatch(StackActions.push(menu.route, { profile: userProfile }));
         }}
         style={sparePartCss.flexListMenuItem}
@@ -150,7 +149,6 @@ const SparePartPage: React.FC = () => {
       {ScreenWidth <= 500 && <TouchableHighlight
         underlayColor="#fff"
         onPress={() => {
-          // router.Actions.push(menu.route, { profile: userProfile });
           navigation.dispatch(StackActions.push(menu.route, { profile: userProfile }));
         }}
         style={sparePartCss.flexListMenuItem2}
@@ -176,7 +174,6 @@ const SparePartPage: React.FC = () => {
       <TouchableHighlight
         underlayColor="#fff"
         onPress={() => {
-          // router.Actions.push(menu.route, { profile: userProfile });
           navigation.dispatch(StackActions.push(menu.route, { profile: userProfile }));
         }}
         style={isLargeScreen ? sparePartCss.flexListMenuItem : sparePartCss.flexListMenuItem2}

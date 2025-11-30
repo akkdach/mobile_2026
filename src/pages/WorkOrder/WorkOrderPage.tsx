@@ -395,18 +395,6 @@ const WorkOrderPage = (props: any) => {
         reset({ searchText: '' });
         const result = await _getData({ key: LocalStorageKey.userInfo });
         const userInformation = JSON.parse(result);
-        // router.Actions.push(ROUTE.WORKORDERLIST, {
-        //   backReloadPage: true,
-        //   orderId: row.orderId,
-        //   type: row.type,
-        //   objType: row.objType,
-        //   pmType: row.pmtype,
-        //   workCenter: userInformation?.wk_ctr,
-        //   orderTypeDescription: row.orderTypeDescription,
-        //   IsConnectivity: row?.isConnectivity,
-        //   errorMessage: row.errorMessage,
-        //   webStatus: row.webStatus,
-        // });
         navigation.dispatch(StackActions.push(ROUTE.WORKORDERLIST, {
           backReloadPage: true,
           orderId: row.orderId,
@@ -539,18 +527,6 @@ const WorkOrderPage = (props: any) => {
                 reset({ searchText: '' });
                 const result: any = await _getData({ key: LocalStorageKey.userInfo });
                 const userInformation = JSON.parse(result);
-                // router.Actions.push(ROUTE.WORKORDERLIST, {
-                //   backReloadPage: true,
-                //   orderId: row.orderId,
-                //   type: row.type,
-                //   objType: row.objType,
-                //   pmType: row.pmtype,
-                //   workCenter: userInformation?.wk_ctr,
-                //   orderTypeDescription: row.orderTypeDescription,
-                //   IsConnectivity: row?.isConnectivity,
-                //   errorMessage: row.errorMessage,
-                //   webStatus: row.webStatus,
-                // });
                 navigation.dispatch(StackActions.push(ROUTE.WORKORDERLIST, {
                   backReloadPage: true,
                   orderId: row.orderId,
@@ -1350,10 +1326,6 @@ const WorkOrderPage = (props: any) => {
                 style={[styles.btn, { height: 46, borderRadius: 10, width: screenInfo.width > 500 ? 200 : 100, backgroundColor: COLOR.primary, gap: 1 }]}
                 onPress={() => {
                   if (multipleOrderManage.length > 0) {
-                    // router.Actions.push(ROUTE.WORK_PROCEDURE_MULTIPLE, {
-                    //   orderId: multipleOrderManage[0].orderId,
-                    //   multipleOrderManage,
-                    // });
                     navigation.dispatch(StackActions.push(ROUTE.WORK_PROCEDURE_MULTIPLE, {
                       orderId: multipleOrderManage[0].orderId,
                       multipleOrderManage,
@@ -1376,7 +1348,6 @@ const WorkOrderPage = (props: any) => {
                         {
                           text: 'ตกลง',
                           onPress: async () => {
-                            // router.Actions.replace(ROUTE.START_WORK),
                             navigation.dispatch(StackActions.replace(ROUTE.START_WORK));
                           }
                         },
@@ -1385,14 +1356,6 @@ const WorkOrderPage = (props: any) => {
                     return;
                   } else {
                     if (multipleOrderManage.length > 0) {
-                      // router.Actions.push(
-                      //   ROUTE.SATISFACTION_ASSESSMENT_MULTIPLE_FORM_PAGE,
-                      //   {
-                      //     orderId: multipleOrderManage[0].orderId,
-                      //     multipleOrderManage,
-                      //     type: multipleOrderManage[0].type,
-                      //   },
-                      // );
                       navigation.dispatch(StackActions.push(
                         ROUTE.SATISFACTION_ASSESSMENT_MULTIPLE_FORM_PAGE,
                         {

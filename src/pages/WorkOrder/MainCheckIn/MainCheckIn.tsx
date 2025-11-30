@@ -4,22 +4,23 @@ import AppBar from '../../../components/AppBar';
 import BackGroundImage from '../../../components/BackGroundImage';
 import Loading from '../../../components/loading';
 import LocationMap from './LocationMap';
-import * as router from 'react-native-router-flux';
+import { StackActions, useNavigation } from '@react-navigation/native';
 import { ROUTE } from '../../../constants/RoutePath';
 const screenWidth = Dimensions.get('window').width;
 
 
-const menuItems = [
-    { title: 'เช็คอินร้าน', icon: '🏪', onPress: (data:any) =>router.Actions.push(ROUTE.WORK_PROCEDURE, {orderId:data.orderId})},
-    { title: 'เช็คอินเครื่อง', icon: '🧊', onPress: (data:any) =>router.Actions.push(ROUTE.CheckInEquipment,data) },
-    { title: 'Check CCP', icon: '✅', onPress: (data:any) =>router.Actions.push(ROUTE.WORK_ORDER_CCP_CHECK,{workOrderData:{orderId:data.orderId}}) },
+const getMenuItems = (navigation: any) => [
+    { title: 'เช็คอินร้าน', icon: '🏪', onPress: (data:any) => navigation.dispatch(StackActions.push(ROUTE.WORK_PROCEDURE, {orderId:data.orderId}))},
+    { title: 'เช็คอินเครื่อง', icon: '🧊', onPress: (data:any) => navigation.dispatch(StackActions.push(ROUTE.CheckInEquipment,data)) },
+    { title: 'Check CCP', icon: '✅', onPress: (data:any) => navigation.dispatch(StackActions.push(ROUTE.WORK_ORDER_CCP_CHECK,{workOrderData:{orderId:data.orderId}})) },
 ];
 type InterfaceProps = {
     orderId:string
     type?: string
 };
 
-const Contents = (props:any) => {
+const Contents = (props:any, navigation: any) => {
+    const menuItems = getMenuItems(navigation);
     // console.log('propsssssssssssssssssssssssssss',props);
     return (<>
         <View style={styles.container}>
@@ -35,11 +36,12 @@ const Contents = (props:any) => {
     </>)
 }
 const MainCheckIn = (props: InterfaceProps) => {
+    const navigation = useNavigation();
                 //   console.log('workOrderData',props.workOrderData);
     return (<>
         <AppBar title="เช็คอินร้าน"></AppBar>
         <BackGroundImage
-            components={<Animated.ScrollView>{Contents(props)}</Animated.ScrollView>}
+            components={<Animated.ScrollView>{Contents(props, navigation)}</Animated.ScrollView>}
         />
         {/* <Loading loading={isLoading} /> */}
     </>);

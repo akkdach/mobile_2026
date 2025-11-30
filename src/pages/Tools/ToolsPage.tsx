@@ -86,7 +86,6 @@ const ToolsPage = () => {
       <TouchableHighlight
         underlayColor="#fff"
         onPress={() => {
-          // router.Actions.push(menu.route, {profile: userProfile});
           navigation.dispatch(
             StackActions.push(menu.route, {profile: userProfile})
           );

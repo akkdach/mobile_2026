@@ -15,7 +15,8 @@ import {
     heightPercentageToDP as hp,
     widthPercentageToDP as wp
 } from 'react-native-responsive-screen';
-import { Actions, Lightbox } from 'react-native-router-flux';
+import { StackActions, useNavigation } from '@react-navigation/native';
+import Lightbox from 'react-native-lightbox';
 import AppBar from '../../../components/AppBar';
 import BackGroundImage from '../../../components/BackGroundImage';
 import Loading from '../../../components/loading';
@@ -33,6 +34,7 @@ type InterfaceProps = {
 };
 
 const ToolVanCheckListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
+  const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(false);
   const [componentsValue, setComponentsValue] = useState<ISparePartTOItem[]>(
     [],
@@ -112,7 +114,7 @@ const ToolVanCheckListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
                 {
                   text: 'ตกลง',
                   onPress: async () => {
-                    Actions.pop();
+                    navigation.dispatch(StackActions.pop());
                   },
                 },
               ]);
@@ -133,7 +135,7 @@ const ToolVanCheckListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
         {
           text: 'ตกลง',
           onPress: async () => {
-            Actions.pop();
+            navigation.dispatch(StackActions.pop());
           },
         },
       ]);
@@ -304,7 +306,7 @@ const ToolVanCheckListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
                 {
                   text: 'ตกลง',
                   onPress: async () => {
-                    Actions.pop();
+                    navigation.dispatch(StackActions.pop());
                   },
                 },
               ]);

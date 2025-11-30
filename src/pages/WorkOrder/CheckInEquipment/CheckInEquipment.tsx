@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet, Animated, Alert } from 'react-native';
 import { useForm, Controller } from 'react-hook-form';
-import { useNavigation } from '@react-navigation/native';
 import { Icon } from '@ant-design/react-native';
 import QRScannerModal from './QRScannerModal';
 import BackGroundImage from '../../../components/BackGroundImage';
@@ -12,7 +11,7 @@ import CheckBoxIcon from 'react-native-elements/dist/checkbox/CheckBoxIcon';
 import DropdownSelect from '../../../components/DropdownSelect';
 import { COLOR } from '../../../constants/Colors';
 import Loading from '../../../components/loading';
-import * as router from 'react-native-router-flux';
+import { StackActions, useNavigation } from '@react-navigation/native';
 import { ROUTE } from '../../../constants/RoutePath';
 type InterfaceProps = {
     orderId: string,
@@ -20,6 +19,7 @@ type InterfaceProps = {
 };
 
 const CheckInEquipment = (props: InterfaceProps) => {
+    const navigation = useNavigation();
     const [originalEquipment, setOriginalEquipment] = useState<any>();
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const { control, handleSubmit, getValues, setValue } = useForm();
@@ -52,7 +52,7 @@ const CheckInEquipment = (props: InterfaceProps) => {
         setIsLoading(false);
         if (result.isSuccess) {
             Alert.alert('ดำเนินการสำเร็จ');
-            router.Actions.pop()
+            navigation.dispatch(StackActions.pop())
         } else {
             Alert.alert(result.message)
         }
@@ -190,7 +190,9 @@ const CheckInEquipment = (props: InterfaceProps) => {
                     <TouchableOpacity style={styles.submitButton} onPress={handleSubmit(onSubmit)}>
                         <Text style={styles.buttonText}>ยืนยัน</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.cancelButton} onPress={() => router.Actions.push(ROUTE.MainCheckIn, props)}>
+                    <TouchableOpacity style={styles.cancelButton} onPress={() => {
+                        navigation.dispatch(StackActions.push(ROUTE.MainCheckIn, props))
+                    }}>
                         <Text style={styles.buttonText}>ยกเลิก</Text>
                     </TouchableOpacity>
                 </View>
