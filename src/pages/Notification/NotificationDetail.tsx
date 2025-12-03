@@ -7,6 +7,8 @@ import {COLOR} from '../../constants/Colors';
 import {Fonts} from '../../constants/fonts';
 
 const NotificationDetail = (props: any) => {
+  const { notification } = props.route.params;
+  
   const Contents = () => {
     return (
       // <ScrollView>
@@ -39,8 +41,8 @@ const NotificationDetail = (props: any) => {
             </View>
           </View> */}
 
-        {props.notification.type === 'file' ? (
-          renderPDF(props.notification.value)
+        {notification.type === 'file' ? (
+          renderPDF(notification.value)
         ) : (
           <ScrollView
             style={{
@@ -48,7 +50,7 @@ const NotificationDetail = (props: any) => {
               height: Dimensions.get('window').height,
             }}>
             <View style={{...styles.container}}>
-              <Text style={styles.textStyle}>{props.notification.value}</Text>
+              <Text style={styles.textStyle}>{notification.value}</Text>
             </View>
           </ScrollView>
         )}
@@ -58,7 +60,7 @@ const NotificationDetail = (props: any) => {
   };
 
   const renderNotificationDetail = () => {
-    return [<AppBar title={props.notification.title}></AppBar>, Contents()];
+    return [<AppBar title={notification.title}></AppBar>, Contents()];
   };
 
   const renderPDF = (value: string) => {
@@ -71,6 +73,7 @@ const NotificationDetail = (props: any) => {
         <View style={{flex: 1}}>
           <Pdf
             source={{uri: value}}
+            trustAllCerts={false}
             onLoadComplete={(numberOfPages, filePath) => {
               console.log(`number of pages: ${numberOfPages}`);
             }}
