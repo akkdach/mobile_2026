@@ -20,6 +20,7 @@ type Inputs = {
 const screenHeight = Dimensions.get('window').height;
 
 const SparePartBalancePage: React.FC = (props: any) => {
+  const { profile } = props.route.params;
   const { control, watch } = useForm<Inputs>();
   const [isLoading, setIsLoading] = useState(false);
   const [sparePartBalance, setSparePartBalance] = useState<
@@ -111,10 +112,10 @@ const SparePartBalancePage: React.FC = (props: any) => {
     <>
       {ScreenWidth > 1 ? <AppBar
         title="อะไหล่คงเหลือ"
-        rightTitle={`Work Center: ${props.profile.wk_ctr}`}></AppBar> :
+        rightTitle={`Work Center: ${profile.wk_ctr}`}></AppBar> :
         <AppBar
           title="อะไหล่คงเหลือ"
-          rightTitle={`WC: ${props.profile.wk_ctr}`}></AppBar>
+          rightTitle={`WC: ${profile.wk_ctr}`}></AppBar>
       }
       <ImageBackground
         key={'ImageBackground'}

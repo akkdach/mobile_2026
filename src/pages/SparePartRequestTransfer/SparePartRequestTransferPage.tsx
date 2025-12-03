@@ -34,10 +34,6 @@ import MaterialModalCard from './MaterialModalCard';
 import { useNavigation, StackActions } from '@react-navigation/native'
 
 const defaultImage = require('../../../assets/images/default.jpeg');
-type InterfaceProps = {
-  profile: any;
-  componentStorageSelected?: [];
-};
 
 const getUniqueListBy = (arr: any[], key: string) => {
   return [...new Map(arr.map(item => [item[key], item])).values()];
@@ -45,9 +41,8 @@ const getUniqueListBy = (arr: any[], key: string) => {
 
 const screenHeight = Dimensions.get('window').height;
 
-const SparePartRequestTransferPage: FC<InterfaceProps> = (
-  props: InterfaceProps,
-) => {
+const SparePartRequestTransferPage = (props) => {
+  const { profile, componentStorageSelected } = props.route.params
   const [visible, setVisible] = useState(false);
   const [componentsMasterValue, setComponentsMasterValue] = useState<
     ISparePartRequest[]
@@ -101,9 +96,8 @@ const SparePartRequestTransferPage: FC<InterfaceProps> = (
   }, []);
 
   useEffect(() => {
-    if (props.componentStorageSelected) {
-      console.log(props.componentStorageSelected);
-      const componentStorage = props.componentStorageSelected;
+    if (componentStorageSelected) {
+      const componentStorage = componentStorageSelected;
       const newComponent: any = componentStorage.map(
         (item: ISparePartRequest) => {
           return {
@@ -131,7 +125,7 @@ const SparePartRequestTransferPage: FC<InterfaceProps> = (
         );
       });
     }
-  }, [props.componentStorageSelected]);
+  }, [componentStorageSelected]);
 
   const DrawHorizontalWidget = () => {
     return (
@@ -152,8 +146,8 @@ const SparePartRequestTransferPage: FC<InterfaceProps> = (
 
   const addRetrive = () => {
     setComponentByItem((previousValue: ISparePartRequest) => {
-      if (props.componentStorageSelected) {
-        const findStorage: any = props.componentStorageSelected.find(
+      if (componentStorageSelected) {
+        const findStorage: any = componentStorageSelected.find(
           (val: any) => val.material === previousValue.material,
         );
         if (findStorage && previousValue.quantity >= findStorage.maxQuantity) {
@@ -381,7 +375,7 @@ const SparePartRequestTransferPage: FC<InterfaceProps> = (
                   return;
                 }
                 navigation.dispatch(StackActions.push(ROUTE.SPARE_PART_ADD_REQUEST_TRANSFER, {
-                  profile: props.profile,
+                  profile: profile,
                   stge_loc: selectTransferTo,
                   componentVal: componentsValue,
                   componentMasterVal: componentsMasterValue,
@@ -661,7 +655,7 @@ const removeItemByIndex = (targetIndex: number) => {
       {_buildModalSparePart()}
       <AppBar
         title="ขอโอนอะไหล่"
-        rightTitle={`${props.profile.wk_ctr}`}
+        rightTitle={`${profile.wk_ctr}`}
         replacePath={ROUTE.SPARE_PART}></AppBar>
       {SparePartModal()}
       

@@ -39,7 +39,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 type InterfaceProps = {
-  profile: any;
+  route: any;
   componentStorageSelected?: [];
 };
 
@@ -48,6 +48,7 @@ const screenHeight = Dimensions.get('window').height;
 const SparePartRequestTransferApprovePage: FC<InterfaceProps> = (
   props: InterfaceProps,
 ) => {
+  const { profile } = props.route.params;
   const [visibleDialog, setVisible] = useState(false);
   const [SparePartRequestHD, setSparePartRequestHD] = useState<ISparePartRequestHD[]>([],);
   const [SparePartRequestHDDetail, setSparePartRequestHDDetail] = useState<ISparePartRequestHD>();
@@ -477,7 +478,7 @@ const SparePartRequestTransferApprovePage: FC<InterfaceProps> = (
           <>
             <AppBar
               title="อนุมัติขอโอนอะไหล่"
-              rightTitle={`${props.profile?.wk_ctr}`}
+              rightTitle={`${profile?.wk_ctr}`}
               replacePath={ROUTE.WORKLIST}></AppBar>
             {renderTable()}
 

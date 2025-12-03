@@ -12,20 +12,21 @@ type InterfaceProps = {
   knowledgeInfo: {type: string; value: string; title: string};
 };
 
-const KnowledgePreviewPage: React.FC<InterfaceProps> = props => {
+const KnowledgePreviewPage = props => {
+  const knowledgeInfo: InterfaceProps['knowledgeInfo'] = props.route.params.knowledgeInfo;
   const [isLoading, setIsLoading] = useState(false);
-  const [fileUrl, setFileUrl] = useState(props.knowledgeInfo.value);
+  const [fileUrl, setFileUrl] = useState(knowledgeInfo.value);
   const [videoWidth, setVideoWidth] = useState(Dimensions.get('window').width);
   const [videoHeight, setVideoHeight] = useState(
     Dimensions.get('window').height,
   );
 
   useEffect(() => {
-    setFileUrl(props.knowledgeInfo.value);
+    setFileUrl(knowledgeInfo.value);
   }, []);
 
   useEffect(() => {
-    if (props.knowledgeInfo.type !== 'file') {
+    if (knowledgeInfo.type !== 'file') {
       Orientation.unlockAllOrientations();
       Orientation.addOrientationListener((orientation: OrientationType) => {
         if (
@@ -54,8 +55,8 @@ const KnowledgePreviewPage: React.FC<InterfaceProps> = props => {
       <Animated.View>
         <View style={{width: '100%'}}>
           <AppBar
-            title={`แหล่งความรู้ - ${props.knowledgeInfo.title}`}></AppBar>
-          {props.knowledgeInfo.type === 'file' && (
+            title={`แหล่งความรู้ - ${knowledgeInfo.title}`}></AppBar>
+          {knowledgeInfo.type === 'file' && (
             <ScrollView>
               <Pdf
                 source={{uri: fileUrl}}
@@ -80,7 +81,7 @@ const KnowledgePreviewPage: React.FC<InterfaceProps> = props => {
               />
             </ScrollView>
           )}
-          {props.knowledgeInfo.type !== 'file' && (
+          {knowledgeInfo.type !== 'file' && (
             <>
               <Video
                 source={{

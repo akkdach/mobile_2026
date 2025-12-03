@@ -16,6 +16,7 @@ type Inputs = {
 const screenHeight = Dimensions.get('window').height;
 
 const ToolsBalancePage: React.FC = (props: any) => {
+  const { profile } = props.route.params;
   const {control, watch} = useForm<Inputs>();
   const [isLoading, setIsLoading] = useState(false);
   const [toolsBalance, setToolsBalance] = useState<
@@ -97,7 +98,7 @@ const ToolsBalancePage: React.FC = (props: any) => {
     <>
       <AppBar
         title="เครื่องมือคงเหลือ"
-        rightTitle={`Work Center: ${props.profile.wk_ctr}`}></AppBar>
+        rightTitle={`Work Center: ${profile.wk_ctr}`}></AppBar>
       <ImageBackground
         key={'ImageBackground'}
         style={{

@@ -32,18 +32,14 @@ import {ellipsis} from '../../../utils/helper';
 import {styleSm,styleLg} from './ToolRequestTransferCss';
 import { useNavigation, StackActions } from '@react-navigation/native'
 
-type InterfaceProps = {
-  profile: any;
-  componentStorageSelected?: [];
-};
-
 const getUniqueListBy = (arr: any[], key: string) => {
   return [...new Map(arr.map(item => [item[key], item])).values()];
 };
 
 const screenHeight = Dimensions.get('window').height;
 
-const ToolRequestTransferPage: FC<InterfaceProps> = (props: InterfaceProps) => {
+const ToolRequestTransferPage = (props) => {
+  const { profile, componentStorageSelected } = props.route.params;
   const [visible, setVisible] = useState(false);
   const [componentsMasterValue, setComponentsMasterValue] = useState<
     ISparePartRequest[]
@@ -96,8 +92,8 @@ const ToolRequestTransferPage: FC<InterfaceProps> = (props: InterfaceProps) => {
   }, []);
 
   useEffect(() => {
-    if (props.componentStorageSelected) {
-      const componentStorage = props.componentStorageSelected;
+    if (componentStorageSelected) {
+      const componentStorage = componentStorageSelected;
       console.log('componentStorage::', componentStorage);
       const newComponent: any = componentStorage.map(
         (item: ISparePartRequest) => {
@@ -125,7 +121,7 @@ const ToolRequestTransferPage: FC<InterfaceProps> = (props: InterfaceProps) => {
         );
       });
     }
-  }, [props.componentStorageSelected]);
+  }, [componentStorageSelected]);
 
   const DrawHorizontalWidget = () => {
     return (
@@ -146,8 +142,8 @@ const ToolRequestTransferPage: FC<InterfaceProps> = (props: InterfaceProps) => {
 
   const addRetrive = () => {
     setComponentByItem((previousValue: ISparePartRequest) => {
-      if (props.componentStorageSelected) {
-        const findStorage: any = props.componentStorageSelected.find(
+      if (componentStorageSelected) {
+        const findStorage: any = componentStorageSelected.find(
           (val: any) => val.material === previousValue.material,
         );
         if (findStorage && previousValue.quantity >= findStorage.maxQuantity) {
@@ -369,7 +365,7 @@ const ToolRequestTransferPage: FC<InterfaceProps> = (props: InterfaceProps) => {
                 }
                 navigation.dispatch(
                   StackActions.push(ROUTE.TOOLS_ADD_REQUEST_TRANSFER, {
-                    profile: props.profile,
+                    profile: profile,
                     stge_loc: selectTransferTo,
                     componentVal: componentsValue,
                     componentMasterVal: componentsMasterValue,
@@ -633,7 +629,7 @@ const ToolRequestTransferPage: FC<InterfaceProps> = (props: InterfaceProps) => {
           <>
             <AppBar
               title="ขอโอนเครื่องมือ"
-              rightTitle={`${props.profile.wk_ctr}`}
+              rightTitle={`${profile.wk_ctr}`}
               replacePath={ROUTE.TOOLS}></AppBar>
             {SparePartModal()}
             {Search()}

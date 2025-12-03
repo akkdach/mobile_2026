@@ -244,7 +244,7 @@ const ManagementPlanResourcePage: React.FC = (props: any) => {
                 <Text style={styles.dataTableTitle}>ZONE</Text>
               </DataTable.Title>
             </DataTable.Header>
-            {vanManagement.map((val: VanManagementModels, index: any) => {
+            {vanManagement && vanManagement.map((val: VanManagementModels, index: any) => {
               return <DataTable.Row key={`van-management-${index}`}>
                 <DataTable.Cell style={styles.dataTable_cell_center}>
                   <View >
