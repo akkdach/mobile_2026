@@ -30,13 +30,8 @@ import {
 
 const screenHeight = Dimensions.get('window').height;
 
-interface Props {
-  profile: {
-    wk_ctr: string;
-  };
-}
-
 const ToolTransferPage: React.FC<Props> = props => {
+  const { profile } = props.route.params;
   const [isLoading, setIsLoading] = useState(false);
   const [selectTransferTo, setSelectTransferTo] = useState<string>('');
   const [selectTransferRequestTo, setSelectTransferRequestTo] =
@@ -468,7 +463,7 @@ const ToolTransferPage: React.FC<Props> = props => {
           <>
             <AppBar
               title="โอนเครื่องมือ"
-              rightTitle={`${props.profile.wk_ctr}`}></AppBar>
+              rightTitle={`${profile.wk_ctr}`}></AppBar>
             {Search()}
             {SearchTONumber()}
             {ToolDataTable()}

@@ -24,9 +24,10 @@ type Inputs = {
   searchTool: string;
 };
 
-const ToolStoreTransferCheckPage: React.FC<InterfaceProps> = (
-  props: InterfaceProps,
+const ToolStoreTransferCheckPage = (
+  props,
 ) => {
+  const { vanTo, profile } = props.route.params;
   const {control, getValues, reset, watch} = useForm<Inputs>();
   const [isLoading, setIsLoading] = useState(false);
   const [filterTool, setFilterTool] = useState<
@@ -58,7 +59,7 @@ const ToolStoreTransferCheckPage: React.FC<InterfaceProps> = (
     try {
       const result = await postSparePartTransferStore(
         'get',
-        props.vanTo,
+        vanTo,
         'tool',
       );
       if (
@@ -94,7 +95,7 @@ const ToolStoreTransferCheckPage: React.FC<InterfaceProps> = (
     try {
       const response = await postSparePartTransferStore(
         'receive',
-        props.vanTo,
+        vanTo,
         'tool',
       );
       Alert.alert('แจ้งเตือน', response.message, [
@@ -333,7 +334,7 @@ const ToolStoreTransferCheckPage: React.FC<InterfaceProps> = (
           <>
             <AppBar
               title="รับเครื่องมือสโตร์"
-              rightTitle={`Work Center: ${props.profile.wk_ctr}`}></AppBar>
+              rightTitle={`Work Center: ${profile.wk_ctr}`}></AppBar>
             {Search()}
             {SpareParts()}
             {SparePartFooter()}

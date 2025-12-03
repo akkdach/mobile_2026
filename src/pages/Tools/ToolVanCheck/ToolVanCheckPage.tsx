@@ -24,11 +24,8 @@ import {
   fetchSparePartTransferRequest
 } from '../../../services/sparePart';
 
-type InterfaceProps = {
-  profile: any;
-};
-
-const ToolVanCheckPage: FC<InterfaceProps> = (props: InterfaceProps) => {
+const ToolVanCheckPage = (props) => {
+  const { profile } = props.route.params;
   const [selectReceiveTransferFrom, setSelectReceiveTransferFrom] = useState<
     string | undefined
   >();
@@ -185,7 +182,7 @@ const ToolVanCheckPage: FC<InterfaceProps> = (props: InterfaceProps) => {
           selectReceiveTransferFrom: selectReceiveTransferFrom as string,
           toNumbers,
         },
-        profile: props.profile,
+        profile: profile,
       }));
       setValueSelectsItem([]);
     }
@@ -339,7 +336,7 @@ const ToolVanCheckPage: FC<InterfaceProps> = (props: InterfaceProps) => {
           <>
             <AppBar
               title="รับเครื่องมือจาก Mobile Van"
-              rightTitle={`${props.profile.wk_ctr}`}></AppBar>
+              rightTitle={`${profile.wk_ctr}`}></AppBar>
             {Search()}
             {DrawHorizontalWidget()}
             {BuildModalDrawer()}
