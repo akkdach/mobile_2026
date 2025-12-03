@@ -772,7 +772,7 @@ const stylesSM = StyleSheet.create({
   listMenu:{
     height:'auto',
     width:'96%',
-
+    paddingBottom: 100
   },
   btn: {
     width: 250,

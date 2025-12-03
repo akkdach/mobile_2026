@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export const convertDateToThaiMonthDayThai = (date: any, format: any = 1) => {
   const thday = new Array(
     'อาทิตย์',
@@ -25,7 +27,7 @@ export const convertDateToThaiMonthDayThai = (date: any, format: any = 1) => {
   );
 
   const now = new Date(
-    (typeof date === 'string' ? new Date(date) : date).toLocaleString('en-US', {
+    (typeof date === 'string' ? moment(date) : date).toLocaleString('en-US', {
       timeZone: 'Asia/Bangkok',
     }),
   );

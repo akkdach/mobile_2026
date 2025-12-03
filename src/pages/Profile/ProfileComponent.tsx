@@ -18,7 +18,6 @@ const user = {
 
 const ProfileComponent = () => {
     const [changePasswordVisible, setChangePasswordVisible] = useState<boolean>()
-    const {} = useuser
     const handleResetPassword = () => {
         // ใส่ logic สำหรับ reset password ที่นี่
         setChangePasswordVisible(true);
