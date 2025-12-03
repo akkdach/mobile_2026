@@ -76,4 +76,7 @@ export const ROUTE = {
   MainCheckIn: 'MainCheckIn',
   CheckInEquipment: 'CheckInEquipment',
   RecommendPartsScreen: 'RecommendPartsScreen',
+  SYNC_WORKORDER: 'syncWorkOrder',
+  APP_MAIN: 'appMain',
+  LANDING: 'landing',
 };

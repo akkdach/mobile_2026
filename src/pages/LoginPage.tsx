@@ -12,6 +12,7 @@ import { myErrorHandler } from '../constants/myErrorHandler';
 import { signIn, updateTokenNotify } from '../services/auth';
 import { _getData, _storeData } from '../utils/AsyncStorage';
 import { StackActions, useNavigation } from '@react-navigation/native';
+import { ROUTE } from '../constants/RoutePath';
 //const logo = require('../../assets/images/logo.png');
 //const landing = require('../../assets/images/landing.png');
 const landing = require('../../assets/images/wallpaper_mobile.png');
@@ -63,7 +64,7 @@ const LoginPage = () => {
         })
         .catch(console.log);
         navigation.dispatch(
-          StackActions.replace('appMain')
+          StackActions.replace(ROUTE.APP_MAIN)
         );
     } catch (error: any) {
       setError(myErrorHandler(error));

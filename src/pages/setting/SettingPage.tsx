@@ -43,18 +43,15 @@ const SettingPage = () => {
 
   const _Logout = async () => {
     signOut();
-    // router.Actions.replace('login');
-    navigation.dispatch(StackActions.replace('Login'));
+    navigation.dispatch(StackActions.replace(ROUTE.LOGIN));
   };
 
   const navigate = (route: any) => {
-    // router.Actions.push(route);
     navigation.dispatch(StackActions.push(route));
   };
 
   const _syncWorkOrder = async () => {
-    // router.Actions.push('syncWorkOrder');
-    navigation.dispatch(StackActions.push('visitSettingWorkOrderPage' ));
+    navigation.dispatch(StackActions.push(ROUTE.SYNC_WORKORDER));
   };
 
 

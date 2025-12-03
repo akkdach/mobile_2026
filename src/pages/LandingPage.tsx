@@ -3,6 +3,7 @@ import {StyleSheet, Image, Animated, View} from 'react-native';
 import styleSheet from '../components/StyleSheet';
 import {isSignedIn} from '../services/auth';
 import { useNavigation, StackActions } from '@react-navigation/native';
+import { ROUTE } from '../constants/RoutePath';
 
 const logo = require('../../assets/images/logo.png');
 const landing = require('../../assets/images/landing.png');
@@ -15,11 +16,11 @@ const LandingPage = () => {
       const isLogin = await isSignedIn();
       if (isLogin) {
         navigation.dispatch(
-          StackActions.replace('appMain')
+          StackActions.replace(ROUTE.APP_MAIN)
         );
       } else {
         navigation.dispatch(
-          StackActions.replace('Login')
+          StackActions.replace(ROUTE.LOGIN)
         );
       }
     }

@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { View, StyleSheet, Image, Animated } from 'react-native';
 import { useNavigation, StackActions } from '@react-navigation/native';
+import { ROUTE } from '../constants/RoutePath';
 
 const FadeInView = () => {
     const navigation = useNavigation();
 
     useEffect(() => {
         setTimeout(() => {
-            // router.Actions.replace('login');
-            navigation.dispatch(StackActions.replace('Login'));
+            navigation.dispatch(StackActions.replace(ROUTE.LOGIN));
         }, 3500);
     }, [navigation]);
 
