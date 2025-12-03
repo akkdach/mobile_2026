@@ -1,7 +1,7 @@
 import { ActivityIndicator, Button } from '@ant-design/react-native';
 import React, { useEffect, useRef, useState } from 'react';
 import { Controller, SubmitHandler, useForm } from 'react-hook-form';
-import { Animated, Dimensions, Image, Keyboard, StyleSheet, Text, View } from 'react-native';
+import { Animated, Dimensions, Image, Keyboard, StyleSheet, Text, View, ImageBackground } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import VersionInfo from 'react-native-version-info';
 import Loading from '../components/loading';
@@ -109,105 +109,111 @@ const LoginPage = () => {
     <>
       <Animated.View style={[styles.container, {opacity: fadeInAnim}]}>
         <View style={styles.container}>
-          <Image style={styles.backgroundImage} source={landing} />
-          <View style={styles.loginForm}>
-            <View style={styles.card}>
-              {/* <Image style={styles.logo} source={logo} /> */}
-              <View style={{flexDirection: 'column', justifyContent: 'center', marginTop:100  }}>
-                {/* <View style={[styles.title, {marginBottom:23}]}>
-                  <Text style={styles.text_header}> เข้าสู่ระบบ</Text>
-                </View> */}
-                <View style={{flex: 1, marginTop: 60}}>
-                  <View style={styles.inputWrapper}>
-                    <Controller
-                      control={control}
-                      render={({field: {onChange, onBlur, value}}) => (
-                        <TextInput
-                          style={styles.input}
-                          placeholderTextColor="white"
-                          underlineColorAndroid="transparent"
-                          value={value}
-                          onBlur={onBlur}
-                          onChangeText={value => onChange(value)}
-                          placeholder="รหัสพนักงาน"
-                        />
-                      )}
-                      name="username"
-                      rules={{required: true}}
-                      defaultValue=""
-                    />
+          {/* <Image style={styles.backgroundImage} source={landing} /> */}
+          <ImageBackground 
+            source={landing} 
+            style={styles.backgroundImage} 
+            resizeMode='cover'
+          >
+            <View style={styles.loginForm}>
+              <View style={styles.card}>
+                {/* <Image style={styles.logo} source={logo} /> */}
+                <View style={{flexDirection: 'column', justifyContent: 'center', marginTop:100  }}>
+                  {/* <View style={[styles.title, {marginBottom:23}]}>
+                    <Text style={styles.text_header}> เข้าสู่ระบบ</Text>
+                  </View> */}
+                  <View style={{flex: 1, marginTop: 60}}>
+                    <View style={styles.inputWrapper}>
+                      <Controller
+                        control={control}
+                        render={({field: {onChange, onBlur, value}}) => (
+                          <TextInput
+                            style={styles.input}
+                            placeholderTextColor="white"
+                            underlineColorAndroid="transparent"
+                            value={value}
+                            onBlur={onBlur}
+                            onChangeText={value => onChange(value)}
+                            placeholder="รหัสพนักงาน"
+                          />
+                        )}
+                        name="username"
+                        rules={{required: true}}
+                        defaultValue=""
+                      />
+                    </View>
                   </View>
-                </View>
-                <View style={{flex: 1}}>
-                  <View style={styles.inputWrapper}>
-                    <Controller
-                      control={control}
-                      render={({field: {onChange, onBlur, value}}) => (
-                        <TextInput
-                          ref={_ref => {
-                            ref.current = _ref;
-                          }}
-                          secureTextEntry={secured}
-                          style={[styles.input, {fontFamily: 'Prompt-Medium'}]}
-                          value={value}
-                          onBlur={onBlur}
-                          onChangeText={value => onChange(value)}
-                          placeholder="รหัสผ่าน"
-                          placeholderTextColor="white"
-                          underlineColorAndroid="transparent"
-                        />
-                      )}
-                      name="password"
-                      rules={{required: true}}
-                      defaultValue=""
-                    />
+                  <View style={{flex: 1}}>
+                    <View style={styles.inputWrapper}>
+                      <Controller
+                        control={control}
+                        render={({field: {onChange, onBlur, value}}) => (
+                          <TextInput
+                            ref={_ref => {
+                              ref.current = _ref;
+                            }}
+                            secureTextEntry={secured}
+                            style={[styles.input, {fontFamily: 'Prompt-Medium'}]}
+                            value={value}
+                            onBlur={onBlur}
+                            onChangeText={value => onChange(value)}
+                            placeholder="รหัสผ่าน"
+                            placeholderTextColor="white"
+                            underlineColorAndroid="transparent"
+                          />
+                        )}
+                        name="password"
+                        rules={{required: true}}
+                        defaultValue=""
+                      />
+                    </View>
+                    <View style={{alignItems: 'center'}}>
+                      <Text
+                        style={[styles.textMd,{
+                          color: COLOR.neonRed,
+                          fontFamily: Fonts.Prompt_Medium,
+                        }]}>
+                        {error ?? error}
+                      </Text>
+                    </View>
                   </View>
-                  <View style={{alignItems: 'center'}}>
-                    <Text
-                      style={[styles.textMd,{
-                        color: COLOR.neonRed,
-                        fontFamily: Fonts.Prompt_Medium,
-                      }]}>
-                      {error ?? error}
-                    </Text>
+                  <View style={{flex: 1, alignItems: 'center',marginBottom:0}}>
+                    <Button
+                      activeOpacity={0.9}
+                      style={[styles.inputext]}
+                      onPress={handleSubmit(onSubmit)}>
+                      <Text
+                        style={[styles.textMD,{
+                          color: 'white',
+                          fontFamily: Fonts.Prompt_Light,
+                        }]}>
+                        เข้าสู่ระบบ
+                      </Text>
+                    </Button>
                   </View>
-                </View>
-                <View style={{flex: 1, alignItems: 'center',marginBottom:0}}>
-                  <Button
-                    activeOpacity={0.9}
-                    style={[styles.inputext]}
-                    onPress={handleSubmit(onSubmit)}>
-                    <Text
-                      style={[styles.textMD,{
-                        color: 'white',
-                        fontFamily: Fonts.Prompt_Light,
-                      }]}>
-                      เข้าสู่ระบบ
-                    </Text>
-                  </Button>
                 </View>
               </View>
             </View>
-          </View>
-          <View
-            style={{position: 'absolute', bottom: 1.5, left: '65%', margin: 14}}>
-            <Text
-              style={{
-                fontFamily: Fonts.Prompt_Light,
-                color: COLOR.gray,
-                fontSize: 15,
-              }}>
-              Version {VersionInfo.appVersion}.{VersionInfo.buildVersion}
-            </Text>
-            {/* <Text
-              style={{
-                fontFamily: Fonts.Prompt_Light,
-                color: COLOR.gray,
-                fontSize: 18,
-              }}>
-              Provided By Microsoft Azure
-            </Text> */}
-          </View>
+            <View
+              style={{position: 'absolute', bottom: 1.5, left: '65%', margin: 14}}>
+              <Text
+                style={{
+                  fontFamily: Fonts.Prompt_Light,
+                  color: COLOR.gray,
+                  fontSize: 15,
+                }}>
+                Version {VersionInfo.appVersion}.{VersionInfo.buildVersion}
+              </Text>
+              {/* <Text
+                style={{
+                  fontFamily: Fonts.Prompt_Light,
+                  color: COLOR.gray,
+                  fontSize: 18,
+                }}>
+                Provided By Microsoft Azure
+              </Text> */}
+            </View>
+          </ImageBackground>
         </View>
       </Animated.View>
       <Loading loading={isLoading} />
@@ -320,12 +326,14 @@ const stylesSM = StyleSheet.create({
     width:'100%',
     justifyContent: 'center',
     alignItems: 'center',
-    
+
   },
   backgroundImage: {
-    width: '100%',
-    flex: 1,
-    resizeMode: 'cover', // or 'stretch'
+    // width: '100%',
+    // flex: 1,
+    // resizeMode: 'cover', // or 'stretch'
+    width: Dimensions.get('window').width,
+    height: Dimensions.get('window').height,
   },
   loginForm: {
     position: 'absolute',
