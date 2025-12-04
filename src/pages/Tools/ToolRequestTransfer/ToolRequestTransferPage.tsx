@@ -32,6 +32,11 @@ import {ellipsis} from '../../../utils/helper';
 import {styleSm,styleLg} from './ToolRequestTransferCss';
 import { useNavigation, StackActions } from '@react-navigation/native'
 
+interface Params {
+  profile: any;
+  componentStorageSelected?: [];
+};
+
 const getUniqueListBy = (arr: any[], key: string) => {
   return [...new Map(arr.map(item => [item[key], item])).values()];
 };
@@ -39,7 +44,7 @@ const getUniqueListBy = (arr: any[], key: string) => {
 const screenHeight = Dimensions.get('window').height;
 
 const ToolRequestTransferPage = (props) => {
-  const { profile, componentStorageSelected } = props.route.params;
+  const { profile, componentStorageSelected } = props.route.params as Params;
   const [visible, setVisible] = useState(false);
   const [componentsMasterValue, setComponentsMasterValue] = useState<
     ISparePartRequest[]

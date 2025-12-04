@@ -15,7 +15,7 @@ import {FullArrayTextSearch} from '../../../utils/FullTextSearch';
 import styles from './ToolStoreTransferCss';
 import { useNavigation, StackActions } from '@react-navigation/native'
 
-type InterfaceProps = {
+interface Params {
   vanTo: string;
   profile: LoginResponseInterface;
 };
@@ -27,7 +27,7 @@ type Inputs = {
 const ToolStoreTransferCheckPage = (
   props,
 ) => {
-  const { vanTo, profile } = props.route.params;
+  const { vanTo, profile } = props.route.params as Params;
   const {control, getValues, reset, watch} = useForm<Inputs>();
   const [isLoading, setIsLoading] = useState(false);
   const [filterTool, setFilterTool] = useState<

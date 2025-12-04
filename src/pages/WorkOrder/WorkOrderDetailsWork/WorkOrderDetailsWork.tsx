@@ -53,11 +53,15 @@ type InterfaceProps = {
   webStatus: string;
 };
 
-const WorkOrderDetailsWorkPage = (props: { workOrderData: InterfaceProps }) => {
-  // console.log('props.workOrderData.type::', props.workOrderData.type)
+interface Params {
+  workOrderData: InterfaceProps;
+}
+
+const WorkOrderDetailsWorkPage = (props) => {
+  const params = props.route.params as Params;
   const [isLoading, setIsLoading] = useState(false);
   const [workTimeLeft, setWorkTimeLeft] = useState<any>();
-  const { orderId, workCenter } = props?.workOrderData;
+  const { orderId, workCenter } = params?.workOrderData;
   const [visibleModal, setStateVisibleModal] = useState(false);
   const [lastDateActive, setLastDateActive] = useState<moment.Moment>(
     moment().tz('Asia/Bangkok').add(543, 'year'),
@@ -291,7 +295,7 @@ const WorkOrderDetailsWorkPage = (props: { workOrderData: InterfaceProps }) => {
           _employees.push({
             label: val.personnelName,
             value: val.personnelNumber,
-            webStatus: props.workOrderData.webStatus,
+            webStatus: params.workOrderData.webStatus,
           });
         });
         return _employees;
@@ -306,7 +310,7 @@ const WorkOrderDetailsWorkPage = (props: { workOrderData: InterfaceProps }) => {
     try {
       let checkPresonnel = true;
       if (
-        !['ZC15', 'ZC16', 'BN15', 'BN16'].includes(props.workOrderData.type)
+        !['ZC15', 'ZC16', 'BN15', 'BN16'].includes(params.workOrderData.type)
       ) {
         for (let index = 0; index < data.details.length; index++) {
           if (data.details[index].presonnel.length === 0) {
@@ -325,7 +329,7 @@ const WorkOrderDetailsWorkPage = (props: { workOrderData: InterfaceProps }) => {
         let response = await postTimeOperationWorker(data, true);
         setUpdated(false);
         if (response.isSuccess) {
-          console.log('PROPS=>>>>', props);
+          console.log('PROPS=>>>>', params);
           Alert.alert('แจ้งเตือน', 'บันทึกข้อมูลสำเร็จ', [
             {
               text: 'ปิด', onPress: () =>
@@ -333,7 +337,7 @@ const WorkOrderDetailsWorkPage = (props: { workOrderData: InterfaceProps }) => {
               navigation.dispatch(StackActions.pop())
               // Actions.reset()
               //Actions.back()
-              //Actions.replace(ROUTE.WORKORDERLIST,props)
+              //Actions.replace(ROUTE.WORKORDERLIST,params)
             },
           ]);
         } else {
@@ -526,7 +530,7 @@ const WorkOrderDetailsWorkPage = (props: { workOrderData: InterfaceProps }) => {
                         style={{ justifyContent: 'center' }}
                         activeOpacity={0.9}
                         onPress={() => {
-                          if (props.workOrderData.webStatus !== '4') {
+                          if (params.workOrderData.webStatus !== '4') {
                             Alert.alert(
                               'แจ้งเตือน',
                               'ต้องการแก้ไขเวลาเริ่มปฏิบัติงานใช่หรือไม่ ?',
@@ -601,7 +605,7 @@ const WorkOrderDetailsWorkPage = (props: { workOrderData: InterfaceProps }) => {
                         style={{ justifyContent: 'center' }}
                         activeOpacity={0.9}
                         onPress={() => {
-                          if (props.workOrderData.webStatus !== '4') {
+                          if (params.workOrderData.webStatus !== '4') {
                             Alert.alert(
                               'แจ้งเตือน',
                               'ต้องการแก้ไขเวลาเสร็จสิ้นงานใช่หรือไม่ ?',
@@ -691,7 +695,7 @@ const WorkOrderDetailsWorkPage = (props: { workOrderData: InterfaceProps }) => {
                       style={{ justifyContent: 'center' }}
                       activeOpacity={0.9}
                       onPress={() => {
-                        if (props.workOrderData.webStatus !== '4') {
+                        if (params.workOrderData.webStatus !== '4') {
                           setStateVisibleModal(true);
                           const operator = selectOperators;
                           const _operatorMaster = operatorMaster.map(oper => {
@@ -828,7 +832,7 @@ const WorkOrderDetailsWorkPage = (props: { workOrderData: InterfaceProps }) => {
             paddingLeft: 10,
           }}
           onPress={() => {
-            if (props.workOrderData.webStatus !== '4') {
+            if (params.workOrderData.webStatus !== '4') {
               setIndexSelectType(index);
               showModal();
             }
@@ -1195,9 +1199,9 @@ const WorkOrderDetailsWorkPage = (props: { workOrderData: InterfaceProps }) => {
         <View>{WorkDetails()}</View>
         {BuildModalDrawer()}
         <View style={{ marginTop: 60 }}>{DrawHorizontalWidget()}</View>
-        {notShowChargeTravel(props.workOrderData.type) &&
+        {notShowChargeTravel(params.workOrderData.type) &&
           ChargeTravelExpenses()}
-        {props.workOrderData.webStatus !== '4' && (
+        {params.workOrderData.webStatus !== '4' && (
           <View
             style={{
               alignItems: 'center',

@@ -8,25 +8,25 @@ import Loading from '../../../components/loading';
 import {COLOR} from '../../../constants/Colors';
 import {Fonts} from '../../../constants/fonts';
 
-type InterfaceProps = {
+interface Params {
   knowledgeInfo: {type: string; value: string; title: string};
 };
 
 const KnowledgePreviewPage = props => {
-  const knowledgeInfo: InterfaceProps['knowledgeInfo'] = props.route.params.knowledgeInfo;
+  const params = props.route.params as Params;
   const [isLoading, setIsLoading] = useState(false);
-  const [fileUrl, setFileUrl] = useState(knowledgeInfo.value);
+  const [fileUrl, setFileUrl] = useState(params.knowledgeInfo.value);
   const [videoWidth, setVideoWidth] = useState(Dimensions.get('window').width);
   const [videoHeight, setVideoHeight] = useState(
     Dimensions.get('window').height,
   );
 
   useEffect(() => {
-    setFileUrl(knowledgeInfo.value);
+    setFileUrl(params.knowledgeInfo.value);
   }, []);
 
   useEffect(() => {
-    if (knowledgeInfo.type !== 'file') {
+    if (params.knowledgeInfo.type !== 'file') {
       Orientation.unlockAllOrientations();
       Orientation.addOrientationListener((orientation: OrientationType) => {
         if (
@@ -55,8 +55,8 @@ const KnowledgePreviewPage = props => {
       <Animated.View>
         <View style={{width: '100%'}}>
           <AppBar
-            title={`แหล่งความรู้ - ${knowledgeInfo.title}`}></AppBar>
-          {knowledgeInfo.type === 'file' && (
+            title={`แหล่งความรู้ - ${params.knowledgeInfo.title}`}></AppBar>
+          {params.knowledgeInfo.type === 'file' && (
             <ScrollView>
               <Pdf
                 source={{uri: fileUrl}}
@@ -81,7 +81,7 @@ const KnowledgePreviewPage = props => {
               />
             </ScrollView>
           )}
-          {knowledgeInfo.type !== 'file' && (
+          {params.knowledgeInfo.type !== 'file' && (
             <>
               <Video
                 source={{

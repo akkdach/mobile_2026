@@ -24,8 +24,12 @@ import {
   fetchSparePartTransferRequest
 } from '../../../services/sparePart';
 
+interface Params {
+  profile: any;
+};
+
 const ToolVanCheckPage = (props) => {
-  const { profile } = props.route.params;
+  const { profile } = props.route.params as Params;
   const [selectReceiveTransferFrom, setSelectReceiveTransferFrom] = useState<
     string | undefined
   >();

@@ -30,8 +30,14 @@ import {
 
 const screenHeight = Dimensions.get('window').height;
 
-const ToolTransferPage: React.FC<Props> = props => {
-  const { profile } = props.route.params;
+interface Params {
+  profile: {
+    wk_ctr: string;
+  };
+}
+
+const ToolTransferPage = props => {
+  const { profile } = props.route.params as Params;
   const [isLoading, setIsLoading] = useState(false);
   const [selectTransferTo, setSelectTransferTo] = useState<string>('');
   const [selectTransferRequestTo, setSelectTransferRequestTo] =
