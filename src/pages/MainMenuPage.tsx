@@ -559,6 +559,7 @@ const MainMenuPage = () => {
                     navigation.dispatch(StackActions.push(item.route))
                   )
                 }
+                scrollEnabled={false}
               />
             </View> }
             {screenInfo.width <= 500 && <View style={[styles.listMenu]}>
@@ -578,6 +579,7 @@ const MainMenuPage = () => {
                     navigation.dispatch(StackActions.push(item?.route))
                   )
                 }
+                scrollEnabled={false}
               />
             </View> }
             </>) : null}
