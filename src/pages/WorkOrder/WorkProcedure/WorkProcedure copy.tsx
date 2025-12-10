@@ -32,7 +32,7 @@ import { _getData, _storeData } from '../../../utils/AsyncStorage';
 import { customLog } from '../../../utils/CustomConsole';
 import styles from './WorkProcedureCss';
 const defaultImage = require('../../../../assets/images/default.jpeg');
-import Exif from 'react-native-exif';
+import Exify from '@lodev09/react-native-exify';
 import { useNavigation, StackActions } from '@react-navigation/native';
 
 type InterfaceProps = {
@@ -199,19 +199,13 @@ const WorkProcedurePage = (props: InterfaceProps) => {
     return dd;
   }
   const _launchImageLibrary = async (keyName: any) => {
-    let options: any = {
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
-    };
-    ImagePicker.launchImageLibrary(options, response => {
+    ImagePicker.launchImageLibrary({ mediaType: 'photo' }, response => {
       (async () => {
-        if (!response.didCancel) {
-
-          const metadata = await Exif.getExif(response.uri);
+        if (!response.didCancel && response.assets && response.assets.length > 0) {
+          const asset = response.assets[0];
+          const metadata = await Exify.readAsync(asset.uri as string);
           // Alert.alert('lattued',lattued);
-          let exiflat = metadata.exif.GPSLatitude.split(',', 3);
+          let exiflat = metadata.GPSLatitude?.split(',', 3);
           let latDegree: number[] = exiflat[0].split('\/', 2);
           let latMin: number[] = exiflat[1].split('\/', 2);
           let latSec: number[] = exiflat[2].split('\/', 2);
@@ -223,7 +217,7 @@ const WorkProcedurePage = (props: InterfaceProps) => {
           )
           // Alert.alert('เตือน',latNumber.toString());
 
-          let exiflong = metadata.exif.GPSLongitude.split(',', 3);
+          let exiflong = metadata.GPSLongitude?.split(',', 3);
           let longDegree: number[] = exiflong[0].split('\/', 2);
           let longMin: number[] = exiflong[1].split('\/', 2);
           let longSec: number[] = exiflong[2].split('\/', 2);
@@ -252,9 +246,9 @@ const WorkProcedurePage = (props: InterfaceProps) => {
           }
 
           const resizeImageSet = (await resizeImage(
-            response.uri as string,
-            response.width as number,
-            response.height as number,
+            asset.uri as string,
+            asset.width as number,
+            asset.height as number,
             'JPEG',
             80,
           )) as {
@@ -274,7 +268,7 @@ const WorkProcedurePage = (props: InterfaceProps) => {
               type: 'image/jpeg',
               uri: resizeImageSet.uri,
               width: resizeImageSet.width,
-              base64: response.base64,
+              base64: asset.base64,
               key: keyName,
               formatType: 'file',
             },

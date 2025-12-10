@@ -32,7 +32,7 @@ import { _getData, _removeData, _storeData } from '../../../utils/AsyncStorage';
 import { customLog } from '../../../utils/CustomConsole';
 import { styleLg, styleSm } from './WorkProcedureCss';
 const defaultImage = require('../../../../assets/images/default.jpeg');
-import Exif from 'react-native-exif';
+import Exify from '@lodev09/react-native-exify';
 import { useNavigation, StackActions } from '@react-navigation/native';
 
 type InterfaceProps = {
@@ -49,12 +49,13 @@ type Inputs = {
 
 const screenHeight = Dimensions.get('window').height;
 
-const WorkProcedurePage = (props: InterfaceProps) => {
+const WorkProcedurePage = (props) => {
+  const params = props.route.params as InterfaceProps;
   const [IsImageLibratyEnable, SetIsImageLibratyEnable] = useState(true) 
   const [validateInside, setValidateInside] = useState<boolean>(false) 
   const [distanceCheck, setDistanceCheck] = useState<any>(null) 
   const initialValue = new IWorkOrderCheckInProcedure({});
-  const { orderId } = props;
+  const { orderId } = params;
   const [fileData, setFileData] = useState([] as any);
   const [isLoading, setIsLoading] = useState(false);
   const { control, handleSubmit, reset, setValue, getValues } = useForm<Inputs>({
@@ -84,7 +85,7 @@ const WorkProcedurePage = (props: InterfaceProps) => {
       // GET IMAGE WORK ORDER TYPE urlCheckInImage_1
       const responseCheckIn: any = await fetchWorkOrderCheckInProcedure(
         orderId,
-        props.type
+        params.type
       );
       if (!responseCheckIn.isSuccess) {
         Alert.alert('เตือน', responseCheckIn.message);
@@ -211,27 +212,21 @@ const WorkProcedurePage = (props: InterfaceProps) => {
     return dd;
   }
   const _launchImageLibrary = async (keyName: any) => {
-    let options: any = {
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
-    };
-    ImagePicker.launchImageLibrary(options, response => {
+    ImagePicker.launchImageLibrary({ mediaType: 'photo' }, response => {
       (async () => {
-        if (!response.didCancel) {
-
-          const metadata = await Exif.getExif(response.uri);
+        if (!response.didCancel && response.assets && response.assets.length > 0) {
+          const asset = response.assets[0];
+          const metadata = await Exify.readAsync(asset.uri as string);
           const gpsTracking = _getData({ key: 'gpsTracking' });
           // console.log('metadata=>>>>>>>>>>>>>>>>>>>>', metadata, 'gpsTracking', gpsTracking);
           if (!metadata) {
             Alert.alert('ไม่สามารถอ่านข้อมูลภาพได้'); return;
           }
-          if (!metadata.exif.GPSLatitude) {
+          if (!metadata.GPSLatitude) {
             Alert.alert('ไม่พบ Location ในภาพ');
             return;
           }
-          let exiflat = metadata.exif.GPSLatitude.split(',', 3);
+          let exiflat = metadata.GPSLatitude?.split(',', 3);
           let latDegree: number[] = exiflat[0].split('\/', 2);
           let latMin: number[] = exiflat[1].split('\/', 2);
           let latSec: number[] = exiflat[2].split('\/', 2);
@@ -245,7 +240,7 @@ const WorkProcedurePage = (props: InterfaceProps) => {
           )
           // Alert.alert('เตือน',latNumber.toString());
 
-          let exiflong = metadata.exif.GPSLongitude.split(',', 3);
+          let exiflong = metadata.GPSLongitude?.split(',', 3);
           let longDegree: number[] = exiflong[0].split('\/', 2);
           let longMin: number[] = exiflong[1].split('\/', 2);
           let longSec: number[] = exiflong[2].split('\/', 2);
@@ -274,9 +269,9 @@ const WorkProcedurePage = (props: InterfaceProps) => {
           }
 
           const resizeImageSet = (await resizeImage(
-            response.uri as string,
-            response.width as number,
-            response.height as number,
+            asset.uri as string,
+            asset.width as number,
+            asset.height as number,
             'JPEG',
             80,
           )) as {
@@ -296,7 +291,7 @@ const WorkProcedurePage = (props: InterfaceProps) => {
               type: 'image/jpeg',
               uri: resizeImageSet.uri,
               width: resizeImageSet.width,
-              base64: response.base64,
+              base64: asset.base64,
               key: keyName,
               formatType: 'file',
             },
@@ -421,7 +416,7 @@ const WorkProcedurePage = (props: InterfaceProps) => {
                   ...getValues(),
                   checkInLatitude: latitude,
                   checkInLongitude: longitude,
-                  workType: props.type
+                  workType: params.type
                 });
                 if (response.isSuccess) {
                   _removeData({ key: 'startTimeTemp' + orderId });
