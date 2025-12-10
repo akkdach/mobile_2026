@@ -2,8 +2,7 @@ import { Button, Icon } from '@ant-design/react-native';
 import React from 'react';
 import { Dimensions, StyleSheet, Text, View } from 'react-native';
 import * as Animatable from 'react-native-animatable';
-import { BarCodeReadEvent } from 'react-native-camera';
-import QRCodeScanner from 'react-native-qrcode-scanner';
+import QRCodeScanner, { BarCodeReadEvent } from 'react-native-qrcode-scanner';
 import { COLOR } from '../constants/Colors';
 import { Fonts } from '../constants/fonts';
 
