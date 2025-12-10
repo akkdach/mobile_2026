@@ -545,14 +545,14 @@ const MainMenuPage = () => {
             {screenInfo.width > 500 && <View style={[styles.listMenu]}>
               <FlatGrid
                 key={'list-menu'}
-                itemDimension={130}
+                itemDimension={screenInfo.width / 4 - 50}
                 data={menuTab?.listMenu}
                 style={styles.gridView}
                 keyExtractor={(item, index) =>
                   `${Math.floor(Math.random() * 1001)}`
                 }
                 listKey={moment().valueOf().toString()}
-                fixed
+                // fixed
                 spacing={20}
                 renderItem={({ item }) =>
                   buildItemMenu(item?.icon, item?.title, () =>
@@ -565,14 +565,14 @@ const MainMenuPage = () => {
             {screenInfo.width <= 500 && <View style={[styles.listMenu]}>
               <FlatGrid
                 key={'list-menu'}
-                itemDimension={100}
+                itemDimension={screenInfo.width / 3 - 50}
                 data={menuTab?.listMenu}
                 style={styles.gridView}
                 keyExtractor={(item, index) =>
                   `${Math.floor(Math.random() * 1001)}`
                 }
                 listKey={moment().valueOf().toString()}
-                fixed
+                // fixed
                 spacing={10}
                 renderItem={({ item }) =>
                   buildItemMenu(item?.icon, item?.title, () =>
