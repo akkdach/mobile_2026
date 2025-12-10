@@ -9,7 +9,7 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
-import {BarCodeReadEvent} from 'react-native-camera';
+import {BarCodeReadEvent} from 'react-native-qrcode-scanner';
 import {Card} from 'react-native-paper';
 import {StackActions, useNavigation} from '@react-navigation/native';
 import AppBar from '../../../components/AppBar';

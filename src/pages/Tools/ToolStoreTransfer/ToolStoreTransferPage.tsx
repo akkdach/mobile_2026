@@ -2,7 +2,7 @@ import {Button, Icon} from '@ant-design/react-native';
 import React, {useEffect, useState} from 'react';
 import {Controller, useForm} from 'react-hook-form';
 import {Alert, Animated, Dimensions, ScrollView, Text, View} from 'react-native';
-import {BarCodeReadEvent} from 'react-native-camera';
+import {BarCodeReadEvent} from 'react-native-qrcode-scanner';
 import AppBar from '../../../components/AppBar';
 import BackGroundImage from '../../../components/BackGroundImage';
 import Loading from '../../../components/loading';

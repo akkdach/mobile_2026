@@ -15,7 +15,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { BarCodeReadEvent } from 'react-native-camera';
+import { BarCodeReadEvent } from 'react-native-qrcode-scanner';
 import * as ImagePicker from 'react-native-image-picker';
 import ImageResizer, { ResizeFormat } from 'react-native-image-resizer';
 import Lightbox from 'react-native-lightbox';

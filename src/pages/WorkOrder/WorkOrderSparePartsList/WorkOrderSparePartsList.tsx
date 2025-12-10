@@ -13,7 +13,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import { BarCodeReadEvent } from 'react-native-camera';
+import { BarCodeReadEvent } from 'react-native-qrcode-scanner';
 import { ScrollView } from 'react-native-gesture-handler';
 import { Button, Checkbox, DataTable, Dialog, Portal } from 'react-native-paper';
 import {

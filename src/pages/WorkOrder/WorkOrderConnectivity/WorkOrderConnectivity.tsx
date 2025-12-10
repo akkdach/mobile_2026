@@ -2,7 +2,7 @@ import {Button, Icon} from '@ant-design/react-native';
 import React, {useEffect, useRef, useState} from 'react';
 import {Controller, SubmitHandler, useForm} from 'react-hook-form';
 import {Alert, ScrollView, Text, View} from 'react-native';
-import {BarCodeReadEvent} from 'react-native-camera';
+import {BarCodeReadEvent} from 'react-native-qrcode-scanner';
 import Animated from 'react-native-reanimated';
 import {StackActions, useNavigation} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native-safe-area-context';

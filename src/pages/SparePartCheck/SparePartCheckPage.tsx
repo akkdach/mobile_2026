@@ -14,7 +14,7 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native';
-import {BarCodeReadEvent} from 'react-native-camera';
+import {BarCodeReadEvent} from 'react-native-qrcode-scanner';
 import {Button, DataTable, Dialog, Portal} from 'react-native-paper';
 import {
   heightPercentageToDP as hp,
