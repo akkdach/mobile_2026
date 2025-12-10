@@ -26,9 +26,10 @@ type InterfaceProps = {
   }
 };
 
-const WorkOrderCCPCheck: FC<InterfaceProps> = (props: InterfaceProps) => {
+const WorkOrderCCPCheck: FC<InterfaceProps> = (props) => {
+  const params = props.route?.params as InterfaceProps;
   const navigation = useNavigation();
-  const { orderId } = props?.workOrderData
+  const { orderId } = params?.workOrderData
   const [stateForm, setStateForm] = useState({equipmentNo: ''});
   const [isVisibleModal, setIsVisibleModal] = useState(false);
   const {
@@ -165,7 +166,7 @@ const WorkOrderCCPCheck: FC<InterfaceProps> = (props: InterfaceProps) => {
       <BackGroundImage
         components={
           <Animated.View>
-            <AppBar title="CCP Check" rightTitle={`Order: ${props.workOrderData.orderId}`}></AppBar>
+            <AppBar title="CCP Check" rightTitle={`Order: ${params.workOrderData.orderId}`}></AppBar>
             {foundCCPCheck()}
             {notFoundCCPCheck()}
             {FormInput()}

@@ -43,12 +43,13 @@ const defaultImage = require('../../../../assets/images/default.jpeg');
 const screenHeight = Dimensions.get('window').height;
 
 const WorkOrderCameraPage = (props: any) => {
+  const params = props.route?.params;
   const navigation = useNavigation();
   const canvasRef = useRef(null);
 
   const { orderId, type, orderTypeDescription, IsConnectivity } =
-    props?.workOrderData;
-  console.log(props?.workOrderData)
+    params?.workOrderData;
+  console.log(params?.workOrderData)
   const [fileData, setFileData] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [cameraValue, setCameraValue] = useState<IWorkOrderCamera>();

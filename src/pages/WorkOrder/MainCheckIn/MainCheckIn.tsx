@@ -35,13 +35,14 @@ const Contents = (props:any, navigation: any) => {
        
     </>)
 }
-const MainCheckIn = (props: InterfaceProps) => {
+const MainCheckIn = (props) => {
+    const params = props.route.params as InterfaceProps;
     const navigation = useNavigation();
-                //   console.log('workOrderData',props.workOrderData);
+                //   console.log('workOrderData',params.workOrderData);
     return (<>
         <AppBar title="เช็คอินร้าน"></AppBar>
         <BackGroundImage
-            components={<Animated.ScrollView>{Contents(props, navigation)}</Animated.ScrollView>}
+            components={<Animated.ScrollView>{Contents(params, navigation)}</Animated.ScrollView>}
         />
         {/* <Loading loading={isLoading} /> */}
     </>);

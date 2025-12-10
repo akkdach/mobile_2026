@@ -36,7 +36,8 @@ type Inputs = {
   connectivityDeviceType: string;
 };
 
-const WorkOrderConnectivityPage: React.FC<Props> = ({workOrderData}) => {
+const WorkOrderConnectivityPage = (props) => {
+  const params = props.route.params as Props
   const navigation = useNavigation();
   const initialValue = new WorkOrderConnectinvity({});
   const {control, handleSubmit, reset, setValue} = useForm<Inputs>({
@@ -56,7 +57,7 @@ const WorkOrderConnectivityPage: React.FC<Props> = ({workOrderData}) => {
   const loadDataAll = async () => {
     setIsLoading(true);
     try {
-      const response = await fetchConnectivity(workOrderData.orderId);
+      const response = await fetchConnectivity(params.workOrderData.orderId);
       const dataResult = response.data.dataResult;
       if (dataResult) {
         setNewValue(dataResult as WorkOrderConnectinvity);
@@ -82,7 +83,7 @@ const WorkOrderConnectivityPage: React.FC<Props> = ({workOrderData}) => {
     setIsLoading(true);
     customLog(`dataSubmit +++>>>> ${JSON.stringify(data, null, 2)}`);
     try {
-      const payload = {...data, workOrder: workOrderData.orderId};
+      const payload = {...data, workOrder: params.workOrderData.orderId};
       const updated = await updateConnectivity(payload);
       customLog(`updated +++>>>> ${JSON.stringify(updated, null, 2)}`);
       navigation.dispatch(StackActions.pop())
@@ -132,7 +133,7 @@ const WorkOrderConnectivityPage: React.FC<Props> = ({workOrderData}) => {
                   value={value}
                   onChangeText={(val: string) => onChange(val)}
                   onBlur={onBlur}
-                  editable={workOrderData.webStatus !== '4' ? true : false}
+                  editable={params.workOrderData.webStatus !== '4' ? true : false}
                 />
               );
             }}
@@ -250,7 +251,7 @@ const WorkOrderConnectivityPage: React.FC<Props> = ({workOrderData}) => {
 
   return (
     <>
-      <AppBar title="Connectivity" rightTitle={`Order: ${workOrderData.orderId}`}></AppBar>
+      <AppBar title="Connectivity" rightTitle={`Order: ${params.workOrderData.orderId}`}></AppBar>
       <SafeAreaView>
         <Animated.ScrollView>
           <BackGroundImage
@@ -285,7 +286,7 @@ const WorkOrderConnectivityPage: React.FC<Props> = ({workOrderData}) => {
                   'connectivityDeviceType',
                   initialValue.connectivityDeviceType,
                 )}
-                {workOrderData.webStatus !== '4' && ButtonGroupEvent()}
+                {params.workOrderData.webStatus !== '4' && ButtonGroupEvent()}
               </ScrollView>
             }
           />

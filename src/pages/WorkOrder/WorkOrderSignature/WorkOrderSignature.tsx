@@ -53,16 +53,17 @@ type Inputs = {
 };
 
 
-const WorkOrderSignature = (props: InterfaceProps) => {
+const WorkOrderSignature = (props) => {
+  const params = props.route?.params as InterfaceProps;
   const [isLoading, setIsLoading] = useState(false);
-  const { orderId } = props?.workOrderData;
+  const { orderId } = params?.workOrderData;
   const { control, getValues, setValue } = useForm<Inputs>();
   const [visibleModalCustomer, setStateVisibleModalCustomer] = useState(false);
   const [signatureCustomer, setSignatureCustomer] = useState<any>();
   const [visibleModalWorker, setStateVisibleModalWorker] = useState(false);
   const [signatureWorker, setSignatureWorker] = useState<any>();
   const [satisfactionAssessment, setSatisfactionAssessment] =
-    useState<IWorkOrderCloseWork>(props.satisfactionAssessment);
+    useState<IWorkOrderCloseWork>(params.satisfactionAssessment);
   const [warranty, setWarranty] = useState<any>(false);
   // const [gpsData,setGpsData] = useState<any>();
   // const [customeR_REMARK, setCustomerRemark] = useState<any>();
@@ -83,28 +84,28 @@ const WorkOrderSignature = (props: InterfaceProps) => {
   
 
   useEffect(() => {
-    if (props.satisfactionAssessment.customerSignatureUrl) {
-      setSignatureCustomer(props.satisfactionAssessment.customerSignatureUrl);
+    if (params.satisfactionAssessment.customerSignatureUrl) {
+      setSignatureCustomer(params.satisfactionAssessment.customerSignatureUrl);
     }
 
-    if (props.satisfactionAssessment.workerSignatureUrl) {
-      setSignatureWorker(props.satisfactionAssessment.workerSignatureUrl);
+    if (params.satisfactionAssessment.workerSignatureUrl) {
+      setSignatureWorker(params.satisfactionAssessment.workerSignatureUrl);
     }
 
-    if (props.satisfactionAssessment.customerSignatureName) {
-      setValue('customer', props.satisfactionAssessment.customerSignatureName);
+    if (params.satisfactionAssessment.customerSignatureName) {
+      setValue('customer', params.satisfactionAssessment.customerSignatureName);
     }
 
-    if (props.satisfactionAssessment.customeR_Remark) {
-      setValue('customeR_Remark', props.satisfactionAssessment.customeR_Remark);
+    if (params.satisfactionAssessment.customeR_Remark) {
+      setValue('customeR_Remark', params.satisfactionAssessment.customeR_Remark);
     }
 
-    if (props.satisfactionAssessment.mobile_Remark) {
-      setValue('mobile_Remark', props.satisfactionAssessment.mobile_Remark);
+    if (params.satisfactionAssessment.mobile_Remark) {
+      setValue('mobile_Remark', params.satisfactionAssessment.mobile_Remark);
     }
-    if (props.satisfactionAssessment.warranty) {
-      // const status = props.satisfactionAssessment.warranty === 'x' ? true : false;
-      setWarranty(props.satisfactionAssessment.warranty);
+    if (params.satisfactionAssessment.warranty) {
+      // const status = params.satisfactionAssessment.warranty === 'x' ? true : false;
+      setWarranty(params.satisfactionAssessment.warranty);
     }
 
 
@@ -250,7 +251,7 @@ const WorkOrderSignature = (props: InterfaceProps) => {
           {
             text: 'ปิด',
             onPress: async () => {
-              //Actions.replace(ROUTE.WORKORDERLIST, props); ////2023
+              //Actions.replace(ROUTE.WORKORDERLIST, params); ////2023
               // Actions.pop()
               // Actions.pop()
               navigation.dispatch(StackActions.pop(2));
@@ -274,15 +275,15 @@ const WorkOrderSignature = (props: InterfaceProps) => {
   const Contents = () => {
     return (
       <ScrollView>
-        {isShowSignatureMessage(props.workOrderData.type) && <Terms />}
+        {isShowSignatureMessage(params.workOrderData.type) && <Terms />}
         <View style={{ marginTop: 16, padding: 16 }}>
-          <InformationCloseWorkPage orderId={props.workOrderData.orderId}></InformationCloseWorkPage>
+          <InformationCloseWorkPage orderId={params.workOrderData.orderId}></InformationCloseWorkPage>
         </View>
         <View style={{ marginTop: 16, padding: 16 }}>
-          <WorkOrderQlChecklistCloseWork workOrderData={props?.workOrderData} />
+          <WorkOrderQlChecklistCloseWork workOrderData={params?.workOrderData} />
         </View>
         <View style={{ marginTop: 16 }}>
-          <QICloseWorkPage orderId={props.workOrderData.orderId} />
+          <QICloseWorkPage orderId={params.workOrderData.orderId} />
         </View>
         <SafeAreaView style={styles.container}>
           <View style={{ padding: 10 }}>
@@ -323,7 +324,7 @@ const WorkOrderSignature = (props: InterfaceProps) => {
                     )}
                     name="customer"
                     defaultValue={
-                      props.satisfactionAssessment.customerSignatureName
+                      params.satisfactionAssessment.customerSignatureName
                     }
                   />
                 </View>
@@ -353,7 +354,7 @@ const WorkOrderSignature = (props: InterfaceProps) => {
                 )}
                 name="customeR_Remark"
                 defaultValue={
-                  props.satisfactionAssessment.customeR_Remark
+                  params.satisfactionAssessment.customeR_Remark
                 }
               />
             </View>
@@ -397,7 +398,7 @@ const WorkOrderSignature = (props: InterfaceProps) => {
                 )}
                 name="mobile_Remark"
                 defaultValue={
-                  props.satisfactionAssessment.mobile_Remark
+                  params.satisfactionAssessment.mobile_Remark
                 }
               />
             </View>
@@ -406,7 +407,7 @@ const WorkOrderSignature = (props: InterfaceProps) => {
               <Button
                 style={{ ...styles.btnOutline, marginRight: 10 }}
                 onPress={() => setStateVisibleModalCustomer(true)}
-                disabled={props.workOrderData.webStatus !== '4' ? false : true}>
+                disabled={params.workOrderData.webStatus !== '4' ? false : true}>
                 <Icon
                   name="edit"
                   style={{ fontSize: 24, color: COLOR.secondary_primary_color }}
@@ -421,7 +422,7 @@ const WorkOrderSignature = (props: InterfaceProps) => {
               <Button
                 style={styles.btnOutline}
                 onPress={() => setStateVisibleModalWorker(!visibleModalWorker)}
-                disabled={props.workOrderData.webStatus !== '4' ? false : true}>
+                disabled={params.workOrderData.webStatus !== '4' ? false : true}>
                 <Text
                   style={[styles.btnSig]}>
                   <Icon
@@ -471,7 +472,7 @@ const WorkOrderSignature = (props: InterfaceProps) => {
             </Text>
           </View>
         </View>
-        {props.workOrderData.webStatus !== '4' && (
+        {params.workOrderData.webStatus !== '4' && (
           <View style={[{ paddingTop: 20, padding: 40 }]}>
             <Button style={styles.btn} onPress={() => _onSubmit()}>
               <Text
@@ -492,8 +493,8 @@ const WorkOrderSignature = (props: InterfaceProps) => {
   const renderSatisfactionAssessmentForm = () => {
     return [
       <AppBar
-        title={`เซ็นชื่อ ${screenInfo.width <=500 ? props.workOrderData.orderId:""}`}
-        rightTitle={` ${screenInfo.width >500 ? 'Order : '+props.workOrderData.orderId : ''}`}></AppBar>,
+        title={`เซ็นชื่อ ${screenInfo.width <=500 ? params.workOrderData.orderId:""}`}
+        rightTitle={` ${screenInfo.width >500 ? 'Order : '+params.workOrderData.orderId : ''}`}></AppBar>,
       Contents(),
     ];
   };

@@ -40,7 +40,8 @@ type Props = {
   };
 };
 
-const WorkOrderProblemIssuePage: React.FC<Props> = ({workOrderData}) => {
+const WorkOrderProblemIssuePage = (props) => {
+  const {workOrderData} = props.route?.params as Props;
   const navigation = useNavigation();
   const initProblem = {
     problemPicker: [],

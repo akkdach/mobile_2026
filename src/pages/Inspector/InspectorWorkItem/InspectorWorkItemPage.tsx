@@ -46,13 +46,11 @@ type InterfaceProps = {
 
 type InspectorWorkItemProps = { workDetail: any };
 
-const InspectorWorkItemPage: React.FC<InspectorWorkItemProps> = ({
-  workDetail,
-}) => {
-
+const InspectorWorkItemPage = (props) => {
+  const params = props.route.params;
   // const workOrder = getWorkOrder('000041178498');
   const [checkInModal, setStateCheckInModal] = useState(false);
-  const [workOrderDetail, setWorkOrderDetail] = useState<any>(JSON.parse(workDetail));
+  const [workOrderDetail, setWorkOrderDetail] = useState<any>(JSON.parse(params.workDetail));
   const [visibleModal, setStateVisibleModal] = useState(false);
   const [workIn, setWorkIn] = useState(false);
   const [nextPage, setNextPage] = useState(false);
@@ -132,9 +130,9 @@ const InspectorWorkItemPage: React.FC<InspectorWorkItemProps> = ({
       //           //     workDetail: JSON.stringify(workOrderDetail),
       //           //   };
       //           // } else {
-      //             console.log(JSON.stringify(workDetail, null, 2))
+      //             console.log(JSON.stringify(params.workDetail, null, 2))
       //             data = {
-      //               workOrderData: JSON.parse(workDetail),
+      //               workOrderData: JSON.parse(params.workDetail),
       //             };
       //           // }
       //           router.Actions.push(args?.route, data);
@@ -191,7 +189,7 @@ const InspectorWorkItemPage: React.FC<InspectorWorkItemProps> = ({
                   setNextPage(true);
                   let data: any;
                   data = {
-                    workOrderData: JSON.parse(workDetail),
+                    workOrderData: JSON.parse(params.workDetail),
                   };
                   navigation.dispatch(StackActions.push(args?.route, data));
                 }
@@ -224,7 +222,7 @@ const InspectorWorkItemPage: React.FC<InspectorWorkItemProps> = ({
 
   const renderWorkOrderList = () => {
     const listOrder: any = [];
-    const workOrderData = JSON.parse(workDetail)
+    const workOrderData = JSON.parse(params.workDetail)
     const workType = workOrderData.workType.replace(/(^|\s)\S/g, function (t: any) { return t.toUpperCase() })
     const orderData: CardWorkItemTypes[] = [
       {
@@ -313,7 +311,7 @@ const InspectorWorkItemPage: React.FC<InspectorWorkItemProps> = ({
   };
 
   const ButtonGroupEvent = () => {
-    let workDetails = JSON.parse(workDetail)
+    let workDetails = JSON.parse(params.workDetail)
     return (
       <View
         style={{

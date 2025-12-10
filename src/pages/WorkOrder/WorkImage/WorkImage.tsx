@@ -40,9 +40,10 @@ const defaultImage = require('../../../../assets/images/default.jpeg');
 const screenHeight = Dimensions.get('window').height;
 
 const WorkImagePage = (props: any) => {
+  const params = props.route.params;
   const navigation = useNavigation();
   const { orderId, type, orderTypeDescription, IsConnectivity } =
-    props?.workOrderData;
+    params?.workOrderData;
   const [screenInfo, setScreenInfo] = useState(Dimensions.get('screen'))
 
 
@@ -486,7 +487,7 @@ const WorkImagePage = (props: any) => {
           {/* {renderFileUriImage(type,seq)} */}
         </View>
 
-        {props.workOrderData.webStatus !== '4' && (
+        {params.workOrderData.webStatus !== '4' && (
           <View style={{ flexDirection: 'row' }}>
             <View style={{ flex: 2 }}>
               <Button style={styles.btn} onPress={() => _launchCamera(type)}>
@@ -610,7 +611,7 @@ const WorkImagePage = (props: any) => {
           {ImageCardWidget('รูปถ่ายเอกสารใบรายงาน', 'reportDocImageURL')}
           {ImageCardWidget('รูปถ่ายที่ติดตั้งอุปกรณ์ฯ', 'setupEquipmentImageURL')}
           {ImageCardWidget('รูปถ่ายเอกสารบิลขาย', 'billImageURL')} */}
-          {/* {props.workOrderData.webStatus !== '4' && BottomSubmit()} */}
+          {/* {params.workOrderData.webStatus !== '4' && BottomSubmit()} */}
           {/* {previewImage()} */}
           <View>{BottomSubmit()}</View>
         </View>

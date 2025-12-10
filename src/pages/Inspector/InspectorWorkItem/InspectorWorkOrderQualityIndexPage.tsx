@@ -32,7 +32,8 @@ type InterfaceProps = {
   };
 };
 
-const InspectorWorkOrderQualityIndexPage = (props: InterfaceProps) => {
+const InspectorWorkOrderQualityIndexPage = (props) => {
+  const params = props.route?.params as InterfaceProps;
   let defectMaster = [
     {
       defectCode: '',
@@ -83,7 +84,7 @@ const InspectorWorkOrderQualityIndexPage = (props: InterfaceProps) => {
     { qualityIndex_OvCarbo: { check: 0, pass: 0, defectCount: 0, percent: 0 } },
     { qualityIndex_Age: { check: 0, pass: 0, defectCount: 0, percent: 0 } },
   ];
-  const { orderId } = props?.workOrderData;
+  const { orderId } = params?.workOrderData;
   const [numberMachineHeads, setNumberMachineHeads] = useState<any>(0);
   const [itemsOrderCode, setItemsOrderCode] = useState<any>();
   const [qiResult, setQIResult] = useState<any>(0.0);
@@ -195,13 +196,13 @@ const InspectorWorkOrderQualityIndexPage = (props: InterfaceProps) => {
             console.log('[defectItem]', )
             let response = await postQualityIndexInspector(orderId, defectItem);
             if (response.isSuccess) {
-              await fetchCloseQIInformation(props.workOrderData.orderId);
+              await fetchCloseQIInformation(params.workOrderData.orderId);
               Alert.alert('แจ้งเตือน', 'บันทึกข้อมูลสำเร็จ', [
                 {
                   text: 'ปิด',
                   onPress: async () => {
-                    // Actions.replace(ROUTE.INSPECTOR_WORK_ITEM, props)
-                    navigation.dispatch(StackActions.replace(ROUTE.INSPECTOR_WORK_ITEM, props))
+                    // Actions.replace(ROUTE.INSPECTOR_WORK_ITEM, params)
+                    navigation.dispatch(StackActions.replace(ROUTE.INSPECTOR_WORK_ITEM, params))
                   },
                 },
               ]);
@@ -214,8 +215,8 @@ const InspectorWorkOrderQualityIndexPage = (props: InterfaceProps) => {
         {
           text: 'ปิด',
           onPress: async () => {
-            // Actions.replace(ROUTE.INSPECTOR_WORK_ITEM, props)
-            navigation.dispatch(StackActions.replace(ROUTE.INSPECTOR_WORK_ITEM, props))
+            // Actions.replace(ROUTE.INSPECTOR_WORK_ITEM, params)
+            navigation.dispatch(StackActions.replace(ROUTE.INSPECTOR_WORK_ITEM, params))
           },
         },
       ]);
@@ -1090,7 +1091,7 @@ const InspectorWorkOrderQualityIndexPage = (props: InterfaceProps) => {
     <>
       <AppBar
         title="QualityIndex"
-        rightTitle={`Order: ${props.workOrderData.orderId}`}></AppBar>
+        rightTitle={`Order: ${params.workOrderData.orderId}`}></AppBar>
       <BackGroundImage
         keyBg={'QualityIndex'}
         components={

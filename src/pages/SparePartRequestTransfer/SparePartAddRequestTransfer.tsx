@@ -36,9 +36,9 @@ import { useNavigation, StackActions } from '@react-navigation/native'
 const screenHeight = Dimensions.get('window').height;
 
 function SparePartAddRequestTransferPage(props: any) {
+  const params = props.route?.params;
   const { control, setValue, watch, getValues } =
     useForm<{ search: string; countRetrive: string }>();
-  const { wk_ctr } = props;
   const [valueOrderCode, setValueOrderCode] = useState<any>(null);
   const [itemsOrderCode, setItemsOrderCode] = useState<any[]>([]);
   const [visible, setVisible] = useState(false);
@@ -61,7 +61,7 @@ function SparePartAddRequestTransferPage(props: any) {
   const navigation = useNavigation()
 
   useEffect(() => {
-    console.log('props=>>>>>', props)
+    console.log('props=>>>>>', params)
     if (screenInfo.width < 400) {
       setStyles(styleSm);
     } else {
@@ -74,7 +74,7 @@ function SparePartAddRequestTransferPage(props: any) {
   const loadAll = async () => {
     setIsLoading(true);
     try {
-      const response = await fetchSparePartAddTransferRequest(props.stge_loc);
+      const response = await fetchSparePartAddTransferRequest(params.stge_loc);
       const newArray = response.dataResult
         ? response.dataResult
           ?.map((item: any) => {
@@ -94,8 +94,8 @@ function SparePartAddRequestTransferPage(props: any) {
             };
           })
           .map((val: any) => {
-            if (props.componentMasterVal) {
-              const matchMaterial = props.componentMasterVal.find(
+            if (params.componentMasterVal) {
+              const matchMaterial = params.componentMasterVal.find(
                 (component: any) => component.material === val.material,
               );
               if (matchMaterial) {
@@ -202,12 +202,8 @@ function SparePartAddRequestTransferPage(props: any) {
         delete item.add;
         return item;
       });
-    // Actions.replace(ROUTE.SPARE_PART_REQUEST_TRANSFER, {
-    //   profile: props.profile,
-    //   componentStorageSelected,
-    // });
     navigation.dispatch(StackActions.replace(ROUTE.SPARE_PART_REQUEST_TRANSFER, {
-      profile: props.profile,
+      profile: params.profile,
       componentStorageSelected,
     }));
   };
@@ -496,7 +492,7 @@ function SparePartAddRequestTransferPage(props: any) {
               onPress={() => setModalImageVisible(false)}
               style={{
                 backgroundColor: COLOR.primary,
-                width: 500,
+                width: 100,
                 borderRadius: 50,
               }}>
               <Text
@@ -526,7 +522,7 @@ function SparePartAddRequestTransferPage(props: any) {
         source={require('../../../assets/images/bg.png')}>
         <AppBar
           title="ขอโอนอะไหล่เพิ่ม"
-          rightTitle={props.profile.wk_ctr}></AppBar>
+          rightTitle={params.profile.wk_ctr}></AppBar>
         {scan && (
           <Scanner
             title="Spare Part No."

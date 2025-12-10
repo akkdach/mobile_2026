@@ -32,7 +32,8 @@ type Inputs = {
   remark: string;
 };
 
-const InspectorSatisfactionAssessmentFormPage = (props: InterfaceProps) => {
+const InspectorSatisfactionAssessmentFormPage = (props) => {
+  const params = props.route?.params as InterfaceProps;
   const [screenInfo, setScreenInfo] = useState(Dimensions.get('screen'))
   const [styles, setStyles] = useState<any>({});
   const navigation = useNavigation();
@@ -47,19 +48,19 @@ const InspectorSatisfactionAssessmentFormPage = (props: InterfaceProps) => {
 
   }, [screenInfo]);
 
-  if (!isNotCheckActionSignature(props.workOrderData.type)) {
+  if (!isNotCheckActionSignature(params.workOrderData.type)) {
     return (
       <>
         <AppBar title="สรุปปิดงาน"></AppBar>
         <ScrollView>
-          <Text style={{textAlign: 'center', marginTop: 20}}>{props.workOrderData.orderId} coming soon show detail</Text>
+          <Text style={{textAlign: 'center', marginTop: 20}}>{params.workOrderData.orderId} coming soon show detail</Text>
         </ScrollView>
       </>
     );
   }
   const {control, getValues, setValue} = useForm<Inputs>();
   const [isLoading, setIsLoading] = useState(false);
-  const { orderId, workType } = props?.workOrderData;
+  const { orderId, workType } = params?.workOrderData;
   const [workOrderCloseValue, setWorkOrderCloseWorkValue] = React.useState({
     speed: '',
     politeness: '',
@@ -108,7 +109,7 @@ const InspectorSatisfactionAssessmentFormPage = (props: InterfaceProps) => {
     workOrderCloseValue.remark = remark;
     setWorkOrderCloseWorkValue({ ...workOrderCloseValue });
     navigation.dispatch(StackActions.push(ROUTE.INSPECTOR_WORK_ORDER_SIGNATURE, {
-      workOrderData: props?.workOrderData,
+      workOrderData: params?.workOrderData,
       satisfactionAssessment: workOrderCloseValue,
     }));
   };
@@ -124,7 +125,7 @@ const InspectorSatisfactionAssessmentFormPage = (props: InterfaceProps) => {
         <RadioButton 
           value={value} 
           key={value} 
-          // disabled={props.workOrderData.webStatus !== '4' ? false : true}
+          // disabled={params.workOrderData.webStatus !== '4' ? false : true}
         />
         <Text style={styles.labelRadio}>{textLabel}</Text>
       </View>
@@ -144,7 +145,7 @@ const InspectorSatisfactionAssessmentFormPage = (props: InterfaceProps) => {
                 style={styles.input}
                 value={value}
                 onChangeText={textSearch => onChange(textSearch)}
-                // editable={props.workOrderData.webStatus !== '4' ? true : false}
+                // editable={params.workOrderData.webStatus !== '4' ? true : false}
               />
             );
           }}
@@ -338,8 +339,8 @@ const InspectorSatisfactionAssessmentFormPage = (props: InterfaceProps) => {
 
   return (
     <>
-      {screenInfo.width < 500 ? <AppBar title={`แบบประเมินความพึงพอใจ ${props.workOrderData.orderId}`} ></AppBar>:
-      <AppBar title="แบบประเมินความพึงพอใจ" rightTitle={`Order: ${props.workOrderData.orderId}`}></AppBar>}
+      {screenInfo.width < 500 ? <AppBar title={`แบบประเมินความพึงพอใจ ${params.workOrderData.orderId}`} ></AppBar>:
+      <AppBar title="แบบประเมินความพึงพอใจ" rightTitle={`Order: ${params.workOrderData.orderId}`}></AppBar>}
       <BackGroundImage
         components={
           <Animated.ScrollView>{Contents()}</Animated.ScrollView>

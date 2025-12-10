@@ -25,8 +25,9 @@ type InterfaceProps = {
   };
 };
 
-const WorkOrderHistoryPage: FC<InterfaceProps> = (props: InterfaceProps) => {
-  const { orderId } = props?.workOrderData;
+const WorkOrderHistoryPage: FC<InterfaceProps> = (props) => {
+  const params = props.route?.params as InterfaceProps
+  const { orderId } = params?.workOrderData;
   const [activeSections, setActiveSections] = useState([0]);
   const [historyData, setHistoryData] = useState<IWorkOrderHistory[]>();
   const [isLoading, setIsLoading] = useState(false);

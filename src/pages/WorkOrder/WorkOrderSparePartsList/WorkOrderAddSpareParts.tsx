@@ -42,9 +42,10 @@ if (screenWidth < 690) {
 }
 
 function WorkOrderAddSparePartsPage(props: any) {
+  const params = props.route.params;
   const { control, setValue, watch, getValues } =
     useForm<{ search: string; countRetrive: any }>();
-  const { orderId } = props;
+  const { orderId } = params;
   const [valueOrderCode, setValueOrderCode] = useState<any>(null);
   const [itemsOrderCode, setItemsOrderCode] = useState<any[]>([]);
   const [visible, setVisible] = useState(false);
@@ -100,8 +101,8 @@ function WorkOrderAddSparePartsPage(props: any) {
             };
           })
           .map((val: any) => {
-            if (props.componentMasterVal) {
-              const matchMaterial = props.componentMasterVal.find(
+            if (params.componentMasterVal) {
+              const matchMaterial = params.componentMasterVal.find(
                 (component: any) => component.material === val.material,
               );
               if (matchMaterial) {
@@ -540,7 +541,7 @@ const _buildModalSparePart = () => (
       {_buildModalSparePart()}
       <AppBar
         title="เพิ่มอะไหล่"
-        rightTitle={`Order: ${props.orderId}`}></AppBar>
+        rightTitle={`Order: ${params.orderId}`}></AppBar>
       {scan && (
         <Scanner
           title="Spare Part No."

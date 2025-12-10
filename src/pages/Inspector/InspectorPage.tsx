@@ -76,6 +76,7 @@ type Inputs = {
 };
 
 const InspectorPage = (props: any) => {
+  const params = props.route?.params;
   var swipeoutBtns = [
     {
       component: (
@@ -168,10 +169,10 @@ const InspectorPage = (props: any) => {
   }, []);
 
   useEffect(() => {
-    if(props.refresh) {
+    if(params.refresh) {
       getWorkOrderVisitInspectorList();
     }
-  }, [props]);
+  }, [params]);
 
   const getWorkOrderVisitInspectorList = async () => {
     const orderList = await fetchtVisitInspector();

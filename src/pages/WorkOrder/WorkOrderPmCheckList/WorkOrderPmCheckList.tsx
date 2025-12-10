@@ -13,7 +13,8 @@ interface Props {
   webStatus?: string
 }
 
-const WorkOrderPmCheckListPage = ({ qiSubmit, orderId, errorValidate, webStatus }: Props) => {
+const WorkOrderPmCheckListPage = (props) => {
+  const { qiSubmit, orderId, errorValidate, webStatus } = props.route.params as Props;
   const [allValues, setAllValues] = useState({
     electicalSystem: { measure: '', remark: '' },
     waterSystem: { measure: '', remark: '' },

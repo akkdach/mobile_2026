@@ -25,7 +25,8 @@ type InterfaceProps = {
 };
 
 
-const SparePartOutstandingPage: React.FC<InterfaceProps> = (props: InterfaceProps) => {
+const SparePartOutstandingPage = (props) => {
+  const params = props.route?.params as InterfaceProps;
   const { control, getValues, watch, setValue } = useForm<{ search: string, countRetrive: any }>();
   const [componentsValue, setComponentsValue] = useState<SparePartOutstanding[]>([]);
   const [componentsValueClone, setComponentsValueClone] = useState<SparePartOutstanding[]>([]);
@@ -55,7 +56,7 @@ const SparePartOutstandingPage: React.FC<InterfaceProps> = (props: InterfaceProp
 
   useEffect(() => {
     (async () => {
-      const result = (await fetchCheckOutLackOfSparePartsList(props.orderId)).dataResult
+      const result = (await fetchCheckOutLackOfSparePartsList(params.orderId)).dataResult
       setComponentsValueClone(result ? result : [])
       setComponentsValue(result ? result : [])
 
@@ -134,7 +135,7 @@ const SparePartOutstandingPage: React.FC<InterfaceProps> = (props: InterfaceProp
         {
           text: "OK", onPress: async () => {
             const result = await postSpareParse()
-            props.confirmModalSparePart(result)
+            params.confirmModalSparePart(result)
           }
         }
       ]
@@ -144,7 +145,7 @@ const SparePartOutstandingPage: React.FC<InterfaceProps> = (props: InterfaceProp
   const postSpareParse = async () => {
     try {
       var param = componentsValue.filter((item:any)=>item.quantity>0)
-      const response = await fetchCheckOutLackOfSpareParts({ workOrder: props.orderId, sparePartsItem: param })
+      const response = await fetchCheckOutLackOfSpareParts({ workOrder: params.orderId, sparePartsItem: param })
       if (response.isSuccess) {
         Alert.alert('แจ้งเตือน', 'บันทึกข้อมูลสำเร็จ')
         return true;
@@ -160,7 +161,7 @@ const SparePartOutstandingPage: React.FC<InterfaceProps> = (props: InterfaceProp
 
   const onSearch = (input:string)=>{
     (async () => {
-      const result = (await fetchCheckOutLackOfSparePartsList(props.orderId,input)).dataResult
+      const result = (await fetchCheckOutLackOfSparePartsList(params.orderId,input)).dataResult
       setComponentsValueClone(result ? result : [])
       setComponentsValue(result ? result : [])
 
@@ -358,7 +359,7 @@ const SparePartOutstandingPage: React.FC<InterfaceProps> = (props: InterfaceProp
       }}>
         <Flex justify="center">
           <Button
-            onPress={props.cancelModalSparePart}
+            onPress={params.cancelModalSparePart}
             style={{
               backgroundColor: COLOR.gray,
               height: 62,

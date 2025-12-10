@@ -17,9 +17,10 @@ import { Fonts } from '../../../constants/fonts';
 // import {WebView} from 'react-native-webview'
 import { Button } from '@ant-design/react-native';
 const WorkOrderDetailsPage = (props: any) => {
+  const params = props.route?.params;
   const [barcodeUrl, setBarcodeUrl] = useState<string>();
 
-  const data: any = props?.workOrderData;
+  const data: any = params?.workOrderData;
   const [workOrderDetail, setWorkOrderDetail] = useState<any>();
   const [sparePart, setSparePart] = useState<
     IWorkOrderDetailComponentList[] | undefined

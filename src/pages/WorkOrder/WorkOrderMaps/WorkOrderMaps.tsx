@@ -19,9 +19,10 @@ type InterfaceProps = {
   };
 };
 
-const WorkOrderMapsPage: FC<InterfaceProps> = (props: InterfaceProps) => {
+const WorkOrderMapsPage: FC<InterfaceProps> = (props) => {
+  const params = props.route?.params as InterfaceProps;
   const [screenInfo, setScreenInfo] = useState(Dimensions.get('screen'))
-  const {orderId} = props?.workOrderData;
+  const {orderId} = params?.workOrderData;
   const [mapData, setMapData] = useState<IWorkOrderMap>();
   const [region, setRegion] = useState<Region>({
     latitude: 13.736717,
@@ -127,8 +128,8 @@ const WorkOrderMapsPage: FC<InterfaceProps> = (props: InterfaceProps) => {
 
   return (
     <>
-      {ScreenWidth >= 500 && <AppBar title="แผนที่ติดตั้งอุปกรณ์ฯ" rightTitle={`Order: ${props.workOrderData.orderId}`}></AppBar> }
-      {ScreenWidth < 500 && <AppBar title={`แผนที่ติดตั้งอุปกรณ์ฯ ${props.workOrderData.orderId}`} ></AppBar> }
+      {ScreenWidth >= 500 && <AppBar title="แผนที่ติดตั้งอุปกรณ์ฯ" rightTitle={`Order: ${params.workOrderData.orderId}`}></AppBar> }
+      {ScreenWidth < 500 && <AppBar title={`แผนที่ติดตั้งอุปกรณ์ฯ ${params.workOrderData.orderId}`} ></AppBar> }
       <SafeAreaView>
         <Animated.ScrollView>
           {Contents()}

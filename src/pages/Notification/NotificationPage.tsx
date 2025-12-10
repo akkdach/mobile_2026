@@ -14,13 +14,14 @@ import { useNavigation, StackActions } from '@react-navigation/native';
 
 // const NotificationPage: React.FC = (props: any) => {
 const NotificationPage = (props: any) => {
+  const params = props.route?.params;
   const {data: notifications} = useFetchNotification();
   const [dataList, setDataList] = useState<any>();
   const navigation = useNavigation();
 
   
 
-  console.log('[props]', props.notification)
+  console.log('[props]', params.notification)
   useEffect(() => {
       getNotifyList()
   }, [])

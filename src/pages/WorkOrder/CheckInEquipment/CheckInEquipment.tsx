@@ -18,7 +18,8 @@ type InterfaceProps = {
     type: string
 };
 
-const CheckInEquipment = (props: InterfaceProps) => {
+const CheckInEquipment = (props) => {
+    const params = props.route.params as InterfaceProps;
     const navigation = useNavigation();
     const [originalEquipment, setOriginalEquipment] = useState<any>();
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -28,7 +29,7 @@ const CheckInEquipment = (props: InterfaceProps) => {
     const [equipmentType, setEquipmentType] = useState<any>(null);
 
     const onLoad = async () => {
-        var result = await fetchCheckOutEquipmentNotMatchGet(props.orderId);
+        var result = await fetchCheckOutEquipmentNotMatchGet(params.orderId);
         if (result.isSuccess) {
             setOriginalEquipment(result.dataResult);
             setValueEquipmentType(result.dataResult.equipmentType ?? result.dataResult.originalEquipmentType);
@@ -40,12 +41,12 @@ const CheckInEquipment = (props: InterfaceProps) => {
         var equipment = getValues('equipment');
         if (!equipment) { Alert.alert('โปรดระบุหมายเลขเครื่อง'); return; }
         if (!valueEquipmentType) { Alert.alert('โปรดระบุประเภทเครื่อง'); return; }
-        if (!props.orderId) { Alert.alert('โปรดระบุออเดอร์'); return; }
+        if (!params.orderId) { Alert.alert('โปรดระบุออเดอร์'); return; }
 
         setIsLoading(true)
         var result = await fetchCheckOutEquipmentNotMatchSet({
             ...data,
-            workOrder: props.orderId,
+            workOrder: params.orderId,
             equipmentType: valueEquipmentType,
 
         });
@@ -61,7 +62,7 @@ const CheckInEquipment = (props: InterfaceProps) => {
 
     useEffect(() => {
         onLoad();
-        const typeStr = props.type.substr(0, 2);
+        const typeStr = params.type.substr(0, 2);
         if (typeStr === 'ZC') {
             setEquipmentType([
                 { label: 'TBIB', value: 'TBIB' },
@@ -205,7 +206,7 @@ const CheckInEquipment = (props: InterfaceProps) => {
         <>
             <AppBar title="เช็คอินเครื่อง"></AppBar>
             <BackGroundImage
-                components={<Animated.ScrollView>{Contents(props)}</Animated.ScrollView>}
+                components={<Animated.ScrollView>{Contents(params)}</Animated.ScrollView>}
             />
             <Loading loading={isLoading} />
 

@@ -33,21 +33,22 @@ type Inputs = {
   remark: string;
 };
 
-const SatisfactionAssessmentFormPage = (props: InterfaceProps) => {
+const SatisfactionAssessmentFormPage = (props) => {
+  const params = props.route.params as InterfaceProps;
   const navigation = useNavigation();
-  if (!isNotCheckActionSignature(props.workOrderData.type)) {
+  if (!isNotCheckActionSignature(params.workOrderData.type)) {
     return (
       <>
         <AppBar title="สรุปปิดงาน"></AppBar>
         <ScrollView>
-          <Text style={{ textAlign: 'center', marginTop: 20 }}>{props.workOrderData.orderId} coming soon show detail</Text>
+          <Text style={{ textAlign: 'center', marginTop: 20 }}>{params.workOrderData.orderId} coming soon show detail</Text>
         </ScrollView>
       </>
     );
   }
   const { control, getValues, setValue } = useForm<Inputs>();
   const [isLoading, setIsLoading] = useState(false);
-  const { orderId } = props?.workOrderData;
+  const { orderId } = params?.workOrderData;
   const [workOrderCloseValue, setWorkOrderCloseWorkValue] = React.useState({
     speed: '',
     politeness: '',
@@ -107,7 +108,7 @@ const SatisfactionAssessmentFormPage = (props: InterfaceProps) => {
     workOrderCloseValue.remark = remark;
     setWorkOrderCloseWorkValue({ ...workOrderCloseValue });
     navigation.dispatch(StackActions.push(ROUTE.SIGNATURE, {
-      workOrderData: props?.workOrderData,
+      workOrderData: params?.workOrderData,
       satisfactionAssessment: workOrderCloseValue,
     }));
   };
@@ -116,7 +117,7 @@ const SatisfactionAssessmentFormPage = (props: InterfaceProps) => {
     return (
       <View
         style={[styles.RadioButtonItem]}>
-        <RadioButton value={value} key={value} disabled={props.workOrderData.webStatus !== '4' ? false : true} />
+        <RadioButton value={value} key={value} disabled={params.workOrderData.webStatus !== '4' ? false : true} />
         <Text style={styles.labelRadio}>{textLabel}</Text>
       </View>
     );
@@ -135,7 +136,7 @@ const SatisfactionAssessmentFormPage = (props: InterfaceProps) => {
                 style={styles.input}
                 value={value}
                 onChangeText={textSearch => onChange(textSearch)}
-                editable={props.workOrderData.webStatus !== '4' ? true : false}
+                editable={params.workOrderData.webStatus !== '4' ? true : false}
               />
             );
           }}
@@ -294,7 +295,7 @@ const SatisfactionAssessmentFormPage = (props: InterfaceProps) => {
         {InputRemark()}
         {ButtonSubmit()}
         {/* <View>
-          <WorkOrderQlChecklistCloseWork workOrderData={props?.workOrderData} />
+          <WorkOrderQlChecklistCloseWork workOrderData={params?.workOrderData} />
         </View> */}
 
       </ScrollView>
@@ -303,8 +304,8 @@ const SatisfactionAssessmentFormPage = (props: InterfaceProps) => {
 
   return (
     <>
-      {screenInfo.width > 500 && <AppBar title="แบบประเมินความพึงพอใจ" rightTitle={`Order: ${props.workOrderData.orderId}`}></AppBar> }
-      {screenInfo.width <= 500 && <AppBar title={`ประเมินความพึงพอใจ ${props.workOrderData.orderId}`} ></AppBar> }
+      {screenInfo.width > 500 && <AppBar title="แบบประเมินความพึงพอใจ" rightTitle={`Order: ${params.workOrderData.orderId}`}></AppBar> }
+      {screenInfo.width <= 500 && <AppBar title={`ประเมินความพึงพอใจ ${params.workOrderData.orderId}`} ></AppBar> }
       <BackGroundImage
         components={
           <Animated.ScrollView>{Contents()}</Animated.ScrollView>

@@ -130,9 +130,10 @@ type InputMovementEquipment = {
   contactTelNumber: string;
 };
 
-const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
+const WorkOrderListPage: FC<InterfaceProps> = (props) => {
   const navigation = useNavigation();
   console.log('props ====>', props);
+  const params = props.route?.params as InterfaceProps
   const [visibleModal, setStateVisibleModal] = useState(false);
   const [checkInModal, setStateCheckInModal] = useState(false);
   const [checkOutModal, setStateCheckOutModal] = useState(false);
@@ -167,8 +168,8 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
   const [open, setOpen] = useState(false);
   const [valueSelect, setValueSelect] = useState<any>(null);
   const [valueReasonSelect, setValueReasonSelect] = useState<any>(null);
-  const [items, setItems] = useState(closeWorkMaster(props.type));
-  const [itemsReason, setItemReason] = useState(CloseReason(props.type));
+  const [items, setItems] = useState(closeWorkMaster(params.type));
+  const [itemsReason, setItemReason] = useState(CloseReason(params.type));
   const [closeClockWorkTIme, setCloseClockWorkTIme] = useState<any>();
   const [causeCloseType, setCauseCloseType] = useState<any>();
   const [valueCauseCloseType, setValueCauseCloseType] = useState<any>(null);
@@ -235,7 +236,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
 
   const getWorkOrderCustomer = async () => {
     try {
-      const result = await fetchtWorkOrderCustomer(props.orderId);
+      const result = await fetchtWorkOrderCustomer(params.orderId);
       setCustomerData(result);
     } catch (error) {
       setCustomerData(null);
@@ -244,7 +245,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
 
   const getSalePriceDetail = async (billNo: string) => {
     try {
-      const result = await fetchSalePrice(props.orderId, billNo);
+      const result = await fetchSalePrice(params.orderId, billNo);
       console.log('result::', result)
       if (result.isSuccess) {
         setSalePriceDetail(result.dataResult);
@@ -262,7 +263,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
 
   const getBillNo = async () => {
     try {
-      const result = await fetchBillNumber(props.workCenter, props.orderId);
+      const result = await fetchBillNumber(params.workCenter, params.orderId);
       const { isSuccess, billNo, message } = result;
       if (isSuccess) {
         setCurrentBillNo(`${billNo}`);
@@ -281,7 +282,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
   }, []);
 
   useEffect(() => {
-    const typeStr = props.type.substr(0, 2);
+    const typeStr = params.type.substr(0, 2);
     if (typeStr === 'ZC') {
       setEquipmentType([
         { label: 'TBIB', value: 'TBIB' },
@@ -315,7 +316,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
 
   useEffect(() => {
     (async () => {
-      const result: any = await fetchWorkOrderImageGet(props.orderId);
+      const result: any = await fetchWorkOrderImageGet(params.orderId);
       if (result) {
         let imageSet = {};
         Object.keys(result.dataResult).forEach(
@@ -354,7 +355,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
 
   const loadCheckOutWorkingTime = async () => {
     try {
-      const result: any = (await fetchCheckOutWorkingTime(props.orderId))
+      const result: any = (await fetchCheckOutWorkingTime(params.orderId))
         .dataResult;
       console.log('result ====>', result);
 
@@ -372,7 +373,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
 
   useEffect(() => {
     (async () => {
-      const result: any = (await fetchCheckOutChangeDeviceGet(props.orderId))
+      const result: any = (await fetchCheckOutChangeDeviceGet(params.orderId))
         .dataResult;
       InputChangeEquipment.setValue('customerCode', result.customerCode);
       InputChangeEquipment.setValue('customerName', result.customerName);
@@ -393,7 +394,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
   useEffect(() => {
     (async () => {
       const result: any = (
-        await fetchCheckOutEquipmentMovementGet(props.orderId)
+        await fetchCheckOutEquipmentMovementGet(params.orderId)
       ).dataResult;
 
       InputMovementEquipment.setValue('customerCode', result.customerCode);
@@ -450,8 +451,8 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
 
   const _onGetCheckIn = async () => {
     let data = {
-      OrderId: `${props.orderId}`,
-      WorkCenter: `${props.workCenter}`,
+      OrderId: `${params.orderId}`,
+      WorkCenter: `${params.workCenter}`,
     };
     if (checkInModal) {
       let response = await getCheckInShop(data);
@@ -492,8 +493,8 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
           try {
             let data = {
               mileAge: Number(getValues('mileInStore')),
-              orderId: `${props.orderId}`,
-              workCenter: `${props.workCenter}`,
+              orderId: `${params.orderId}`,
+              workCenter: `${params.workCenter}`,
             };
             let response = await checkInShop(data);
             if (response.isSuccess) {
@@ -510,7 +511,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
 
   const _onClickMapCustomer = () => {
     setStateVisibleModal(!visibleModal);
-    navigation.dispatch(StackActions.push(ROUTE.WORK_ORDER_MAP, { workOrderData: props }));
+    navigation.dispatch(StackActions.push(ROUTE.WORK_ORDER_MAP, { workOrderData: params }));
   };
 
   const DrawHorizontalWidget = () => {
@@ -542,11 +543,11 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
   };
 
   const _onClickModalCheckOut = async () => {
-    const result: any = (await fetchCheckOutCloseTypeGet(props.orderId))
+    const result: any = (await fetchCheckOutCloseTypeGet(params.orderId))
       .dataResult;
-    // Alert.alert(props.webStatus)
+    // Alert.alert(params.webStatus)
     setCloseTypeModal(false);
-    if (props.webStatus === '4') {
+    if (params.webStatus === '4') {
       setIsEditable(false);
       setValueSelect(result.closeType.toString());
       setCloseTypeCheckOutModal(true);
@@ -656,7 +657,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
               );
               return;
             } else if (args?.modal) {
-              fetchCheckOutWorkingTime(props.orderId)
+              fetchCheckOutWorkingTime(params.orderId)
                 .then(response => {
                   const result = response.dataResult;
                   if (
@@ -679,7 +680,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
                           text: 'ตกลง',
                           onPress: async () => {
                             navigation.dispatch(StackActions.push(ROUTE.WORK_ORDER_DETAILS_WORK, {
-                              workOrderData: props,
+                              workOrderData: params,
                             }));
                           },
                         },
@@ -700,7 +701,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
                         text: 'ตกลง',
                         onPress: async () => {
                           navigation.dispatch(StackActions.push(ROUTE.WORK_ORDER_DETAILS_WORK, {
-                            workOrderData: props,
+                            workOrderData: params,
                           }));
                         },
                       },
@@ -719,7 +720,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
                   {
                     text: 'ตกลง',
                     onPress: async () =>
-                      onCandelOrder(props.orderId)
+                      onCandelOrder(params.orderId)
                   },
                 ],
               );
@@ -730,7 +731,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
               } else {
                 if (!nextPage) {
                   setNextPage(true);
-                  navigation.dispatch(StackActions.push(args?.route, { workOrderData: props }));
+                  navigation.dispatch(StackActions.push(args?.route, { workOrderData: params }));
                 }
               }
             }
@@ -1246,7 +1247,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
             <View >
               {BottomWidget('เลือกประเภทการปิดงานกรณีงานไม่สำเร็จ', () => setCloseTypeModal(true), COLOR.orange)}
             </View>
-            {props.type == 'ZC02' && <>
+            {params.type == 'ZC02' && <>
               <View style={{ borderBottomWidth: 1, borderBottomColor: 'gray', marginTop: 20 }}></View>
               <View >
                 <Text style={{ marginTop: 20 }}>ปิดงานแบบ Phone Fix</Text>
@@ -1897,7 +1898,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
               </View>
 
               <View style={stylePrice.rowRight}>
-                <Text style={stylePrice.titleDetails}>Order: {props.orderId}</Text>
+                <Text style={stylePrice.titleDetails}>Order: {params.orderId}</Text>
                 <Text style={stylePrice.titleDetails}>Total:</Text>
                 <Text style={stylePrice.titleDetails}>{salePriceDetail?.totalAmount ?? 0}</Text>
                 <Text style={stylePrice.titleDetails}>THB</Text>
@@ -1941,7 +1942,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
           )}
         </View>
 
-        {isShowChangeEquipment(props.type) && (
+        {isShowChangeEquipment(params.type) && (
           <>
             <View
               style={{
@@ -2174,7 +2175,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
           )}
         </View>
 
-        {isShowChangeEquipmentMovement(props.type) && (
+        {isShowChangeEquipmentMovement(params.type) && (
           <>
             <View
               style={{
@@ -2662,14 +2663,14 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
         // ปิดงานแบบสำรวจไม่สำเร็จ
         // ปิดงานแบบลูกค้าแจ้งคืนตู้
         // ปิดงานแบบปกติแบบระบุ Code
-        if (isNotValidateCapture(props.type)) {
+        if (isNotValidateCapture(params.type)) {
           const checkTitle =
-            ['BN04', 'ZC04', 'BN09', 'ZC09'].indexOf(props.type) > 0;
+            ['BN04', 'ZC04', 'BN09', 'ZC09'].indexOf(params.type) > 0;
           return (
             <View>
               <View>
                 {ImageCardWidget(
-                  props.type != 'ZC04' ? 'รูปถ่ายที่ติดตั้งอุปกรณ์ฯ' : 'รูปถ่ายหลังปฏิบัติงานส่งมอบตู้ให้ลูกค้า',
+                  params.type != 'ZC04' ? 'รูปถ่ายที่ติดตั้งอุปกรณ์ฯ' : 'รูปถ่ายหลังปฏิบัติงานส่งมอบตู้ให้ลูกค้า',
                   'urlCloseImage_6',
                 )}
               </View>
@@ -2690,7 +2691,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
       case '4':
         // ไม่ปิดงานเพราะค้างอะไหล่
         // เลื่อกรายการค้างอะไหล่ เปิด modal
-        if (isNotValidateCapture(props.type)) {
+        if (isNotValidateCapture(params.type)) {
           return (
             <View>
               <View>
@@ -2717,13 +2718,13 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
         return <View></View>;
       case '5':
         // ปิดงานพร้อมแจ้งเปลี่ยนอุปกรณ์
-        if (isNotValidateCapture(props.type)) {
+        if (isNotValidateCapture(params.type)) {
           return <View>{ChangeEquipment()}</View>;
         }
         return <View></View>;
       case '6':
         // ปิดงานแบบหมายเลจอุปกรณ์ไม่ตรง
-        if (isNotValidateCapture(props.type)) {
+        if (isNotValidateCapture(params.type)) {
           return (
             <View>
               <View>
@@ -2747,7 +2748,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
         return <View></View>;
       case '12':
         // ปิดงานแบบเปลี่ยนตู้โยกย้าย
-        if (isNotValidateCapture(props.type)) {
+        if (isNotValidateCapture(params.type)) {
           return <View>{MovementEquipment()}</View>;
         }
         return <View></View>;
@@ -2772,8 +2773,8 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
       case '13':
       case '16':
         const checkTitle =
-          ['BN04', 'ZC04', 'BN09', 'ZC09'].indexOf(props.type) > 0;
-        const orderType = ['BN15', 'ZC15', 'BN16', 'ZC16'].includes(props.type);
+          ['BN04', 'ZC04', 'BN09', 'ZC09'].indexOf(params.type) > 0;
+        const orderType = ['BN15', 'ZC15', 'BN16', 'ZC16'].includes(params.type);
         if (!orderType) {
           arrayValidate = [
             'urlCloseImage_6',
@@ -2829,7 +2830,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
           if (fileData[0][keyName].formatType === 'file') {
             const result: any = await uploadImage(
               fileData[0][keyName],
-              props.orderId,
+              params.orderId,
             );
             if (result.status === 2) {
               tempUploadUrl = {
@@ -2843,7 +2844,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
 
           if (Object.keys(fileData[0]).length - 1 === index) {
             const response = await fetchWorkOrderImageUpdate({
-              orderId: props.orderId,
+              orderId: params.orderId,
               ...tempUploadUrl,
             });
             return response;
@@ -2878,7 +2879,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
     switch (valueSelect) {
       case '5':
         const { identityCode, telNumber } = InputChangeEquipment.getValues();
-        if (isShowChangeEquipment(props.type)) {
+        if (isShowChangeEquipment(params.type)) {
           if (
             typeIdentify === null &&
             identityCode === null &&
@@ -2898,7 +2899,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
         formValue = {
           ...InputChangeEquipment.getValues(),
           ...{
-            workOrder: props.orderId,
+            workOrder: params.orderId,
             customerType: typeIdentify,
             identityExpier: moment(
               dateSplit[2] + '-' + dateSplit[1] + '-' + dateSplit[0],
@@ -2910,7 +2911,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
           const checkOutChange = await fetchCheckOutChangeDeviceSet(formValue);
           if (checkOutChange.isSuccess) {
             await postCheckOutCloseType({
-              workOrder: props.orderId,
+              workOrder: params.orderId,
               closeType: parseInt(valueSelect),
               code: '',
               shortText: '',
@@ -2937,7 +2938,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
         return;
       case '12':
         const inputMovementEquipment = InputMovementEquipment.getValues();
-        if (isShowChangeEquipmentMovement(props.type)) {
+        if (isShowChangeEquipmentMovement(params.type)) {
           if (
             typeIdentify === null &&
             valueEquipmentType === null &&
@@ -2959,7 +2960,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
         const movementEquipment = {
           ...inputMovementEquipment,
           ...{
-            workOrder: props.orderId,
+            workOrder: params.orderId,
             customerType: typeIdentify,
             identityExpier: moment(
               dateMovementSplit[2] +
@@ -2977,7 +2978,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
             await fetchCheckOutEquipmentMovementSet(movementEquipment);
           if (checkOutEquipmentMovement.isSuccess) {
             await postCheckOutCloseType({
-              workOrder: props.orderId,
+              workOrder: params.orderId,
               closeType: parseInt(valueSelect),
               code: '',
               shortText: '',
@@ -3004,7 +3005,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
         return;
       default:
         await postCheckOutCloseType({
-          workOrder: props.orderId,
+          workOrder: params.orderId,
           closeType: parseInt(valueSelect),
           code: '',
           shortText: '',
@@ -3021,7 +3022,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
       (v: any) => v.value === valueCauseCloseType,
     );
     await postCheckOutCloseType({
-      workOrder: props.orderId,
+      workOrder: params.orderId,
       closeType: parseInt(valueSelect),
       code: cause.value ? cause.value : null,
       shortText: cause.label ? cause.label : null,
@@ -3357,14 +3358,14 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
     try {
       setIsLoading(true);
       await fetchCheckOutEquipmentNotMatchSet({
-        workOrder: props.orderId,
+        workOrder: params.orderId,
         equipmentType: valueEquipmentType,
         equipment: equipmentNotFound.equipment,
         comment: equipmentNotFound.comment,
       });
       setIsLoading(false);
       await postCheckOutCloseType({
-        workOrder: props.orderId,
+        workOrder: params.orderId,
         closeType: parseInt(valueSelect),
         code: '',
         shortText: '',
@@ -3382,11 +3383,11 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
   const getCheckOutOptionCloseType = async (CodeGroup: string) => {
     try {
       console.log('fetchCauseCheckOutOptionCloseType', {
-        WorkOrder: props.orderId,
+        WorkOrder: params.orderId,
         CodeGroup,
       });
       const response = await fetchCauseCheckOutOptionCloseType({
-        WorkOrder: props.orderId,
+        WorkOrder: params.orderId,
         CodeGroup,
       });
       if (response.isSuccess) {
@@ -3404,7 +3405,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
 
   const getCheckOutEquipmentNotMatch = async () => {
     try {
-      const response = await fetchCheckOutEquipmentNotMatchGet(props.orderId);
+      const response = await fetchCheckOutEquipmentNotMatchGet(params.orderId);
       if (response.isSuccess) {
         setValueEquipmentType(response.dataResult.equipmentType);
         InputChangeEquipmentNotFound.setValue(
@@ -3435,7 +3436,7 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
           <SparePartOutstandingPage
             confirmModalSparePart={confirmModalSparePart}
             cancelModalSparePart={cancelModalSparePart}
-            orderId={props.orderId}
+            orderId={params.orderId}
           />
         </Modal>
       );
@@ -3539,9 +3540,9 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
   const renderWorkOrderList = () => {
     const listOrder: any = [];
     const orderData: CardWorkListInterface[] = getMenuByWorkType(
-      props.type,
-      props.objType,
-      props.webStatus,
+      params.type,
+      params.objType,
+      params.webStatus,
     );
     orderData.forEach((order, index) => {
       listOrder.push(CardWorkOrder(index, order));
@@ -3618,22 +3619,22 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
           marginBottom: 60,
         }}
         key={generateKey('button-group-main')}>
-        {isNotCheckActionMileage(props.type) && props.webStatus !== '4' && (
+        {isNotCheckActionMileage(params.type) && params.webStatus !== '4' && (
           <View style={{ flex: 1, width: '100%' }}>
             {BottomWidget('เลขไมล์ถึงร้าน', () => _onClickModalCheckIn())}
           </View>
         )}
-        {isNotCheckActionCheckIn(props.type) && props.webStatus !== '4' && (
+        {isNotCheckActionCheckIn(params.type) && params.webStatus !== '4' && (
           <View style={{ flex: 1, width: '100%' }}>
             {BottomWidget('เช็คอิน', () => {
 
-              navigation.dispatch(StackActions.push(ROUTE.MainCheckIn, props))
+              navigation.dispatch(StackActions.push(ROUTE.MainCheckIn, params))
 
             }
             )}
           </View>
         )}
-        {isNotCheckActionPriceCheck(props.type) && (
+        {isNotCheckActionPriceCheck(params.type) && (
           <View style={{ flex: 1, width: '100%' }}>
             {BottomWidget('เช็คราคาขาย', () => _onClickModalSalePrice())}
           </View>
@@ -3650,15 +3651,15 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
           <Animated.View>
             <AppBar
               // title="Work Order List"
-              title={`Order: ${props.orderId}`}
+              title={`Order: ${params.orderId}`}
               replacePath={ROUTE.WORKORDER}
-              // rightTitle={`Order: ${props.orderId}`}
+              // rightTitle={`Order: ${params.orderId}`}
               key={`work-order-list-app-bar`}
-            // onBackReload={props.backReloadPage} ////2023
+            // onBackReload={params.backReloadPage} ////2023
             ></AppBar>
-            {props.errorMessage &&
-              props.errorMessage !== null &&
-              props.errorMessage.length > 0 ? (
+            {params.errorMessage &&
+              params.errorMessage !== null &&
+              params.errorMessage.length > 0 ? (
               <View
                 style={{
                   padding: screenInfo.width > 500 ? 20 : 3,
@@ -3672,14 +3673,14 @@ const WorkOrderListPage: FC<InterfaceProps> = (props: InterfaceProps) => {
                     fontSize: screenInfo.width > 500 ? 18 : 10,
                     fontFamily: Fonts.Prompt_Medium,
                   }}>
-                  {props.errorMessage}
+                  {params.errorMessage}
                 </Text>
               </View>
             ) : null}
             <ScrollView
               key={generateKey('scroll-view-main')}
               style={{
-                maxHeight: props.type === 'ZC01' ? screenHeight - 0 : screenHeight,
+                maxHeight: params.type === 'ZC01' ? screenHeight - 0 : screenHeight,
               }}>
               {renderWorkOrderList()}
               {ButtonGroupEvent()}

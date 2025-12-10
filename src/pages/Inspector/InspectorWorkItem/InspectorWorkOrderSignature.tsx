@@ -47,9 +47,10 @@ type Inputs = {
   // customer: string;
 };
 
-const InspectorWorkOrderSignature = (props: InterfaceProps) => {
+const InspectorWorkOrderSignature = (props) => {
+  const params = props.route?.params as InterfaceProps;
   const [isLoading, setIsLoading] = useState(false);
-  const { orderId, workType } = props?.workOrderData;
+  const { orderId, workType } = params?.workOrderData;
   const { control, getValues, setValue } = useForm<Inputs>();
   
   const [visibleModalTeamLead, setStateVisibleModalTeamLead] = useState(false);
@@ -60,7 +61,7 @@ const InspectorWorkOrderSignature = (props: InterfaceProps) => {
   const [signatureCustomer, setSignatureCustomer] = useState<any>();
 
   const [satisfactionAssessment, setSatisfactionAssessment] =
-    useState<IWorkOrderCloseWork>(props.satisfactionAssessment);
+    useState<IWorkOrderCloseWork>(params.satisfactionAssessment);
   // const [warranty, setWarranty] = useState<any>(false);
   const navigation = useNavigation();
 
@@ -69,16 +70,16 @@ const InspectorWorkOrderSignature = (props: InterfaceProps) => {
   }, []);
 
   useEffect(() => {
-    if(props.workOrderData.workType !== 'visitor') {
-      if(props.satisfactionAssessment.remark) {
-        setValue('remark', props.satisfactionAssessment.remark);
+    if(params.workOrderData.workType !== 'visitor') {
+      if(params.satisfactionAssessment.remark) {
+        setValue('remark', params.satisfactionAssessment.remark);
       }
 
-      if(props.satisfactionAssessment.teamLeadSignatureName) {
-        setValue('teamLead', props.satisfactionAssessment.teamLeadSignatureName)
+      if(params.satisfactionAssessment.teamLeadSignatureName) {
+        setValue('teamLead', params.satisfactionAssessment.teamLeadSignatureName)
       }
     }
-  }, [props]);
+  }, [params]);
 
   const loadDataAll = async () => {
     setIsLoading(true);
@@ -86,7 +87,7 @@ const InspectorWorkOrderSignature = (props: InterfaceProps) => {
       const result: any = await fetchWorkOrderCloseWorkInspector(orderId, workType);
       console.log('GetWorkOrderCloseWork_VisitInspector', JSON.stringify(result, null, 2))
       if (result.isSuccess) {
-        if(props.workOrderData.workType === 'visitor') {
+        if(params.workOrderData.workType === 'visitor') {
           setValue('teamLead', result.dataResult.teamLeadSignatureName);
           setValue('remark', result.dataResult.remark);
           setSignatureWorker(result.dataResult.workerSignatureUrl);
@@ -198,7 +199,7 @@ const InspectorWorkOrderSignature = (props: InterfaceProps) => {
         return;
       }
 
-      if(props.workOrderData.workType === 'visitor') {
+      if(params.workOrderData.workType === 'visitor') {
         if (!signatureWorker) {
           Alert.alert('แจ้งเตือน', 'กรุณาเพิ่มรูปถ่ายลายเซ็นช่าง', [
             { text: 'ตกลง' },
@@ -221,7 +222,7 @@ const InspectorWorkOrderSignature = (props: InterfaceProps) => {
         return;
       }
       let payload: any = {}
-      if(props.workOrderData.workType === 'visitor') {
+      if(params.workOrderData.workType === 'visitor') {
         payload = {
           ...satisfactionAssessment,
           ...{ workOrder: orderId },
@@ -289,7 +290,7 @@ const InspectorWorkOrderSignature = (props: InterfaceProps) => {
                 style={styles.input}
                 value={value}
                 onChangeText={textSearch => onChange(textSearch)}
-              // editable={props.workOrderData.webStatus !== '4' ? true : false}
+              // editable={params.workOrderData.webStatus !== '4' ? true : false}
               />
             );
           }}
@@ -412,11 +413,11 @@ const InspectorWorkOrderSignature = (props: InterfaceProps) => {
           paddingRight: 30,
         }}>
         {
-          props.workOrderData.workType === 'visitor' ?
+          params.workOrderData.workType === 'visitor' ?
           <Button
             style={{...styles.btnOutline, marginRight: 10}}
             onPress={() => setStateVisibleModalWorker(!visibleModalWorker)}
-          // disabled={props.workOrderData.webStatus !== '4' ? false : true}
+          // disabled={params.workOrderData.webStatus !== '4' ? false : true}
           >
             <Text
               style={{
@@ -454,7 +455,7 @@ const InspectorWorkOrderSignature = (props: InterfaceProps) => {
         <Button
           style={{ ...styles.btnOutline }}
           onPress={() => setStateVisibleModalTeamLead(true)}
-        // disabled={props.workOrderData.webStatus !== '4' ? false : true}
+        // disabled={params.workOrderData.webStatus !== '4' ? false : true}
         >
           <Icon
             name="edit"
@@ -475,27 +476,27 @@ const InspectorWorkOrderSignature = (props: InterfaceProps) => {
   }
 
   const Contents = () => {
-    console.log('[props.workOrderData.workType]', props.workOrderData.workType)
+    console.log('[params.workOrderData.workType]', params.workOrderData.workType)
     return (
       <ScrollView>
         <SafeAreaView style={styles.container}>
           <View>
-            {props.workOrderData.workType != "visitor" ? <InformationCloseWorkPage orderId={props.workOrderData.orderId} workType={props.workOrderData.workType}></InformationCloseWorkPage> : null}
-            {props.workOrderData.workType != "visitor" ? <View style={{ marginTop: 16 }}><CheckListVisitInspectorCloseWork workOrderData={props.workOrderData} /></View> : <View style={{ marginTop: 16 }}>
+            {params.workOrderData.workType != "visitor" ? <InformationCloseWorkPage orderId={params.workOrderData.orderId} workType={params.workOrderData.workType}></InformationCloseWorkPage> : null}
+            {params.workOrderData.workType != "visitor" ? <View style={{ marginTop: 16 }}><CheckListVisitInspectorCloseWork workOrderData={params.workOrderData} /></View> : <View style={{ marginTop: 16 }}>
               <CheckListCloseWorksPage
-                orderId={props.workOrderData.orderId}
-                workType={props.workOrderData.workType}
+                orderId={params.workOrderData.orderId}
+                workType={params.workOrderData.workType}
               />
             </View>}
-            {props.workOrderData.workType != 'visitor' ? <QICloseWorkPage orderId={props.workOrderData.orderId} workType={props.workOrderData.workType}/> : null}
+            {params.workOrderData.workType != 'visitor' ? <QICloseWorkPage orderId={params.workOrderData.orderId} workType={params.workOrderData.workType}/> : null}
            
-            {props.workOrderData.workType === 'visitor' && InputRemark()}
-            {props.workOrderData.workType === 'visitor' ? WorkerSignature() : CustomerSignature()}
+            {params.workOrderData.workType === 'visitor' && InputRemark()}
+            {params.workOrderData.workType === 'visitor' ? WorkerSignature() : CustomerSignature()}
             {TeamLeadSignature()}
             {ButtonGroupSignature()}
           </View>
           {
-            props.workOrderData.workType === 'visitor' ?
+            params.workOrderData.workType === 'visitor' ?
             <InspectorWorkOrderSignatureComponent
               key={'worker'}
               title={'ลายเซ็นต์ช่าง'}
@@ -572,7 +573,7 @@ const InspectorWorkOrderSignature = (props: InterfaceProps) => {
             </Text>
           </Button>
         </View>
-        {/* {props.workOrderData.webStatus !== '4' && (
+        {/* {params.workOrderData.webStatus !== '4' && (
           <View style={[{paddingTop: 20, padding: 40}]}>
             <Button style={styles.btn} onPress={() => _onSubmit()}>
               <Text
@@ -594,7 +595,7 @@ const InspectorWorkOrderSignature = (props: InterfaceProps) => {
     return [
       <AppBar
         title="เซ็นชื่อ"
-        rightTitle={`Order: ${props.workOrderData.orderId}`}></AppBar>,
+        rightTitle={`Order: ${params.workOrderData.orderId}`}></AppBar>,
       Contents(),
     ];
   };

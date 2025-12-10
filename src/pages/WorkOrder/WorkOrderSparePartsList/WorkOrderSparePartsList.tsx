@@ -61,12 +61,13 @@ if (screenWidth < 690) {
 
 
 
-const WorkOrderSparePartsListPage: FC<InterfaceProps> = (
-  props: InterfaceProps,
+const WorkOrderSparePartsListPage = (
+  props,
 ) => {
+  const params = props.route?.params as InterfaceProps
   const { control, getValues, watch, setValue } =
     useForm<{ search: string; countRetrive: any }>();
-  const { orderId } = props?.workOrderData;
+  const { orderId } = params?.workOrderData;
   const [saleStatus, setSaleStatus] = useState({ checked: false });
   const [visible, setVisible] = useState(false);
   const [componentsMasterValue, setComponentsMasterValue] = useState<
@@ -145,8 +146,8 @@ const WorkOrderSparePartsListPage: FC<InterfaceProps> = (
   }, []);
 
   useEffect(() => {
-    if (props.componentStorageSelected) {
-      const componentStorage = props.componentStorageSelected;
+    if (params.componentStorageSelected) {
+      const componentStorage = params.componentStorageSelected;
       console.log('componentStorage::', componentStorage);
       const newComponent: any = componentStorage.map(
         (item: IWorkOrderSparePartStorage) => {
@@ -174,7 +175,7 @@ const WorkOrderSparePartsListPage: FC<InterfaceProps> = (
         );
       });
     }
-  }, [props.componentStorageSelected]);
+  }, [params.componentStorageSelected]);
 
   const DrawHorizontalWidget = () => {
     return (
@@ -200,8 +201,8 @@ const WorkOrderSparePartsListPage: FC<InterfaceProps> = (
 
   const addRetrive = () => {
     setComponentByItem((previousValue: IWorkOrderSparePart) => {
-      if (props.componentStorageSelected) {
-        const findStorage: any = props.componentStorageSelected.find(
+      if (params.componentStorageSelected) {
+        const findStorage: any = params.componentStorageSelected.find(
           (val: any) => val.material === previousValue.material,
         );
 
@@ -328,14 +329,14 @@ const WorkOrderSparePartsListPage: FC<InterfaceProps> = (
       });
       const result = await fetchWorkOrderSparepartPost(
         components,
-        props.workOrderData.orderId,
+        params.workOrderData.orderId,
       );
       if (result.isSuccess) {
         Alert.alert('แจ้งเตือน', 'บันทึกข้อมูลสำเร็จ', [
           {
             text: 'ตกลง',
             onPress: async () => {
-              navigation.dispatch(StackActions.replace(ROUTE.WORKORDERLIST, props.workOrderData));
+              navigation.dispatch(StackActions.replace(ROUTE.WORKORDERLIST, params.workOrderData));
             }
           },
         ]);
@@ -668,7 +669,7 @@ const WorkOrderSparePartsListPage: FC<InterfaceProps> = (
         </DataTable.Cell>
         {screenInfo.width > 500 && <DataTable.Cell style={[styles.flex2, { justifyContent: 'center' }]}>
           <Button
-            disabled={props.workOrderData.webStatus !== '4' ? false : true}
+            disabled={params.workOrderData.webStatus !== '4' ? false : true}
             mode="contained"
             onPress={() => onRetriveSparepart(item, index)}
             style={{
@@ -695,11 +696,11 @@ const WorkOrderSparePartsListPage: FC<InterfaceProps> = (
           <Checkbox
             color={COLOR.secondary_primary_color}
             status={componentsValue[index].moveType ? 'checked' : 'unchecked'}
-            disabled={props.workOrderData.webStatus !== '4' ? false : true}
+            disabled={params.workOrderData.webStatus !== '4' ? false : true}
             onPress={() => onCheckChange(item, index)}
           />
         </DataTable.Cell>
-        {props.workOrderData.webStatus !== '4' && (
+        {params.workOrderData.webStatus !== '4' && (
           <DataTable.Cell style={[styles.flex1]}>
             <TouchableOpacity
               style={{ justifyContent: 'center' }}
@@ -768,7 +769,7 @@ const WorkOrderSparePartsListPage: FC<InterfaceProps> = (
         </Grid>
         {screenInfo.width > 500 && <Grid style={[styles.flex2, { justifyContent: 'center' }]}>
           <Button
-            disabled={props.workOrderData.webStatus !== '4' ? false : true}
+            disabled={params.workOrderData.webStatus !== '4' ? false : true}
             mode="contained"
             onPress={() => onRetriveSparepart(item, index)}
             style={{
@@ -783,7 +784,7 @@ const WorkOrderSparePartsListPage: FC<InterfaceProps> = (
         </Grid>}
         {screenInfo.width <= 500 && <Grid style={[styles.flex05, { justifyContent: 'center' }]}>
           <TouchableOpacity 
-                      disabled={props.workOrderData.webStatus !== '4' ? false : true}
+                      disabled={params.workOrderData.webStatus !== '4' ? false : true}
           onPress={() => onRetriveSparepart(item, index)}>
             <Text style={{ color: COLOR.secondary_primary_color }}>
               {item.requirementQuantity ? item.requirementQuantity : 1}
@@ -799,11 +800,11 @@ const WorkOrderSparePartsListPage: FC<InterfaceProps> = (
           <Checkbox
             color={COLOR.secondary_primary_color}
             status={componentsValue[index].moveType ? 'checked' : 'unchecked'}
-            disabled={props.workOrderData.webStatus !== '4' ? false : true}
+            disabled={params.workOrderData.webStatus !== '4' ? false : true}
             onPress={() => onCheckChange(item, index)}
           />
         </Grid>
-        {props.workOrderData.webStatus !== '4' && (
+        {params.workOrderData.webStatus !== '4' && (
           <Grid style={[styles.flex1]}>
             <TouchableOpacity
               style={{ justifyContent: 'center' }}
@@ -877,7 +878,7 @@ const WorkOrderSparePartsListPage: FC<InterfaceProps> = (
               <DataTable.Title style={[styles.flex1, { justifyContent: 'center' }]}>
                 <Text style={styles.dataTableTitle}>ขาย</Text>
               </DataTable.Title>
-              {props.workOrderData.webStatus !== '4' && (
+              {params.workOrderData.webStatus !== '4' && (
                 <DataTable.Title style={[styles.flex1]}>&nbsp;</DataTable.Title>
               )}
             </DataTable.Header>
@@ -908,7 +909,7 @@ const WorkOrderSparePartsListPage: FC<InterfaceProps> = (
                 <Grid style={[styles.flex1, { justifyContent: 'center' }]}>
                   <Text style={styles.dataTableTitle}>ขาย</Text>
                 </Grid>
-                {props.workOrderData.webStatus !== '4' && (
+                {params.workOrderData.webStatus !== '4' && (
                   <Grid style={[styles.flex1]}><Text>&nbsp;</Text></Grid>
                 )}
               </Grid>
@@ -995,13 +996,13 @@ const WorkOrderSparePartsListPage: FC<InterfaceProps> = (
         source={require('../../../../assets/images/bg.png')}>
         {screenInfo.width >= 500 && <AppBar
           title="รายการอะไหล่"
-          rightTitle={`Order: ${props.workOrderData.orderId}`}
+          rightTitle={`Order: ${params.workOrderData.orderId}`}
           replacePath={ROUTE.WORKORDERLIST}
-          replaceProps={props.workOrderData}></AppBar>}
+          replaceProps={params.workOrderData}></AppBar>}
         {screenInfo.width <= 500 && <AppBar
-          title={`รายการอะไหล่ ${props.workOrderData.orderId}`}
+          title={`รายการอะไหล่ ${params.workOrderData.orderId}`}
           replacePath={ROUTE.WORKORDERLIST}
-          replaceProps={props.workOrderData}></AppBar>}
+          replaceProps={params.workOrderData}></AppBar>}
         {scan && (
           <Scanner
             title="Spare Part No."
@@ -1015,7 +1016,7 @@ const WorkOrderSparePartsListPage: FC<InterfaceProps> = (
             <SparePartModal2 />
             {Search()}
             {SpareParts()}
-            {props.workOrderData.webStatus !== '4' && SparePartFooter()}
+            {params.workOrderData.webStatus !== '4' && SparePartFooter()}
           </>
         )}
       </ImageBackground>

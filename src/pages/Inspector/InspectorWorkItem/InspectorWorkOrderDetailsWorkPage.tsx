@@ -63,10 +63,11 @@ type InterfaceStorageStartTime = {
   endTime?: any;
   endDateTime?: any;
 };
-const InspectorWorkOrderDetailsWorkPage = (props: { workOrderData: InterfaceProps }) => {
+const InspectorWorkOrderDetailsWorkPage = (props) => {
+  const params = props.route?.params as { workOrderData: InterfaceProps };
   const [isLoading, setIsLoading] = useState(false);
   const [workTimeLeft, setWorkTimeLeft] = useState<any>();
-  const { orderId, workType } = props?.workOrderData;
+  const { orderId, workType } = props.route?.params?.workOrderData;
   const [visibleModal, setStateVisibleModal] = useState(false);
   const [lastDateActive, setLastDateActive] = useState<moment.Moment>(
     moment().locale('th').add(543, 'year'),
@@ -483,7 +484,7 @@ const InspectorWorkOrderDetailsWorkPage = (props: { workOrderData: InterfaceProp
                         style={{ justifyContent: 'center' }}
                         activeOpacity={0.9}
                         onPress={() => {
-                          if (props.workOrderData.webStatus !== '4') {
+                          if (params.workOrderData.webStatus !== '4') {
                             Alert.alert(
                               'แจ้งเตือน',
                               'ต้องการแก้ไขเวลาเริ่มปฏิบัติงานใช่หรือไม่ ?',
@@ -606,7 +607,7 @@ const InspectorWorkOrderDetailsWorkPage = (props: { workOrderData: InterfaceProp
                         style={{ justifyContent: 'center' }}
                         activeOpacity={0.9}
                         onPress={() => {
-                          if (props.workOrderData.webStatus !== '4') {
+                          if (params.workOrderData.webStatus !== '4') {
                             Alert.alert(
                               'แจ้งเตือน',
                               'ต้องการแก้ไขเวลาเสร็จสิ้นงานใช่หรือไม่ ?',
@@ -752,7 +753,7 @@ const InspectorWorkOrderDetailsWorkPage = (props: { workOrderData: InterfaceProp
                       style={{ justifyContent: 'center' }}
                       activeOpacity={0.9}
                       onPress={() => {
-                        if (props.workOrderData.webStatus !== '4') {
+                        if (params.workOrderData.webStatus !== '4') {
                           setStateVisibleModal(true);
                           setValueSelectsEmployeeArr(valItem.presonnel);
                           setValueSelectsEmployeeArrClone(valItem.presonnel);
@@ -860,7 +861,7 @@ const InspectorWorkOrderDetailsWorkPage = (props: { workOrderData: InterfaceProp
             paddingLeft: 10,
           }}
           onPress={() => {
-            if (props.workOrderData.webStatus !== '4') {
+            if (params.workOrderData.webStatus !== '4') {
               setIndexSelectType(index);
               showModal();
             }
@@ -1244,8 +1245,8 @@ const InspectorWorkOrderDetailsWorkPage = (props: { workOrderData: InterfaceProp
         <View>{WorkDetails()}</View>
         {BuildModalDrawer()}
         <View style={{ marginTop: 60 }}>{DrawHorizontalWidget()}</View>
-        {/* {notShowChargeTravel(props.workOrderData.type) && ChargeTravelExpenses()} */}
-        {props.workOrderData.webStatus !== '4' && (
+        {/* {notShowChargeTravel(params.workOrderData.type) && ChargeTravelExpenses()} */}
+        {params.workOrderData.webStatus !== '4' && (
           <View
             style={{
               alignItems: 'center',
