@@ -114,7 +114,7 @@ const TransferRequestCardList: React.FC<IProps> = (props: IProps) => {
     );
 
     return (
-        <View  style={{paddingBottom:150}}>
+        <View  style={{paddingBottom:200}}>
 
             <FlatList
                 data={props.hd}

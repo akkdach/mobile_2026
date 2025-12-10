@@ -48,9 +48,10 @@ type InterfaceProps = {
 
 const screenHeight = Dimensions.get('window').height;
 
-const SparePartRequestTransferWiteApprove: FC<InterfaceProps> = (
-  props: InterfaceProps,
+const SparePartRequestTransferWiteApprove = (
+  props
 ) => {
+  const params = props.route?.params as InterfaceProps;
   // const [visibleDialog, setVisible] = useState(false);
   const [SparePartRequestHD, setSparePartRequestHD] = useState<ISparePartRequestHD[]>([],);
   // const [SparePartRequestHDDetail, setSparePartRequestHDDetail] = useState<ISparePartRequestHD>();
@@ -103,9 +104,9 @@ const SparePartRequestTransferWiteApprove: FC<InterfaceProps> = (
           <>
             <AppBar
               title="รายการรออนุมัติโอนอะไหล่"
-              rightTitle={`${props.profile.wk_ctr}`}
+              rightTitle={`${params.profile.wk_ctr}`}
               replacePath={ROUTE.SPARE_PART}></AppBar>
-            {SparePartRequestHD && <TransferRequestCardList hd={SparePartRequestHD} reload={loadAllData} wk_ctr={props.profile.wk_ctr} />}
+            {SparePartRequestHD && <TransferRequestCardList hd={SparePartRequestHD} reload={loadAllData} wk_ctr={params.profile.wk_ctr} />}
           </>
         }></BackGroundImage>
       <Loading loading={isLoading} />
