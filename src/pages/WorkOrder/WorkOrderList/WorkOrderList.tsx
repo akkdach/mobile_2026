@@ -17,7 +17,7 @@ import {
 } from 'react-native';
 import { BarCodeReadEvent } from 'react-native-qrcode-scanner';
 import * as ImagePicker from 'react-native-image-picker';
-import ImageResizer, { ResizeFormat } from 'react-native-image-resizer';
+import ImageResizer, { ResizeFormat } from '@bam.tech/react-native-image-resizer';
 import Lightbox from 'react-native-lightbox';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { DataTable, Divider, List, RadioButton } from 'react-native-paper';

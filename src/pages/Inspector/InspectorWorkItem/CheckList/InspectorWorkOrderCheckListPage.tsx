@@ -15,7 +15,7 @@ import {
 } from 'react-native';
 import { BottomSheet, ListItem } from 'react-native-elements';
 import * as ImagePicker from 'react-native-image-picker';
-import ImageResizer, { ResizeFormat } from 'react-native-image-resizer';
+import ImageResizer, { ResizeFormat } from '@bam.tech/react-native-image-resizer';
 import Lightbox from 'react-native-lightbox';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import { Button, Card, RadioButton } from 'react-native-paper';

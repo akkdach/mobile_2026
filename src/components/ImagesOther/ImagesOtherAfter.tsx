@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import ActionButton from 'react-native-action-button';
 import * as ImagePicker from 'react-native-image-picker';
-import ImageResizer, { ResizeFormat } from 'react-native-image-resizer';
+import ImageResizer, { ResizeFormat } from '@bam.tech/react-native-image-resizer';
 import Lightbox from 'react-native-lightbox';
 import { FlatGrid } from 'react-native-super-grid';
 import { COLOR } from '../../constants/Colors';

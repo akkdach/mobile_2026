@@ -13,7 +13,7 @@ import { getCheckListVisitInspectorService, getImageCheckListService, getOperati
 import {styleLg,styleSm} from './checkListVisitInspectorCss';
 const screenHeight = Dimensions.get('window').height;
 import * as ImagePicker from 'react-native-image-picker';
-import ImageResizer, { ResizeFormat } from 'react-native-image-resizer';
+import ImageResizer, { ResizeFormat } from '@bam.tech/react-native-image-resizer';
 import { removeImagesVisitInspector, uploadImageVisitInspect } from '../../../../services/upload';
 import { getDefaultProps } from '@ant-design/react-native/lib/picker';
 import InspectorWorkOrderCheckListPage from '../CheckList/InspectorWorkOrderCheckListPage';

@@ -13,7 +13,7 @@ import {
 import * as RNFS from 'react-native-fs';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import * as ImagePicker from 'react-native-image-picker';
-import ImageResizer, { ResizeFormat } from 'react-native-image-resizer';
+import ImageResizer, { ResizeFormat } from '@bam.tech/react-native-image-resizer';
 import Lightbox from 'react-native-lightbox';
 import { Item } from 'react-native-paper/lib/typescript/components/List/List';
 import Animated from 'react-native-reanimated';
