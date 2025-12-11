@@ -96,7 +96,7 @@ const ManagementPlanResourcePage: React.FC = (props: any) => {
       let response = await getVanManagementService(`${Number(date[2]) - 543}-${date[1]}-${date[0]}`, parseProfile['wk_ctr']);
       if (response.length > 0) {
         response = response.map((v: any) => {
-          let van_type_label = v.van_type.map((val: any) => itemsVanType.filter(item => Number(item.value) == Number(val))[0]?.label)
+          let van_type_label = v.van_type?.map((val: any) => itemsVanType.filter(item => Number(item.value) == Number(val))[0]?.label)
 
           v = { ...v, ...{ "wK_CTR": parseProfile['wk_ctr'], "van_type_label": van_type_label } }
           return v;

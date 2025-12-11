@@ -19,9 +19,6 @@ const NotificationPage = (props: any) => {
   const [dataList, setDataList] = useState<any>();
   const navigation = useNavigation();
 
-  
-
-  console.log('[props]', params.notification)
   useEffect(() => {
       getNotifyList()
   }, [])
