@@ -39,7 +39,7 @@ index fe3b98f..66ca32a 100644
    cameraTimeoutView?: JSX.Element;
  }
 diff --git a/node_modules/react-native-qrcode-scanner/index.js b/node_modules/react-native-qrcode-scanner/index.js
-index b9bb661..d8b2540 100644
+index b9bb661..171ea7d 100644
 --- a/node_modules/react-native-qrcode-scanner/index.js
 +++ b/node_modules/react-native-qrcode-scanner/index.js
 @@ -1,6 +1,6 @@
@@ -145,7 +145,7 @@ index b9bb661..d8b2540 100644
 +  const [fadeInOpacity] = useState(new Animated.Value(0));
 +  const [isAuthorized, setIsAuthorized] = useState(false);
 +  const [isAuthorizationChecked, setIsAuthorizationChecked] = useState(false);
-+  const [disableVibrationByUser, setDisableVibrationByUser] = useState(true);
++  const [disableVibrationByUser, setDisableVibrationByUser] = useState(false);
 +
 +  const timerRef = useRef(null);
 +  const scannerTimeoutRef = useRef(null);
