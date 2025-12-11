@@ -116,7 +116,7 @@ const ToolsPage = () => {
         <AppBar
           title="รายการเครื่องมือ"
           rightTitle={`${userProfile?.wk_ctr}`}
-          replacePath={'main'}></AppBar>
+          replacePath={ROUTE.APP_MAIN}></AppBar>
         <Animated.ScrollView>
           <ScrollView>
             <View style={styles.cardLogoCompany}>

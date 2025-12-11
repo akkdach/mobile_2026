@@ -117,7 +117,7 @@ const WorklistPage = (props: any) => {
               <AppBar
                 title="รายการรออนุมัติ"
                 rightTitle={`${userProfile?.wk_ctr}`}
-                replacePath={'main'}
+                replacePath={ROUTE.APP_MAIN}
               ></AppBar>
             </View>
             <ScrollView>

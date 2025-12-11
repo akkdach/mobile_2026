@@ -1661,7 +1661,7 @@ const WorkOrderPage = (props: any) => {
         <AppBar
           title="Work Order"
           key={'app-bar-work-order'}
-          replacePath={'main'}></AppBar>
+          replacePath={ROUTE.APP_MAIN}></AppBar>
       ) : null,
       <View key={'scroll-view-work-order'}>
         {BuildWorkCenter()}

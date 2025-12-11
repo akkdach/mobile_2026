@@ -211,7 +211,7 @@ const SparePartPage: React.FC = () => {
         <AppBar
           title="รายการอะไหล่"
           rightTitle={`${userProfile?.wk_ctr}`}
-          replacePath={'main'}></AppBar>
+          replacePath={ROUTE.APP_MAIN}></AppBar>
         <Animated.ScrollView>
           <ScrollView>
             <View style={sparePartCss.cardLogoCompany}>
