@@ -1,5 +1,13 @@
 {
     "version": "2.0.0",
+    "inputs": [
+        {
+            "id": "packageName",
+            "description": "Package name to patch",
+            "default": "",
+            "type": "promptString"
+        }
+    ],
     "tasks": [
         {
             "label": "Build Android Release",
@@ -50,6 +58,49 @@
             "icon": {
                 "color": "terminal.ansiYellow",
                 "id": "debug"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Install Dependencies",
+            "type": "shell",
+            "command": "npm",
+            "args": ["install"],
+            "group": "build",
+            "icon": {
+                "color": "terminal.ansiCyan",
+                "id": "download"
+            },
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true,
+                "clear": false
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Patch Package",
+            "type": "shell",
+            "command": "npx",
+            "args": [
+                "patch-package",
+                "${input:packageName}"
+            ],
+            "group": "build",
+            "icon": {
+                "color": "terminal.ansiMagenta",
+                "id": "edit"
             },
             "presentation": {
                 "echo": true,
