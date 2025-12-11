@@ -419,19 +419,14 @@ const InspectorWorkOrderCheckListPage = (props) => {
   };
 
   const _launchImageLibrary = (keyName: any) => {
-    let options: any = {
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
-    };
-    ImagePicker.launchImageLibrary(options, response => {
+    ImagePicker.launchImageLibrary({ mediaType: 'photo' }, response => {
       (async () => {
-        if (!response.didCancel) {
+        if (!response.didCancel && response.assets && response.assets.length > 0) {
+          const asset = response.assets[0];
           const resizeImageSet = (await resizeImage(
-            response.uri as string,
-            response.width as number,
-            response.height as number,
+            asset.uri as string,
+            asset.width as number,
+            asset.height as number,
             'JPEG',
             80,
           )) as {
@@ -459,7 +454,7 @@ const InspectorWorkOrderCheckListPage = (props) => {
             type: 'image/jpeg',
             uri: resizeImageSet.uri,
             width: resizeImageSet.width,
-            base64: response.base64,
+            base64: asset.base64,
             key: keyName,
             formatType: 'file',
           });
@@ -471,19 +466,14 @@ const InspectorWorkOrderCheckListPage = (props) => {
   };
 
   const _launchCamera = async (keyName?: any) => {
-    let options: any = {
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
-    };
-    ImagePicker.launchCamera(options, response => {
+    ImagePicker.launchCamera({ mediaType: 'photo' }, response => {
       (async () => {
-        if (!response.didCancel) {
+        if (!response.didCancel && response.assets && response.assets.length > 0) {
+          const asset = response.assets[0];
           const resizeImageSet = (await resizeImage(
-            response.uri as string,
-            response.width as number,
-            response.height as number,
+            asset.uri as string,
+            asset.width as number,
+            asset.height as number,
             'JPEG',
             80,
           )) as {
@@ -511,7 +501,7 @@ const InspectorWorkOrderCheckListPage = (props) => {
             type: 'image/jpeg',
             uri: resizeImageSet.uri,
             width: resizeImageSet.width,
-            base64: response.base64,
+            base64: asset.base64,
             key: keyName,
             formatType: 'file',
           });

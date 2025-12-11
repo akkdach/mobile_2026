@@ -325,15 +325,10 @@ const CheckListVisitInspectorPage = (props: { workOrderData: InterfaceProps }) =
     if (Number(keyName) == 6) {
       _launchCameraMultipleImage(keyName)
     } else {
-      let options: any = {
-        storageOptions: {
-          skipBackup: true,
-          path: 'images',
-        },
-      };
-      ImagePicker.launchCamera(options, response => {
+      ImagePicker.launchCamera({ mediaType: 'photo' }, response => {
         (async () => {
-          if (!response.didCancel) {
+          if (!response.didCancel && response.assets && response.assets.length > 0) {
+            const asset = response.assets[0];
             let imageFile = [] as any;
             if (fileData.length > 0) {
               fileData.filter((v: any) => {
@@ -349,9 +344,9 @@ const CheckListVisitInspectorPage = (props: { workOrderData: InterfaceProps }) =
             }
 
             const resizeImageSet = (await resizeImage(
-              response.uri as string,
-              response.width as number,
-              response.height as number,
+              asset.uri as string,
+              asset.width as number,
+              asset.height as number,
               'JPEG',
               80,
             )) as {
@@ -371,7 +366,7 @@ const CheckListVisitInspectorPage = (props: { workOrderData: InterfaceProps }) =
                 type: 'image/jpeg',
                 uri: resizeImageSet.uri,
                 width: resizeImageSet.width,
-                base64: response.base64,
+                base64: asset.base64,
                 key: keyName,
                 formatType: 'file',
               },
@@ -394,15 +389,10 @@ const CheckListVisitInspectorPage = (props: { workOrderData: InterfaceProps }) =
     if (Number(keyName) == 6) {
       _launchImageLibraryMultipleImage(keyName)
     } else {
-      let options: any = {
-        storageOptions: {
-          skipBackup: true,
-          path: 'images',
-        },
-      };
-      ImagePicker.launchImageLibrary(options, response => {
+      ImagePicker.launchImageLibrary({ mediaType: 'photo' }, response => {
         (async () => {
-          if (!response.didCancel) {
+          if (!response.didCancel && response.assets && response.assets.length > 0) {
+            const asset = response.assets[0];
             let imageFile = [] as any;
             if (fileData.length > 0) {
               fileData.filter((v: any) => {
@@ -418,9 +408,9 @@ const CheckListVisitInspectorPage = (props: { workOrderData: InterfaceProps }) =
             }
 
             const resizeImageSet = (await resizeImage(
-              response.uri as string,
-              response.width as number,
-              response.height as number,
+              asset.uri as string,
+              asset.width as number,
+              asset.height as number,
               'JPEG',
               80,
             )) as {
@@ -440,7 +430,7 @@ const CheckListVisitInspectorPage = (props: { workOrderData: InterfaceProps }) =
                 type: 'image/jpeg',
                 uri: resizeImageSet.uri,
                 width: resizeImageSet.width,
-                base64: response.base64,
+                base64: asset.base64,
                 key: keyName,
                 formatType: 'file',
               },
@@ -460,19 +450,14 @@ const CheckListVisitInspectorPage = (props: { workOrderData: InterfaceProps }) =
   };
 
   const _launchCameraMultipleImage = async (keyName?: any) => {
-    let options: any = {
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
-    };
-    ImagePicker.launchCamera(options, response => {
+    ImagePicker.launchCamera({ mediaType: 'photo' }, response => {
       (async () => {
-        if (!response.didCancel) {
+        if (!response.didCancel && response.assets && response.assets.length > 0) {
+          const asset = response.assets[0];
           const resizeImageSet = (await resizeImage(
-            response.uri as string,
-            response.width as number,
-            response.height as number,
+            asset.uri as string,
+            asset.width as number,
+            asset.height as number,
             'JPEG',
             80,
           )) as {
@@ -500,7 +485,7 @@ const CheckListVisitInspectorPage = (props: { workOrderData: InterfaceProps }) =
             type: 'image/jpeg',
             uri: resizeImageSet.uri,
             width: resizeImageSet.width,
-            base64: response.base64,
+            base64: asset.base64,
             key: keyName,
             formatType: 'file',
           })
@@ -514,19 +499,14 @@ const CheckListVisitInspectorPage = (props: { workOrderData: InterfaceProps }) =
 
 
   const _launchImageLibraryMultipleImage = (keyName: any) => {
-    let options: any = {
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
-    };
-    ImagePicker.launchImageLibrary(options, response => {
+    ImagePicker.launchImageLibrary({ mediaType: 'photo' }, response => {
       (async () => {
-        if (!response.didCancel) {
+        if (!response.didCancel && response.assets && response.assets.length > 0) {
+          const asset = response.assets[0];
           const resizeImageSet = (await resizeImage(
-            response.uri as string,
-            response.width as number,
-            response.height as number,
+            asset.uri as string,
+            asset.width as number,
+            asset.height as number,
             'JPEG',
             80,
           )) as {
@@ -554,7 +534,7 @@ const CheckListVisitInspectorPage = (props: { workOrderData: InterfaceProps }) =
             type: 'image/jpeg',
             uri: resizeImageSet.uri,
             width: resizeImageSet.width,
-            base64: response.base64,
+            base64: asset.base64,
             key: keyName,
             formatType: 'file',
           })

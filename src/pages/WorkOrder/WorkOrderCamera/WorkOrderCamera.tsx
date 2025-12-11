@@ -86,21 +86,16 @@ const WorkOrderCameraPage = (props: any) => {
     if (!keyName)
       return;
 
-    let options: any = {
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
-    };
+    ImagePicker.launchCamera({ mediaType: 'photo' }, async response => {
 
-    ImagePicker.launchCamera(options, async response => {
-
-      if (response.didCancel) return;
+      if (response.didCancel || !response.assets || response.assets.length === 0) return;
+      
+      const asset = response.assets[0];
 
       const resized = await resizeImage(
-        response.uri as string,
-        response.width as number,
-        response.height as number,
+        asset.uri as string,
+        asset.width as number,
+        asset.height as number,
         'JPEG',
         72
       ) as {
@@ -118,7 +113,7 @@ const WorkOrderCameraPage = (props: any) => {
         type: 'image/jpeg',
         uri: resized.uri,
         width: resized.width,
-        base64: response.base64,
+        base64: asset.base64,
         key: keyName,
         formatType: 'file',
       }
@@ -134,20 +129,14 @@ const WorkOrderCameraPage = (props: any) => {
     if (!keyName)
       return;
 
-    let options: any = {
-      storageOptions: {
-        skipBackup: true,
-        path: 'images',
-      },
-    };
+    ImagePicker.launchImageLibrary({ mediaType: 'photo' }, async response => {
+      if (response.didCancel || !response.assets || response.assets.length === 0) return;
 
-    ImagePicker.launchImageLibrary(options, async response => {
-      if (response.didCancel || !response.uri) return;
-
+      const asset = response.assets[0];
       const resized = await resizeImage(
-        response.uri as string,
-        response.width as number,
-        response.height as number,
+        asset.uri as string,
+        asset.width as number,
+        asset.height as number,
         'JPEG',
         50,
       ) as {
@@ -165,7 +154,7 @@ const WorkOrderCameraPage = (props: any) => {
         type: 'image/jpeg',
         uri: resized.uri,
         width: resized.width,
-        base64: response.base64,
+        base64: asset.base64,
         key: keyName,
         formatType: 'file',
       }
