@@ -228,119 +228,22 @@ const AppMain = () => {
       </TouchableHighlight>,
     ];
   };
+
   const renderAppMain = () => {
-    const keyRandom = new Date().valueOf();
-    return [
-      screen == 'main' ? (
-        <MainMenuPage key={`main-menu-page-${keyRandom}`}></MainMenuPage>
-      ) : screen == 'work_order' ? (
-        <WorkOrderPage
-          appBar={false}
-          key={`work-order-page-${keyRandom}`}></WorkOrderPage>
-      ) : screen == 'profile' ? (
-        <ProfilePage
-          appBar={false}
-          key={`profile-page-${keyRandom}`}></ProfilePage>
-      ) : screen == 'notification' ? (
-        <NotificationPage
-          appBar={false}
-          key={`notification-page-${keyRandom}`}></NotificationPage>
-      ) : screen == 'setting' ? (
-        <SettingPage key={`setting-page-${keyRandom}`}></SettingPage>
-      ) : (
-        <MainMenuPage key={`main-menu-page-${keyRandom}`}></MainMenuPage>
-      ),
-      keyboardStatus !== 'KeyboardShown' && (
-        <View
-          key={`nav-bar-${keyRandom}`}
-          style={{
-            flexDirection: 'row',
-            bottom: 10,
-            position: 'absolute',
-            left: 10,
-            right: 10,
-            backgroundColor: '#00acc8',
-            height: 80,
-            borderRadius: 50,
-          }}>
-          <View
-            style={{
-              flex: 3,
-              alignItems: 'center',
-              flexDirection: 'row',
-            }}>
-            <View
-              style={{
-                flex: 2,
-                alignItems: 'center',
-                flexDirection: 'column',
-              }}>
-              {TabScreen('home', 'Home', 'main')}
-            </View>
-          </View>
-          <View
-            style={{
-              flex: 1.2,
-              alignItems: 'center',
-              flexDirection: 'row',
-              paddingRight:2,
-            }}>
-            <View
-              style={[stylesSM.cricleWorkOrder]}>
-              <TouchableHighlight
-                key="work_order"
-                onPress={() => setScreen('work_order')}
-                underlayColor="none">
-                <View style={{alignItems: 'center'}}>
-                  <Icon
-                    style={{
-                      paddingTop: 10,
-                    }}
-                    name="shop"
-                    size={30}
-                    color="#FFFFFF"
-                  />
-                  {screen != 'work_order' && (
-                    <Text
-                      style={{
-                        color: '#FFFFFF',
-                        fontSize: 10,
-                        paddingTop: 4,
-                        fontFamily: 'Prompt-SemiBold',
-                      }}>
-                      Work Order
-                    </Text>
-                  )}
-                </View>
-              </TouchableHighlight>
-            </View>
-          </View>
-          <View
-            style={{
-              flex: 4,
-              alignItems: 'center',
-              flexDirection: 'row',
-            }}>
-            <View
-              style={{
-                flex: 2,
-                alignItems: 'center',
-                flexDirection: 'column',
-              }}>
-              {TabScreen('bell', 'Notification', 'notification')}
-            </View>
-            <View
-              style={{
-                flex: 2,
-                alignItems: 'center',
-                flexDirection: 'column',
-              }}>
-              {TabScreen('setting', 'Setting', 'setting')}
-            </View>
-          </View>
-        </View>
-      ),
-    ];
+    switch (screen) {
+      case 'main':
+        return <MainMenuPage />;
+      case 'work_order':
+        return <WorkOrderPage appBar={false} />;
+      case 'profile':
+        return <ProfilePage appBar={false} />;
+      case 'notification':
+        return <NotificationPage appBar={false} />;
+      case 'setting':
+        return <SettingPage />;
+      default:
+        return <MainMenuPage />;
+    }
   };
 
   const stylesSM = StyleSheet.create({
@@ -389,6 +292,97 @@ const AppMain = () => {
   return (
     <>
       {renderAppMain()}
+      {
+        keyboardStatus !== 'KeyboardShown' && (
+          <View
+            style={{
+              flexDirection: 'row',
+              bottom: 10,
+              position: 'absolute',
+              left: 10,
+              right: 10,
+              backgroundColor: '#00acc8',
+              height: 80,
+              borderRadius: 50,
+            }}>
+            <View
+              style={{
+                flex: 3,
+                alignItems: 'center',
+                flexDirection: 'row',
+              }}>
+              <View
+                style={{
+                  flex: 2,
+                  alignItems: 'center',
+                  flexDirection: 'column',
+                }}>
+                {TabScreen('home', 'Home', 'main')}
+              </View>
+            </View>
+            <View
+              style={{
+                flex: 1.2,
+                alignItems: 'center',
+                flexDirection: 'row',
+                paddingRight:2,
+              }}>
+              <View
+                style={[stylesSM.cricleWorkOrder]}>
+                <TouchableHighlight
+                  key="work_order"
+                  onPress={() => setScreen('work_order')}
+                  underlayColor="none">
+                  <View style={{alignItems: 'center'}}>
+                    <Icon
+                      style={{
+                        paddingTop: 10,
+                      }}
+                      name="shop"
+                      size={30}
+                      color="#FFFFFF"
+                    />
+                    {screen != 'work_order' && (
+                      <Text
+                        style={{
+                          color: '#FFFFFF',
+                          fontSize: 10,
+                          paddingTop: 4,
+                          fontFamily: 'Prompt-SemiBold',
+                        }}>
+                        Work Order
+                      </Text>
+                    )}
+                  </View>
+                </TouchableHighlight>
+              </View>
+            </View>
+            <View
+              style={{
+                flex: 4,
+                alignItems: 'center',
+                flexDirection: 'row',
+              }}>
+              <View
+                style={{
+                  flex: 2,
+                  alignItems: 'center',
+                  flexDirection: 'column',
+                }}>
+                {TabScreen('bell', 'Notification', 'notification')}
+              </View>
+              <View
+                style={{
+                  flex: 2,
+                  alignItems: 'center',
+                  flexDirection: 'column',
+                }}>
+                {TabScreen('setting', 'Setting', 'setting')}
+              </View>
+            </View>
+          </View>
+        )
+      }
     </>
   );
 };
