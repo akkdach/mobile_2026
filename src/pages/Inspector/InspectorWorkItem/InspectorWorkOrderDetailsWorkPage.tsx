@@ -46,6 +46,7 @@ import { Col, Row, Grid } from 'react-native-easy-grid';
 import { getTimeOperationWorkerInspector, postTimeOperationWorkerInspector } from '../../../services/visitInspector';
 import { useNavigation, StackActions } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import 'moment/locale/th';
 
 type InterfaceProps = {
   backReloadPage: boolean;

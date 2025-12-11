@@ -30,6 +30,8 @@ import { _getData } from '../utils/AsyncStorage';
 import { useNavigation, StackActions } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 const logo = require('../../assets/logo.png');
+import 'moment/locale/th';
+
 const MainMenuPage = () => {
   const colorCockOut = '#E74C3C';
   const colorCockIn = '#2ECC71';

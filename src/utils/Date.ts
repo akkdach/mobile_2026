@@ -1,4 +1,5 @@
 import moment from "moment";
+import 'moment/locale/th';
 
 export const convertDateToThaiMonthDayThai = (date: any, format: any = 1) => {
   const thday = new Array(

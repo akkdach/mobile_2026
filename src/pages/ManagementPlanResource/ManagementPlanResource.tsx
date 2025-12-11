@@ -23,6 +23,7 @@ import { _getData } from '../../utils/AsyncStorage';
 import LocalStorage from '../../constants/LocalStorageKey'
 import TextInputComponent from '../../components/TextInput';
 import { useNavigation, StackActions } from '@react-navigation/native';
+import 'moment/locale/th';
 
 const logo = require('../../../assets/logo.png');
 

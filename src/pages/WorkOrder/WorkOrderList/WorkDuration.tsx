@@ -1,6 +1,7 @@
 import moment from 'moment';
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import 'moment/locale/th';
 
 type WorkDurationProps = {
   startTime: string; // ISO format เช่น "2025-09-30T18:16:45.589Z"

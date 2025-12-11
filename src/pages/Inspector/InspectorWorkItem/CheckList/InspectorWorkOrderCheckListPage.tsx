@@ -45,6 +45,7 @@ import { _getData } from '../../../../utils/AsyncStorage';
 import InspectorWorkOrderCheckListPMPage from './InspectorWorkOrderCheckListPMPage';
 import { useNavigation, StackActions } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import 'moment/locale/th';
 
 const screenHeight = Dimensions.get('window').height;
 

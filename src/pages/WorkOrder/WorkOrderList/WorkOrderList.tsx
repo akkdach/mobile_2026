@@ -81,6 +81,7 @@ import { color } from 'react-native-reanimated';
 import { cancelWorkOrder } from '../../../services/workOrder';
 import { CloseReason } from '../../../constants/CloseReason';
 import WorkDuration from './WorkDuration';
+import 'moment/locale/th';
 const defaultImage = require('../../../../assets/images/default.jpeg');
 
 const screenWidth = Dimensions.get('window').width;

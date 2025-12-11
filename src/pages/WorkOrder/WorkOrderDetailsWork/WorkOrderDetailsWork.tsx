@@ -43,6 +43,7 @@ import localStyle from './WorkOrderDetailsWorkCss';
 import { stylesLg, stylesSm } from './WorkOrderDetailsWorkCss';
 import { useNavigation, StackActions } from '@react-navigation/native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import 'moment/locale/th';
 const background = require('../../../../assets/images/bg.png');
 
 type InterfaceProps = {

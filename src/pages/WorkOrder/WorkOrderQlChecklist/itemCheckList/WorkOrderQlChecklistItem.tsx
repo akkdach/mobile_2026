@@ -13,6 +13,7 @@ import styles from '../WorkOrderQlChecklistCss';
 import TextInputComponent from "../../../../components/TextInput";
 import {styleLg,styleSm} from './WorkOrderQlChecklistItemCSS'
 import { SafeAreaView } from "react-native-safe-area-context";
+import 'moment/locale/th';
 
 interface Props {
   submitData?: (allValues: any, keyItem: any) => void,

@@ -19,6 +19,7 @@ import localStyle from './WorkProcessPageCss';
 import { DropdownSelectMultipleItemProps } from '../../components/DropdownSelectMultiple';
 import { Checkbox } from 'react-native-paper';
 import { ScreenWidth } from 'react-native-elements/dist/helpers';
+import 'moment/locale/th';
 
 type WorkProcessProps = { workDetail: string };
 
