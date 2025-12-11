@@ -31,7 +31,8 @@ type Inputs = {
 const coca_logo = require('../../../../assets/images/coca_logo.png');
 const dataSet = require('./workOrderListApproveOT.json');
 
-const ApproveOTPage: FC<InterfaceProps> = (props) => {
+const ApproveOTPage = (props) => {
+  const params = props.route?.params;
   const { control, getValues, reset, setValue, watch } = useForm<Inputs>();
   const [isLoading, setLoading] = useState(false);
   const [userInfo, setUserInfo] = useState<LoginResponseInterface>();
@@ -63,7 +64,7 @@ const ApproveOTPage: FC<InterfaceProps> = (props) => {
         setLoading(false);
       }
     })();
-  }, [props]);
+  }, [params]);
   
 
   const ApproveOTList = async (wk_ctr: any) => {
@@ -608,7 +609,7 @@ const ApproveOTPage: FC<InterfaceProps> = (props) => {
       <View
         style={{
           marginTop: 10,
-          // maxHeight: props.appBar === undefined || props.appBar ? 890 : 820,
+          // maxHeight: params.appBar === undefined || params.appBar ? 890 : 820,
         }}>
         {orderList && orderList.length > 0 ? (
           <FlatList

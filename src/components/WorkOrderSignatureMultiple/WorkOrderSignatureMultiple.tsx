@@ -43,48 +43,49 @@ type Inputs = {
   mobile_Remark: string;
 };
 
-const WorkOrderSignatureMultiple = (props: InterfaceProps) => {
+const WorkOrderSignatureMultiple = (props) => {
+  const params = props.route.params as InterfaceProps;
   console.log(
-    'props.satisfactionAssessment ====>',
-    props.satisfactionAssessment,
+    'params.satisfactionAssessment ====>',
+    params.satisfactionAssessment,
   );
   const [isLoading, setIsLoading] = useState(false);
-  const { orderId } = props?.workOrderData;
+  const { orderId } = params?.workOrderData;
   const { control, getValues, setValue } = useForm<Inputs>();
   const [visibleModalCustomer, setStateVisibleModalCustomer] = useState(false);
   const [signatureCustomer, setSignatureCustomer] = useState<any>();
   const [visibleModalWorker, setStateVisibleModalWorker] = useState(false);
   const [signatureWorker, setSignatureWorker] = useState<any>();
   const [satisfactionAssessment, setSatisfactionAssessment] =
-    useState<IWorkOrderCloseWork>(props.satisfactionAssessment);
+    useState<IWorkOrderCloseWork>(params.satisfactionAssessment);
   const [warranty, setWarranty] = useState<any>(false);
   const navigation = useNavigation();
 
   useEffect(() => {
-    if (props.satisfactionAssessment.customerSignatureUrl) {
-      setSignatureCustomer(props.satisfactionAssessment.customerSignatureUrl);
+    if (params.satisfactionAssessment.customerSignatureUrl) {
+      setSignatureCustomer(params.satisfactionAssessment.customerSignatureUrl);
     }
 
-    if (props.satisfactionAssessment.workerSignatureUrl) {
-      setSignatureWorker(props.satisfactionAssessment.workerSignatureUrl);
+    if (params.satisfactionAssessment.workerSignatureUrl) {
+      setSignatureWorker(params.satisfactionAssessment.workerSignatureUrl);
     }
 
-    if (props.satisfactionAssessment.customerSignatureName) {
-      setValue('customer', props.satisfactionAssessment.customerSignatureName);
+    if (params.satisfactionAssessment.customerSignatureName) {
+      setValue('customer', params.satisfactionAssessment.customerSignatureName);
     }
 
-    if (props.satisfactionAssessment.warranty) {
+    if (params.satisfactionAssessment.warranty) {
       const status =
-        props.satisfactionAssessment.warranty === '1' ? true : false;
+        params.satisfactionAssessment.warranty === '1' ? true : false;
       setWarranty(status);
     }
 
-    if (props.satisfactionAssessment.customeR_Remark) {
-      setValue('customeR_Remark', props.satisfactionAssessment.customeR_Remark);
+    if (params.satisfactionAssessment.customeR_Remark) {
+      setValue('customeR_Remark', params.satisfactionAssessment.customeR_Remark);
     }
 
-    if (props.satisfactionAssessment.mobile_Remark) {
-      setValue('mobile_Remark', props.satisfactionAssessment.mobile_Remark);
+    if (params.satisfactionAssessment.mobile_Remark) {
+      setValue('mobile_Remark', params.satisfactionAssessment.mobile_Remark);
     }
   }, []);
 
@@ -169,8 +170,8 @@ const WorkOrderSignatureMultiple = (props: InterfaceProps) => {
   const postWorkOrderCloseWork = async () => {
     try {
       setIsLoading(true);
-      if (props.multipleOrderManage) {
-        props.multipleOrderManage.map(async (val: any, index: any) => {
+      if (params.multipleOrderManage) {
+        params.multipleOrderManage.map(async (val: any, index: any) => {
           let data = {
             ...satisfactionAssessment,
             ...{ workOrder: val.orderId },
@@ -180,7 +181,7 @@ const WorkOrderSignatureMultiple = (props: InterfaceProps) => {
             ...{ mobile_Remark: getValues().mobile_Remark },
           };
           let response = await fetchWorkOrderCloseWorkPost(data);
-          if (props.multipleOrderManage.length === index + 1) {
+          if (params.multipleOrderManage.length === index + 1) {
             if (response.isSuccess) {
               Alert.alert('แจ้งเตือน', 'บันทึกข้อมูลสำเร็จ', [
                 {
@@ -219,7 +220,7 @@ const WorkOrderSignatureMultiple = (props: InterfaceProps) => {
   const Contents = () => {
     return (
       <ScrollView>
-        {isShowSignatureMessage(props.workOrderData.type) && <Terms />}
+        {isShowSignatureMessage(params.workOrderData.type) && <Terms />}
 
         <SafeAreaView style={styles.container}>
           <View style={{ padding: 10 }}>
@@ -259,7 +260,7 @@ const WorkOrderSignatureMultiple = (props: InterfaceProps) => {
                   )}
                   name="customer"
                   defaultValue={
-                    props.satisfactionAssessment.customerSignatureName
+                    params.satisfactionAssessment.customerSignatureName
                   }
                 />
               </View>
@@ -282,7 +283,7 @@ const WorkOrderSignatureMultiple = (props: InterfaceProps) => {
                 )}
                 name="customeR_Remark"
                 defaultValue={
-                  props.satisfactionAssessment.customeR_Remark
+                  params.satisfactionAssessment.customeR_Remark
                 }
               />
             </View>
@@ -325,7 +326,7 @@ const WorkOrderSignatureMultiple = (props: InterfaceProps) => {
                 )}
                 name="mobile_Remark"
                 defaultValue={
-                  props.satisfactionAssessment.mobile_Remark
+                  params.satisfactionAssessment.mobile_Remark
                 }
               />
             </View>

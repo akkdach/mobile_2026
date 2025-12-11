@@ -50,9 +50,10 @@ type Inputs = {
 
 const screenHeight = Dimensions.get('window').height;
 
-const WorkProcedureMultiple = (props: InterfaceProps) => {
+const WorkProcedureMultiple = (props) => {
+  const params = props.route.params as InterfaceProps;
   const initialValue = new IWorkOrderCheckInProcedure({});
-  const { orderId } = props;
+  const { orderId } = params;
   const [fileData, setFileData] = useState([] as any);
   const [isLoading, setIsLoading] = useState(false);
   const { control, handleSubmit, reset, setValue, getValues } = useForm<Inputs>({
@@ -313,7 +314,7 @@ const WorkProcedureMultiple = (props: InterfaceProps) => {
                     throw new Error('ไม่พบพิกัดปัจจุบัน');
                   }
                 }
-                let multipleOrderManage = props.multipleOrderManage;
+                let multipleOrderManage = params.multipleOrderManage;
                 if (multipleOrderManage.length > 0) {
                   multipleOrderManage.map(async (val: any, index: any) => {
                     const response = await fetchWorkOrderCheckInProcedurePost({

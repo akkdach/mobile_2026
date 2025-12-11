@@ -26,20 +26,21 @@ type Inputs = {
   remark: string;
 };
 
-const SatisfactionAssessmentFormMultiplePage = (props: InterfaceProps) => {
-  if (!isNotCheckActionSignature(props.type)) {
+const SatisfactionAssessmentFormMultiplePage = (props) => {
+  const params = props.route?.params as InterfaceProps;
+  if (!isNotCheckActionSignature(params.type)) {
     return (
       <>
         <AppBar title="สรุปปิดงาน"></AppBar>
         <ScrollView>
-          <Text style={{ textAlign: 'center', marginTop: 20 }}>{props.orderId} coming soon show detail</Text>
+          <Text style={{ textAlign: 'center', marginTop: 20 }}>{params.orderId} coming soon show detail</Text>
         </ScrollView>
       </>
     );
   }
   const { control, getValues, setValue } = useForm<Inputs>();
   const [isLoading, setIsLoading] = useState(false);
-  const { orderId } = props;
+  const { orderId } = params;
   const [workOrderCloseValue, setWorkOrderCloseWorkValue] = React.useState({
     speed: '',
     politeness: '',
@@ -89,14 +90,14 @@ const SatisfactionAssessmentFormMultiplePage = (props: InterfaceProps) => {
     workOrderCloseValue.remark = remark;
     setWorkOrderCloseWorkValue({ ...workOrderCloseValue });
     // router.Actions.push("WorkOrderSignatureMultiple", {
-    //   workOrderData: props,
+    //   workOrderData: params,
     //   satisfactionAssessment: workOrderCloseValue,
-    //   multipleOrderManage: props?.multipleOrderManage
+    //   multipleOrderManage: params?.multipleOrderManage
     // });
     navigation.dispatch(StackActions.push("WorkOrderSignatureMultiple", {
-      workOrderData: props,
+      workOrderData: params,
       satisfactionAssessment: workOrderCloseValue,
-      multipleOrderManage: props?.multipleOrderManage
+      multipleOrderManage: params?.multipleOrderManage
     }));
   };
 

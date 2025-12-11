@@ -42,9 +42,10 @@ const getUniqueListBy = (arr: any[], key: string) => {
 
 const screenHeight = Dimensions.get('window').height;
 
-const SparePartRequestTransferVanPage: FC<InterfaceProps> = (
-  props: InterfaceProps,
+const SparePartRequestTransferVanPage = (
+  props,
 ) => {
+  const params = props.route?.params as InterfaceProps;
   const [visible, setVisible] = useState(false);
   const [componentsMasterValue, setComponentsMasterValue] = useState<
     ISparePartRequest[]
@@ -97,8 +98,8 @@ const SparePartRequestTransferVanPage: FC<InterfaceProps> = (
   }, []);
 
   useEffect(() => {
-    if (props.componentStorageSelected) {
-      const componentStorage = props.componentStorageSelected;
+    if (params.componentStorageSelected) {
+      const componentStorage = params.componentStorageSelected;
       const newComponent: any = componentStorage.map(
         (item: ISparePartRequest) => {
           return {
@@ -125,7 +126,7 @@ const SparePartRequestTransferVanPage: FC<InterfaceProps> = (
         );
       });
     }
-  }, [props.componentStorageSelected]);
+  }, [params.componentStorageSelected]);
 
   const DrawHorizontalWidget = () => {
     return (
@@ -146,8 +147,8 @@ const SparePartRequestTransferVanPage: FC<InterfaceProps> = (
 
   const addRetrive = () => {
     setComponentByItem((previousValue: ISparePartRequest) => {
-      if (props.componentStorageSelected) {
-        const findStorage: any = props.componentStorageSelected.find(
+      if (params.componentStorageSelected) {
+        const findStorage: any = params.componentStorageSelected.find(
           (val: any) => val.material === previousValue.material,
         );
         if (findStorage && previousValue.quantity >= findStorage.maxQuantity) {
@@ -381,7 +382,7 @@ const SparePartRequestTransferVanPage: FC<InterfaceProps> = (
                   return;
                 }
                 navigation.dispatch(StackActions.push(ROUTE.SPARE_PART_ADD_REQUEST_TRANSFER, {
-                  profile: props.profile,
+                  profile: params.profile,
                   stge_loc: selectTransferTo,
                   componentVal: componentsValue,
                   componentMasterVal: componentsMasterValue,
@@ -564,10 +565,10 @@ const SparePartRequestTransferVanPage: FC<InterfaceProps> = (
   };
 
   const SpareParts = () => {
-    // console.log('componentStorageSelected',props.componentStorageSelected);
+    // console.log('componentStorageSelected',params.componentStorageSelected);
     const listOrder: any = [];
     componentsValue.forEach((item: ISparePartRequest, index: number) => {
-      // const blItem = props.componentStorageSelected.find((item2)=>item2.material == item.material);
+      // const blItem = params.componentStorageSelected.find((item2)=>item2.material == item.material);
       // console.log('ISparePartRequest', item)
       listOrder.push(generateDataTableRow(item, index));
     });
@@ -670,7 +671,7 @@ const SparePartRequestTransferVanPage: FC<InterfaceProps> = (
 
             <AppBar
               title="ขอโอนอะไหล่"
-              rightTitle={`${props.profile.wk_ctr}`}
+              rightTitle={`${params.profile.wk_ctr}`}
               replacePath={ROUTE.SPARE_PART}></AppBar>
             {SparePartModal()}
             {Search()}

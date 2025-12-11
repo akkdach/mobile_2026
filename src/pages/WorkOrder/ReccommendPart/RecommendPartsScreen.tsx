@@ -45,10 +45,11 @@ const generateParts = (start: number, count: number): Part[] =>
   }));
 
 const RecommendPartsScreen = (props: any) => {
+  const params = props.route?.params;
   const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(false);
   const { orderId, type, orderTypeDescription, IsConnectivity } =
-    props?.workOrderData;
+    params?.workOrderData;
   // console.log('workOrderData', orderId)
   // const navigation = useNavigation();
   const [modalVisible, setModalVisible] = useState(false);

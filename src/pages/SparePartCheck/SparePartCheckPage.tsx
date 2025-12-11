@@ -39,6 +39,7 @@ if (screenWidth < 690) {
 }
 
 const SparePartCheckPage = (props: any) => {
+  const params = props.route?.params;
   const {control, getValues, watch, setValue} =
     useForm<{search: string; countRetrive: any}>();
   const [isLoading, setIsLoading] = useState(false);
@@ -67,8 +68,8 @@ const SparePartCheckPage = (props: any) => {
 
   const addRetrive = () => {
     // setComponentByItem((previousValue: ISparePartRequest) => {
-    //   if (props.componentStorageSelected) {
-    //     const findStorage: any = props.componentStorageSelected.find(
+    //   if (params.componentStorageSelected) {
+    //     const findStorage: any = params.componentStorageSelected.find(
     //       (val: any) => val.material === previousValue.material,
     //     );
     //     if (findStorage && previousValue.quantity >= findStorage.maxQuantity) {
@@ -440,7 +441,7 @@ const SparePartCheckPage = (props: any) => {
                 activeOpacity={0.9}
                 onPress={() => {
                   navigation.dispatch(StackActions.push(ROUTE.WORKORDER_SPARE_PART_ADD, {
-                    orderId: props.profile.wk_ctr,
+                    orderId: params.profile.wk_ctr,
                     componentVal: componentsValue,
                     componentMasterVal: componentsMasterValue,
                   }));
@@ -479,7 +480,7 @@ const SparePartCheckPage = (props: any) => {
         source={require('../../../assets/images/bg.png')}>
         <AppBar
           title="ตรวจนับอะไหล่"
-          rightTitle={`Order: ${props.profile.wk_ctr}`}
+          rightTitle={`Order: ${params.profile.wk_ctr}`}
           replacePath={ROUTE.SPARE_PART}></AppBar>
         {scan && (
           <Scanner

@@ -97,413 +97,330 @@ const RoutingPage = () => {
         <Provider>
           <ImageOtherProvider>
               <Stack.Navigator
-                key="root"
                 screenOptions={{
                   headerShown: false
                 }}>
                 <Stack.Screen
-                  key="landing"
                   component={LandingPage}
-                  name="Landing"
+                  name="landing"
                 />
-                <Stack.Screen key="login" component={LoginPage} name="Login" />
-                {/* <Stack.Screen key="main" component={AppMain} name="appMain" /> */}
-                {/* <Stack.Screen
-                  key="mainMenu"
+                <Stack.Screen component={LoginPage} name="login" />
+                <Stack.Screen component={AppMain} name="appMain" />
+                <Stack.Screen
                   component={MainMenuPage}
-                  name="MainMenu"
+                  name="mainMenu"
                 />
-
                 <Stack.Screen
-                  key="startWork"
                   component={StartWorkPage}
-                  name="Start Work"
+                  name="startWork"
                 />
                 <Stack.Screen
-                  key="qualityIndex"
                   component={QualityIndex}
-                  name="Quality Index"
+                  name="qualityIndex"
                 />
                 <Stack.Screen
-                  key="workOrderDetailsWork"
                   component={WorkOrderDetailsWorkPage}
-                  name="Work Order Details Work"
+                  name="workOrderDetailsWork"
                 />
                 <Stack.Screen
-                  key="workorder"
                   component={WorkOrderPage}
-                  name="work Order"
+                  name="workorder"
                 />
                 <Stack.Screen
-                  key="workOrderList"
                   component={WorkOrderListPage}
-                  name="work Order Details List"
+                  name="workOrderList"
                 />
                 <Stack.Screen
-                  key="sparepartOutstanding"
                   component={SparePartOutstandingPage}
-                  name="sparepart outstanding"
+                  name="sparepartOutstanding"
                 />
                 <Stack.Screen
-                  key="worklist"
                   component={WorklistPage}
-                  name="Worklist"
+                  name="worklist"
                 />
                 <Stack.Screen
-                  key="visit"
                   component={VisitPage}
-                  name="Inspector"
+                  name="visit"
                 />
                 <Stack.Screen
-                  key="workOrderConnectivity"
                   component={WorkOrderConnectivityPage}
                   name="workOrderConnectivity"
                 />
                 <Stack.Screen
-                  key="inspector"
                   component={InspectorPage}
-                  name="Inspector"
+                  name="inspector"
                 />
                 <Stack.Screen
                   key="inspectorWorkItem"
                   component={InspectorWorkItemPage}
-                  name="Inspector Work Item"
+                  name="inspectorWorkItem"
                 />
                 <Stack.Screen
-                  key={ROUTE.INSPECTOR_WORK_ORDER_DETAILS}
                   component={InspectorWorkOrderDetailsWorkPage}
-                  name="Inspector Work Order Detail"
+                  name={ROUTE.INSPECTOR_WORK_ORDER_DETAILS}
                 />
                 <Stack.Screen
-                  key={ROUTE.INSPECTOR_WORK_ORDER_QUALITY_INDEX}
                   component={InspectorWorkOrderQualityIndexPage}
-                  name="Inspector Work Order Quality Index"
+                  name={ROUTE.INSPECTOR_WORK_ORDER_QUALITY_INDEX}
                 />
                 <Stack.Screen
-                  key={ROUTE.INSPECTOR_WORK_ORDER_CHECK_LIST}
                   component={InspectorWorkOrderCheckListPage}
-                  name="Inspector Work Order CheckList"
+                  name={ROUTE.INSPECTOR_WORK_ORDER_CHECK_LIST}
                 />
                 <Stack.Screen
-                  key={ROUTE.INSPECTOR_SATISFACTION_ASSESSMENT_FORM}
                   component={InspectorSatisfactionAssessmentFormPage}
-                  name="InspectorSatisfactionAssessment"
+                  name={ROUTE.INSPECTOR_SATISFACTION_ASSESSMENT_FORM}
                 />
                 <Stack.Screen
-                  key="inspectorWorkOrderSignature"
                   component={InspectorWorkOrderSignature}
-                  name="InspectorWorkOrderSignature"
+                  name="inspectorWorkOrderSignature"
                 />
                 <Stack.Screen
-                  key="profile"
                   component={ProfilePage}
                   name="profile"
                 />
                 <Stack.Screen
-                  key="assessmentForm"
                   component={SatisfactionAssessmentFormPage}
                   name="assessmentForm"
                 />
                 <Stack.Screen
-                  key="workSignature"
                   component={WorkOrderSignature}
                   name="workSignature"
                 />
                 <Stack.Screen
-                  key="workCamera"
                   component={WorkOrderCameraPage}
                   name="workCamera"
                 />
                 <Stack.Screen
-                  key="workImage"
                   component={WorkImagePage}
                   name="workImage"
                 />
                 <Stack.Screen
-                  key="workOrderDetails"
                   component={WorkOrderDetailsPage}
                   name="workOrderDetails"
                 />
                 <Stack.Screen
-                  key="workOrderHistory"
                   component={WorkOrderHistoryPage}
                   name="workOrderHistory"
                 />
                 <Stack.Screen
-                  key="workOrderMaps"
                   component={WorkOrderMapsPage}
                   name="workOrderMaps"
                 />
-                <Scene
-                  key="workOrderPmCheckList"
+                <Stack.Screen
                   component={WorkOrderPmCheckListPage}
                   name="workOrderPmCheckList"
                 />
                 <Stack.Screen
-                  key="workOrderCCPCheck"
                   component={WorkOrderCCPCheck}
                   name="workOrderCCPCheck"
                 />
                 <Stack.Screen
-                  key="workOrderProblemIssue"
                   component={WorkOrderProblemIssuePage}
                   name="workOrderProblemIssue"
                 />
                 <Stack.Screen
-                  key="workOrderSparePartsList"
                   component={WorkOrderSparePartsListPage}
                   name="workOrderSparePartsList"
                 />
                 <Stack.Screen
-                  key="workOrderAddSpareParts"
                   component={WorkOrderAddSparePartsPage}
                   name="workOrderAddSpareParts"
                 />
-                <Scene
-                  key={ROUTE.MainCheckIn}
+                <Stack.Screen
                   component={MainCheckIn}
-                  name="MainCheckIn"
-                />
-                <Scene
-                  key={ROUTE.WORK_PROCEDURE}
-                  component={WorkProcedurePage}
-                  name="workProcedure"
-                />
-                <Scene
-                  key={ROUTE.CheckInEquipment}
-                  component={CheckInEquipment}
-                  name="CheckInEquipment"
+                  name={ROUTE.MainCheckIn}
                 />
                 <Stack.Screen
-                  key="workStatus"
+                  component={WorkProcedurePage}
+                  name={ROUTE.WORK_PROCEDURE}
+                />
+                <Stack.Screen
+                  component={CheckInEquipment}
+                  name={ROUTE.CheckInEquipment}
+                />
+                <Stack.Screen
                   component={WorkStatusPage}
                   name="workStatus"
                 />
                 <Stack.Screen
-                  key="workProcess"
                   component={WorkProcessPage}
                   name="workProcess"
                 />
-                <Stack.Screen key="tools" component={ToolsPage} name="tools" />
+                <Stack.Screen component={ToolsPage} name="tools" />
                 <Stack.Screen
-                  key="toolRemain"
                   component={ToolRemainPage}
                   name="toolRemain"
                 />
                 <Stack.Screen
-                  key="notification"
                   component={NotificationPage}
-                  name="Notification"
+                  name="notification"
                 />
                 <Stack.Screen
-                  key="notificationDetail"
                   component={NotificationDetail}
                   name="notificationDetail"
                 />
                 <Stack.Screen
-                  key="learningCenter"
                   component={LearningCenterPage}
-                  name="LearningCenter"
+                  name="learningCenter"
                 />
                 <Stack.Screen
-                  key="knowledgePage"
                   component={KnowledgePage}
-                  name="KnowledgePage"
+                  name="knowledgePage"
                 />
                 <Stack.Screen
-                  key={ROUTE.KNOW_LEDGE_PREVIEW_PAGE}
                   component={KnowledgePreviewPage}
-                  name="KnowledgePreviewPage"
+                  name={ROUTE.KNOW_LEDGE_PREVIEW_PAGE}
                 />
-
                 <Stack.Screen
-                  key="sparePart"
                   component={SparePartPage}
-                  name="SparePart"
+                  name="sparePart"
                 />
                 <Stack.Screen
-                  key="managePlanResource"
                   component={ManagementPlanResourcePage}
-                  name="Management Plan Resource"
+                  name="managePlanResource"
                 />
                 <Stack.Screen
-                  key="report"
                   component={ReportPage}
-                  name="Report"
+                  name="report"
                 />
                 <Stack.Screen
-                  key="download"
                   component={DownloadPage}
-                  name="Download"
+                  name="download"
                 />
                 <Stack.Screen
-                  key="sparePartBalance"
                   component={SparePartBalancePage}
-                  name="SparePart Balance"
+                  name="sparePartBalance"
                 />
                 <Stack.Screen
-                  key="toolsBalance"
                   component={ToolsBalancePage}
-                  name="Tools Balance"
+                  name="toolsBalance"
                 />
                 <Stack.Screen
-                  key={ROUTE.TOOLS_REQUEST_TRANSFER}
                   component={ToolRequestTransferPage}
-                  name="Tools Request Transfer"
+                  name={ROUTE.TOOLS_REQUEST_TRANSFER}
                 />
                 <Stack.Screen
-                  key={ROUTE.TOOLS_ADD_REQUEST_TRANSFER}
                   component={ToolAddRequestTransferPage}
-                  name="Tools Request Transfer"
+                  name={ROUTE.TOOLS_ADD_REQUEST_TRANSFER}
                 />
                 <Stack.Screen
-                  key="sparePartVanCheck"
                   component={SparePartVanCheckPage}
-                  name="SparePart Check"
+                  name="sparePartVanCheck"
                 />
                 <Stack.Screen
-                  key="sparePartVanCheckList"
                   component={SparePartVanCheckListPage}
-                  name="SparePart Check List"
+                  name="sparePartVanCheckList"
                 />
                 <Stack.Screen
-                  key={ROUTE.TOOL_VAN_CHECK}
                   component={ToolVanCheckPage}
-                  name="Tool Van Check"
+                  name={ROUTE.TOOL_VAN_CHECK}
                 />
                 <Stack.Screen
-                  key="sparePartStoreTransfer"
                   component={SparePartStoreTransferPage}
-                  name="SparePart Store Transfer"
+                  name="sparePartStoreTransfer"
                 />
                 <Stack.Screen
-                  key={ROUTE.SPARE_PART_STORE_TRANSFER_CHECK}
                   component={SparePartStoreTransferCheckPage}
-                  name="SparePart Store Transfer Check"
+                  name={ROUTE.SPARE_PART_STORE_TRANSFER_CHECK}
                 />
                 <Stack.Screen
-                  key={ROUTE.TOOL_STORE_TRANSFER_CHECK}
                   component={ToolStoreTransferPage}
-                  name="Tool Store Transfer Check"
+                  name={ROUTE.TOOL_STORE_TRANSFER_CHECK}
                 />
                 <Stack.Screen
-                  key={ROUTE.TOOL_STORE_TRANSFER}
                   component={ToolStoreTransferCheckPage}
-                  name="Tool Store Transfer Check"
+                  name={ROUTE.TOOL_STORE_TRANSFER}
                 />
                 <Stack.Screen
-                  key="sparePartRequestTransfer"
                   component={SparePartRequestTransferPage}
-                  name="SparePart Request Transfer"
+                  name="sparePartRequestTransfer"
                 />
                 <Stack.Screen
-                  key="sparePartRequestTransferApprove"
                   component={SparePartRequestTransferApprovePage}
-                  name="SparePart Request Transfer"
+                  name="sparePartRequestTransferApprove"
                 />
                 <Stack.Screen
-                  key="sparePartRequestTransferWiteApprove"
                   component={SparePartRequestTransferWiteApprove}
-                  name="SparePart Request Transfer Wite Approve"
+                  name="sparePartRequestTransferWiteApprove"
                 />
                 <Stack.Screen
-                  key="sparePartAddRequestTransfer"
                   component={SparePartAddRequestTransferPage}
-                  name="SparePart Add Request Transfer"
+                  name="sparePartAddRequestTransfer"
                 />
                 <Stack.Screen
-                  key={'SparePartAddRequestTransferVan'}
                   component={SparePartAddRequestTransferVan}
-                  name="Spare Part Add Request Transfer">
-                </Stack.Screen>
+                  name={'SparePartAddRequestTransferVan'}
+                />
                 <Stack.Screen
-                  key={ROUTE.SPARE_PART_REQUEST_TRANSFER_VAN}
                   component={SparePartRequestTransferVanPage}
-                  name="SparePartRequestTransferVan">
-                </Stack.Screen>
+                  name={ROUTE.SPARE_PART_REQUEST_TRANSFER_VAN}
+                />
                 <Stack.Screen
-                  key="sparePartTransfer"
                   component={SparePartTransferPage}
-                  name="SparePart Transfer"
+                  name="sparePartTransfer"
                 />
                 <Stack.Screen
-                  key={ROUTE.TOOLS_TRANSFER}
                   component={ToolTransferPage}
-                  name="Tools Transfer"
+                  name={ROUTE.TOOLS_TRANSFER}
                 />
                 <Stack.Screen
-                  key="qlChecklist"
                   component={WorkQlChecklist}
-                  name="workOrderQlChecklist"
+                  name="qlChecklist"
                 />
                 <Stack.Screen
-                  key={ROUTE.QI_CHECK_LIST_NON_CSD}
                   component={QualityIndexNonCSD}
-                  name="workOrderQlChecklist"
+                  name={ROUTE.QI_CHECK_LIST_NON_CSD}
                 />
                 <Stack.Screen
-                  key="syncWorkOrder"
                   component={VisitSettingWorkOrderPage}
-                  name="visitSettingWorkOrderPage"
+                  name="syncWorkOrder"
                 />
                 <Stack.Screen
-                  key={ROUTE.WORK_ORDER_DEVICE_NUMBER}
                   component={WorkOrderDeviceNumberPage}
-                  name="WorkOrder Device Number"
+                  name={ROUTE.WORK_ORDER_DEVICE_NUMBER}
                 />
                 <Stack.Screen
-                  key={ROUTE.WORK_PROCEDURE_MULTIPLE}
                   component={WorkProcedureMultiple}
-                  name="Work procedure multiple route"
+                  name={ROUTE.WORK_PROCEDURE_MULTIPLE}
                 />
                 <Stack.Screen
-                  key={ROUTE.APPROVE_WORK_LIST}
                   component={ApproveWorklistPage}
-                  name="อนุมัติเปลี่ยนฯ"
+                  name={ROUTE.APPROVE_WORK_LIST}
                 />
                 <Stack.Screen
-                  key={ROUTE.APPROVE_OT}
                   component={ApproveOTPage}
-                  name="อนุมัติ OT"
+                  name={ROUTE.APPROVE_OT}
                 />
                 <Stack.Screen
-                  key={ROUTE.SATISFACTION_ASSESSMENT_MULTIPLE_FORM_PAGE}
                   component={SatisfactionAssessmentFormMultiplePage}
-                  name="SatisfactionAssessmentFormPage"
+                  name="SatisfactionAssessmentMultipleFormPage"
                 />
                 <Stack.Screen
-                  key="WorkOrderSignatureMultiple"
                   component={WorkOrderSignatureMultiple}
                   name="WorkOrderSignatureMultiple"
                 />
-
-                <Stack.Screen
-                  key="checkListVisitInspectorPage"
+                {/* TODO: name ซ้ำกับ INSPECTOR_WORK_ORDER_CHECK_LIST */}
+                {/* <Stack.Screen
                   component={CheckListVisitInspectorPage}
                   name="checkListVisitInspectorPage"
-                />
-
-                <Stack.Screen
-                  key={ROUTE.WORK_ORDER_IMAGE_OTHER}
-                  component={WorkOrderImagesOtherPage}
-                  name="workOrderImagesOther"
-                />
-
-                <Stack.Screen
-                  key={ROUTE.SPARE_PART_CHECK_PAGE}
-                  component={SparePartCheckPage}
-                  name="sparePartCheckPage"
-                />
-                <Stack.Screen
-                  key={ROUTE.CLAIM_PARTS_SCREEN}
-                  component={ClaimPartsScreen}
-                  name="sparePartCheckPage"
-                />
-                <Stack.Screen
-                  key={ROUTE.RecommendPartsScreen}
-                  component={RecommendPartsScreen}
-                  name="RecommendPartsScreen"
                 /> */}
+                <Stack.Screen
+                  component={WorkOrderImagesOtherPage}
+                  name={ROUTE.WORK_ORDER_IMAGE_OTHER}
+                />
+                <Stack.Screen
+                  component={SparePartCheckPage}
+                  name={ROUTE.SPARE_PART_CHECK_PAGE}
+                />
+                <Stack.Screen
+                  component={ClaimPartsScreen}
+                  name={ROUTE.CLAIM_PARTS_SCREEN}
+                />
+                <Stack.Screen
+                  component={RecommendPartsScreen}
+                  name={ROUTE.RecommendPartsScreen}
+                />
               </Stack.Navigator>
           </ImageOtherProvider>
         </Provider>

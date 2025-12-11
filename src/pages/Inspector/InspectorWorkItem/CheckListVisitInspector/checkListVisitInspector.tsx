@@ -32,7 +32,8 @@ type InterfaceProps = {
   workType: string
 };
 
-const CheckListVisitInspectorPage = (props: { workOrderData: InterfaceProps }) => {
+const CheckListVisitInspectorPage = (props) => {
+  const params = props.route?.params as { workOrderData: InterfaceProps };
   const [loading, setLoading] = useState(true);
   const [visible, setVisible] = React.useState(false);
   const [cameraIndexSelect, setCameraIndexSelect] = useState<any>();
@@ -102,7 +103,7 @@ const CheckListVisitInspectorPage = (props: { workOrderData: InterfaceProps }) =
 
 
   useEffect(() => {
-    if (props.workOrderData.workType == "visitor") {
+    if (params.workOrderData.workType == "visitor") {
       getOperationVisitInspector()
       getCheckListVisitInspector()
       getImageCheckList()
@@ -114,7 +115,7 @@ const CheckListVisitInspectorPage = (props: { workOrderData: InterfaceProps }) =
 
   const getImageCheckList = async () => {
     try {
-      const responseImage = await getImageCheckListService(props.workOrderData.orderId, props.workOrderData.workType)
+      const responseImage = await getImageCheckListService(params.workOrderData.orderId, params.workOrderData.workType)
       if (responseImage) {
         if (responseImage?.images?.length > 0) {
           let fileImageData = [];
@@ -192,7 +193,7 @@ const CheckListVisitInspectorPage = (props: { workOrderData: InterfaceProps }) =
 
   const getCheckListVisitInspector = async () => {
     try {
-      const dataResponse = await getCheckListVisitInspectorService(props.workOrderData.orderId, props.workOrderData.workType)
+      const dataResponse = await getCheckListVisitInspectorService(params.workOrderData.orderId, params.workOrderData.workType)
 
       if (dataResponse) {
         if (dataResponse?.checkList.length > 0) {
@@ -251,8 +252,8 @@ const CheckListVisitInspectorPage = (props: { workOrderData: InterfaceProps }) =
         text: 'ตกลง',
         onPress: async () => {
           let imageOperation = {
-            orderId: props.workOrderData.orderId,
-            work_type: props.workOrderData.workType,
+            orderId: params.workOrderData.orderId,
+            work_type: params.workOrderData.workType,
             images: []
           } as any;
           if (Object.keys(fileDataMultiple).length != 0) {
@@ -274,8 +275,8 @@ const CheckListVisitInspectorPage = (props: { workOrderData: InterfaceProps }) =
               if (fileImage?.formatType != "url") {
                 const result: any = await uploadImageVisitInspect(
                   fileImage,
-                  props.workOrderData.orderId,
-                  props.workOrderData.workType
+                  params.workOrderData.orderId,
+                  params.workOrderData.workType
                 );
                 dataResponse = {
                   key: Number(fileImage?.key),
@@ -303,8 +304,8 @@ const CheckListVisitInspectorPage = (props: { workOrderData: InterfaceProps }) =
           setCheckList([...checkList]);
 
           let checkListItem = {
-            orderId: props.workOrderData.orderId,
-            work_type: props.workOrderData.workType,
+            orderId: params.workOrderData.orderId,
+            work_type: params.workOrderData.workType,
             checkList: checkList
           }
           postCheckListVisitInspector(checkListItem)
@@ -971,8 +972,8 @@ const CheckListVisitInspectorPage = (props: { workOrderData: InterfaceProps }) =
             if (fileDataMultiple[keyNameId][index].formatType === 'file') {
               const result: any = await uploadImageVisitInspect(
                 fileDataMultiple[keyNameId][index],
-                props.workOrderData.orderId,
-                props.workOrderData.workType
+                params.workOrderData.orderId,
+                params.workOrderData.workType
               );
 
 
@@ -1021,23 +1022,23 @@ const CheckListVisitInspectorPage = (props: { workOrderData: InterfaceProps }) =
     <>
       {screenInfo.width > 500 ? 
       <AppBar
-      title={`Operation ${props.workOrderData.workType != "visitor" ? "Inspector" : "Visit"}`}
-      rightTitle={`Order: ${props.workOrderData.orderId}`}></AppBar>:
+      title={`Operation ${params.workOrderData.workType != "visitor" ? "Inspector" : "Visit"}`}
+      rightTitle={`Order: ${params.workOrderData.orderId}`}></AppBar>:
       <AppBar
-        title={`Operation ${props.workOrderData.workType != "visitor" ? "Inspector" : "Visit"} ${props.workOrderData.orderId} `} ></AppBar>
+        title={`Operation ${params.workOrderData.workType != "visitor" ? "Inspector" : "Visit"} ${params.workOrderData.orderId} `} ></AppBar>
       }
 
 
-      {props.workOrderData.workType != "visitor" ?
+      {params.workOrderData.workType != "visitor" ?
         <View>
-          <InspectorWorkOrderCheckListPage workOrderData={props.workOrderData} />
+          <InspectorWorkOrderCheckListPage workOrderData={params.workOrderData} />
         </View>
         : <SafeAreaView style={{ flex: 1 }}>
           <ScrollView scrollEnabled={!open}>
             <View style={{ padding:screenInfo.width > 500 ? 40 :5 }}>
               {renderWorkOrderList()}
               <View style={{ padding: 30 }}>
-                {props.workOrderData.webStatus != "4" ? BottomWidget('บันทึก', () => {
+                {params.workOrderData.webStatus != "4" ? BottomWidget('บันทึก', () => {
                   createVisitCheckList();
                 }) : null}
 

@@ -21,14 +21,15 @@ import { ScreenWidth } from 'react-native-elements/dist/helpers';
 
 type WorkProcessProps = { workDetail: string };
 
-const WorkProcessPage: React.FC<WorkProcessProps> = ({ workDetail }) => {
+const WorkProcessPage = (props) => {
+  const params = props.route?.params as WorkProcessProps;
   const [visibleModal, setStateVisibleModal] = useState(false);
   const [lastDateActive, setLastDateActive] = useState<moment.Moment>(
     moment().locale('th').add(543, 'year'),
   );
   const [endDateActive, setEndDateActive] = useState<moment.Moment>();
   const [workOrderDetail, setWorkOrderDetail] = useState<any>(
-    JSON.parse(workDetail),
+    JSON.parse(params.workDetail),
   );
   const [selectsEmployee, setValueSelectsEmployee] = useState<
     DropdownSelectMultipleItemProps[]

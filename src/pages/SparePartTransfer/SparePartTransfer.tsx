@@ -36,7 +36,8 @@ interface Props {
   };
 }
 
-const SparePartTransferPage: React.FC<Props> = props => {
+const SparePartTransferPage = props => {
+  const params = props.route.params as Props;
   const [isLoading, setIsLoading] = useState(false);
   const [selectTransferTo, setSelectTransferTo] = useState<string>('');
   const [selectTransferRequestTo, setSelectTransferRequestTo] =
@@ -472,7 +473,7 @@ const SparePartTransferPage: React.FC<Props> = props => {
           <>
             <AppBar
               title="โอนอะไหล่"
-              rightTitle={`${props.profile.wk_ctr}`}></AppBar>
+              rightTitle={`${params.profile.wk_ctr}`}></AppBar>
             {Search()}
             {SearchTONumber()}
             {SparePartsDataTable()}

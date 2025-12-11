@@ -34,8 +34,9 @@ type InterfaceProps = {
   webStatus: string;
 };
 
-const WorkQlChecklist = (props: { workOrderData: InterfaceProps }) => {
-  console.log('props.workOrderData::', props.workOrderData);
+const WorkQlChecklist = (props) => {
+  const params = props.route.params as { workOrderData: InterfaceProps };
+  console.log('params.workOrderData::', params.workOrderData);
 
   const [loading, setLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
@@ -81,7 +82,7 @@ const WorkQlChecklist = (props: { workOrderData: InterfaceProps }) => {
     setIsLoading(true);
     try {
       let defectMaster = await getCheckListCodeDefectMaster();
-      let response = await getCheckListService(props.workOrderData.orderId);
+      let response = await getCheckListService(params.workOrderData.orderId);
       setTypeOrderCheckList(response.type);
       setDataListL1({ ...response?.L1, ...{ L1: defectMaster?.L1 } });
       setDataListW3({ ...response?.W3, ...{ W3: defectMaster?.W3 } });
@@ -98,19 +99,19 @@ const WorkQlChecklist = (props: { workOrderData: InterfaceProps }) => {
   };
 
   const onSubmit = (pmCheckListValue?: any) => {
-    if (props.workOrderData.webStatus === '4') {
+    if (params.workOrderData.webStatus === '4') {
       const isValidateObjType =
-        ['TPX', 'NPX', 'TFCB', 'NFCB'].indexOf(props.workOrderData.objType) >=
+        ['TPX', 'NPX', 'TFCB', 'NFCB'].indexOf(params.workOrderData.objType) >=
         0;
       const isValidateType =
-        props.workOrderData.type === 'ZC01' ||
-        props.workOrderData.type === 'BN01';
+        params.workOrderData.type === 'ZC01' ||
+        params.workOrderData.type === 'BN01';
       const isValidatePmType =
-        props.workOrderData.pmType === 'PME' ||
-        props.workOrderData.pmType === 'PMM';
+        params.workOrderData.pmType === 'PME' ||
+        params.workOrderData.pmType === 'PMM';
       if (isValidateObjType && isValidateType && isValidatePmType) {
-        // Actions.push(ROUTE.QUALITY_INDEX, props);
-        navigation.dispatch(StackActions.push(ROUTE.QUALITY_INDEX, props));
+        // Actions.push(ROUTE.QUALITY_INDEX, params);
+        navigation.dispatch(StackActions.push(ROUTE.QUALITY_INDEX, params));
       } else {
         Alert.alert(
           'แจ้งเตือน',
@@ -258,7 +259,7 @@ const WorkQlChecklist = (props: { workOrderData: InterfaceProps }) => {
                 break;
               }
             }
-            if (props.workOrderData.type.toUpperCase() === 'ZC01') {
+            if (params.workOrderData.type.toUpperCase() === 'ZC01') {
               for (const key in pmCheckListValue) {
                 if (
                   Object.prototype.hasOwnProperty.call(pmCheckListValue, key)
@@ -307,14 +308,14 @@ const WorkQlChecklist = (props: { workOrderData: InterfaceProps }) => {
   ) => {
     let payload = {
       ...{ workOrderCheckingList: [...data] },
-      ...{ orderId: props.workOrderData.orderId, commentType: role },
+      ...{ orderId: params.workOrderData.orderId, commentType: role },
     };
     try {
       let response = await postCheckingListService(payload);
       if (response.isSuccess) {
         if (
-          props.workOrderData.type.toUpperCase() === 'ZC01' ||
-          props.workOrderData.type.toUpperCase() === 'BN01'
+          params.workOrderData.type.toUpperCase() === 'ZC01' ||
+          params.workOrderData.type.toUpperCase() === 'BN01'
         ) {
           setIsLoading(true);
           postPmCheckingList(pmCheckListValue, role);
@@ -350,28 +351,28 @@ const WorkQlChecklist = (props: { workOrderData: InterfaceProps }) => {
   const postPmCheckingList = async (data: any, role: any) => {
     let payload = {
       ...data,
-      ...{ orderId: props.workOrderData.orderId, commentedUserType: role },
+      ...{ orderId: params.workOrderData.orderId, commentedUserType: role },
     };
     setIsLoading(true);
     try {
       let response = await postPmCheckingListService(payload);
       if (response.isSuccess) {
         if (
-          props.workOrderData.type === 'ZC01' ||
-          props.workOrderData.type === 'BN01'
+          params.workOrderData.type === 'ZC01' ||
+          params.workOrderData.type === 'BN01'
         ) {
           const isValidateObjType =
             ['TPX', 'NPX', 'TFCB', 'NFCB'].indexOf(
-              props.workOrderData.objType,
+              params.workOrderData.objType,
             ) >= 0;
           const isValidatePmType =
-            props.workOrderData.pmType === 'PME' ||
-            props.workOrderData.pmType === 'PMM';
+            params.workOrderData.pmType === 'PME' ||
+            params.workOrderData.pmType === 'PMM';
           if (isValidateObjType && isValidatePmType) {
-            // Actions.push(ROUTE.QUALITY_INDEX, props);
-            navigation.dispatch(StackActions.push(ROUTE.QUALITY_INDEX, props));
+            // Actions.push(ROUTE.QUALITY_INDEX, params);
+            navigation.dispatch(StackActions.push(ROUTE.QUALITY_INDEX, params));
           } else {
-            await fetchCloseQIInformation(props.workOrderData.orderId);
+            await fetchCloseQIInformation(params.workOrderData.orderId);
             Alert.alert('แจ้งเตือน', 'บันทึกข้อมูลสำเร็จ', [
               {
                 text: 'ปิด',
@@ -383,7 +384,7 @@ const WorkQlChecklist = (props: { workOrderData: InterfaceProps }) => {
             ]);
           }
         } else {
-          await fetchCloseQIInformation(props.workOrderData.orderId);
+          await fetchCloseQIInformation(params.workOrderData.orderId);
           Alert.alert('แจ้งเตือน', 'บันทึกข้อมูลสำเร็จ', [
             {
               text: 'ปิด',
@@ -449,9 +450,9 @@ const WorkQlChecklist = (props: { workOrderData: InterfaceProps }) => {
     <>
       {ScreenWidth >= 500 && <AppBar
         title="Check List"
-        rightTitle={`Order: ${props.workOrderData.orderId}`}></AppBar>}
+        rightTitle={`Order: ${params.workOrderData.orderId}`}></AppBar>}
       {ScreenWidth < 500 && <AppBar
-        title={`Check List ${props.workOrderData.orderId}`}
+        title={`Check List ${params.workOrderData.orderId}`}
       ></AppBar>}
       <SafeAreaView style={{ flex: 1 }}>
         <ScrollView>
@@ -515,7 +516,7 @@ const WorkQlChecklist = (props: { workOrderData: InterfaceProps }) => {
           </View>
           <View>
             {['ZC01', 'BN01'].includes(
-              props.workOrderData.type.toUpperCase(),
+              params.workOrderData.type.toUpperCase(),
             ) ? (
               <View>
                 <View
@@ -529,8 +530,8 @@ const WorkQlChecklist = (props: { workOrderData: InterfaceProps }) => {
                 <WorkOrderPmCheckListPage
                   qiSubmit={onSubmit}
                   errorValidate={errorValidate}
-                  orderId={props.workOrderData.orderId}
-                  webStatus={props.workOrderData.webStatus}
+                  orderId={params.workOrderData.orderId}
+                  webStatus={params.workOrderData.webStatus}
                 />
               </View>
             ) : (
@@ -544,7 +545,7 @@ const WorkQlChecklist = (props: { workOrderData: InterfaceProps }) => {
                     alignSelf: 'center',
                   },
                 ]}>
-                {props.workOrderData.webStatus != '4' ? (
+                {params.workOrderData.webStatus != '4' ? (
                   <Button
                     style={[styles.btn, { padding: 6, width: 350 }]}
                     onPress={() => onSubmit()}>

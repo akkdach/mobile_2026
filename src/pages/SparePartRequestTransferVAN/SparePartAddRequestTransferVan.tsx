@@ -36,9 +36,10 @@ import { useNavigation, StackActions } from '@react-navigation/native'
 const screenHeight = Dimensions.get('window').height;
 
 function SparePartAddRequestTransferVan(props: any) {
+  const params = props.route?.params
   const {control, setValue, watch, getValues} =
     useForm<{search: string; countRetrive: string}>();
-  const {wk_ctr} = props;
+  const {wk_ctr} = params;
   const [valueOrderCode, setValueOrderCode] = useState<any>(null);
   const [itemsOrderCode, setItemsOrderCode] = useState<any[]>([]);
   const [visible, setVisible] = useState(false);
@@ -74,7 +75,7 @@ function SparePartAddRequestTransferVan(props: any) {
   const loadAll = async () => {
     setIsLoading(true);
     try {
-      const response = await fetchSparePartAddTransferRequest(props.stge_loc);
+      const response = await fetchSparePartAddTransferRequest(params.stge_loc);
       const newArray = response.dataResult
         ? response.dataResult
             ?.map((item: any) => {
@@ -94,8 +95,8 @@ function SparePartAddRequestTransferVan(props: any) {
               };
             })
             .map((val: any) => {
-              if (props.componentMasterVal) {
-                const matchMaterial = props.componentMasterVal.find(
+              if (params.componentMasterVal) {
+                const matchMaterial = params.componentMasterVal.find(
                   (component: any) => component.material === val.material,
                 );
                 if (matchMaterial) {
@@ -220,11 +221,11 @@ function SparePartAddRequestTransferVan(props: any) {
         return item;
       });
     // Actions.replace(ROUTE.SPARE_PART_REQUEST_TRANSFER, {
-    //   profile: props.profile,
+    //   profile: params.profile,
     //   componentStorageSelected,
     // });
     navigation.dispatch(StackActions.replace(ROUTE.SPARE_PART_REQUEST_TRANSFER, {
-      profile: props.profile,
+      profile: params.profile,
       componentStorageSelected,
     }));
   };
@@ -583,7 +584,7 @@ function SparePartAddRequestTransferVan(props: any) {
       {_buildModalSparePart()}
       <AppBar
           title="ขอโอนอะไหล่เพิ่ม"
-          rightTitle={props.profile.wk_ctr}></AppBar>
+          rightTitle={params.profile.wk_ctr}></AppBar>
         {scan && (
           <Scanner
             title="Spare Part No."

@@ -28,8 +28,9 @@ import sparePartCheckCss from './WorkOrderDeviceNumberCss';
 import { ScreenWidth } from 'react-native-elements/dist/helpers';
 
 const WorkOrderDeviceNumberPage: React.FC = (props: any) => {
+  const params = props.route.params;
   const navigation = useNavigation();
-  // console.log('props ====>', props.workOrderData.orderId);
+  // console.log('params ====>', params.workOrderData.orderId);
   const [qrData, setQrData] = useState<string | undefined>('');
   const [scan, setScan] = useState(false);
   const [visibleNotMatchModal, setVisibleNotMatchModal] = useState(false);
@@ -37,7 +38,7 @@ const WorkOrderDeviceNumberPage: React.FC = (props: any) => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    onLoadWorkOrderDeviceNumberDetail(props.workOrderData.orderId) 
+    onLoadWorkOrderDeviceNumberDetail(params.workOrderData.orderId) 
   }, [])
 
   const onLoadWorkOrderDeviceNumberDetail = async (orderId: string) => {
@@ -94,7 +95,7 @@ const WorkOrderDeviceNumberPage: React.FC = (props: any) => {
           try {
             await fetchUpdateWorkOrderDeviceNumber(
               qrData as string,
-              props.workOrderData.orderId || '',
+              params.workOrderData.orderId || '',
             );
             Alert.alert('แจ้งเตือน', 'บันทึกข้อมูลสำเร็จ', [
               {
@@ -340,8 +341,8 @@ const WorkOrderDeviceNumberPage: React.FC = (props: any) => {
     <>
       <Animated.View>
         <View style={{width: '100%'}}>
-         {ScreenWidth > 500 && <AppBar title="ใส่หมายเลขอุปกรณ์ที่ติดตั้ง" rightTitle={`Order: ${props.workOrderData.orderId}`}></AppBar> }
-         {ScreenWidth <= 500 && <AppBar title={`ใส่หมายเลขอุปกรณ์ที่ติดตั้ง ${props.workOrderData.orderId}`}></AppBar> }
+         {ScreenWidth > 500 && <AppBar title="ใส่หมายเลขอุปกรณ์ที่ติดตั้ง" rightTitle={`Order: ${params.workOrderData.orderId}`}></AppBar> }
+         {ScreenWidth <= 500 && <AppBar title={`ใส่หมายเลขอุปกรณ์ที่ติดตั้ง ${params.workOrderData.orderId}`}></AppBar> }
         </View>
         <ScrollView>
           {scan && (

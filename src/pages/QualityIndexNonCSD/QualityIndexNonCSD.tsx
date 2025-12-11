@@ -43,8 +43,8 @@ const options = [
   { label: 'วัด QI ไม่ได้', value: 'no' },
 ];
 
-const QualityIndexNonCSD = (props: InterfaceProps) => {
-
+const QualityIndexNonCSD = (props) => {
+  const params = props.route?.params as InterfaceProps;
   const [canMeasureQI, setCanMeasureQI] = useState<boolean | null>(null);
   const [selected, setSelected] = useState<string | null>('yes');
   const [modalVisible, setModalVisible] = useState(false);
@@ -104,7 +104,7 @@ const QualityIndexNonCSD = (props: InterfaceProps) => {
 
 
 
-  const { orderId } = props?.workOrderData;
+  const { orderId } = params?.workOrderData;
   const [numberMachineHeads, setNumberMachineHeads] = useState<any>(0);
   const [itemsOrderCode, setItemsOrderCode] = useState<any>();
   const [qiResult, setQIResult] = useState<any>(0.0);
@@ -222,18 +222,18 @@ const QualityIndexNonCSD = (props: InterfaceProps) => {
               return;
             }
             setIsLoading(true);
-            let response = await postQualityIndex(props.workOrderData.orderId, 'NON CSD', !isNaN(Number(qiResult)) ? Number(qiResult).toFixed(2) : '0.00', defectItem, selectedReason ?? '');
+            let response = await postQualityIndex(params.workOrderData.orderId, 'NON CSD', !isNaN(Number(qiResult)) ? Number(qiResult).toFixed(2) : '0.00', defectItem, selectedReason ?? '');
             setIsLoading(false);
             if (response.isSuccess) {
               setIsLoading(true);
-              await fetchCloseQIInformation(props.workOrderData.orderId);
+              await fetchCloseQIInformation(params.workOrderData.orderId);
               setIsLoading(false);
               Alert.alert('แจ้งเตือน', 'บันทึกข้อมูลสำเร็จ', [
                 {
                   text: 'ปิด',
                   onPress: async () => {
-                    // Actions.replace(ROUTE.WORKORDERLIST, props)
-                    navigation.dispatch(StackActions.replace(ROUTE.WORKORDERLIST, props))
+                    // Actions.replace(ROUTE.WORKORDERLIST, params)
+                    navigation.dispatch(StackActions.replace(ROUTE.WORKORDERLIST, params))
                   },
                 },
               ]);
@@ -246,8 +246,8 @@ const QualityIndexNonCSD = (props: InterfaceProps) => {
         {
           text: 'ปิด',
           onPress: async () => {
-            // Actions.replace(ROUTE.WORKORDERLIST, props)
-            navigation.dispatch(StackActions.replace(ROUTE.WORKORDERLIST, props))
+            // Actions.replace(ROUTE.WORKORDERLIST, params)
+            navigation.dispatch(StackActions.replace(ROUTE.WORKORDERLIST, params))
           },
         },
       ]);
@@ -1367,7 +1367,7 @@ const QualityIndexNonCSD = (props: InterfaceProps) => {
     <>
       <AppBar
         title="QualityIndex"
-        rightTitle={`Order: ${props.workOrderData.orderId}`}></AppBar>
+        rightTitle={`Order: ${params.workOrderData.orderId}`}></AppBar>
       {content()}
       <Loading loading={isLoading} />
     </>

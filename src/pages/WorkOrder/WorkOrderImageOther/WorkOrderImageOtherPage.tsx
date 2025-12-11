@@ -20,7 +20,8 @@ type InterfaceProps = {
   }
 };
 
-const WorkOrderImagesOtherPage = (props: InterfaceProps) => {
+const WorkOrderImagesOtherPage = (props) => {
+  const params = props.route?.params as InterfaceProps;
   const navigation = useNavigation();
   const {
     allValues,
@@ -102,9 +103,9 @@ const WorkOrderImagesOtherPage = (props: InterfaceProps) => {
     }
 
     let data: any = {
-      "orderId": props.workOrderData.orderId,
-      "objType": props.workOrderData.objType,
-      "type": props.workOrderData.type,
+      "orderId": params.workOrderData.orderId,
+      "objType": params.workOrderData.objType,
+      "type": params.workOrderData.type,
       "imageBefore": imageBeforeFromData,
       "imageAfter": imageAfterFromData
     }
@@ -128,12 +129,12 @@ const WorkOrderImagesOtherPage = (props: InterfaceProps) => {
 
   const _getImageOther = async () => {
     try {
-      const result = await getImageOtherService(props.workOrderData.orderId, props.workOrderData.type, props.workOrderData.objType);
+      const result = await getImageOtherService(params.workOrderData.orderId, params.workOrderData.type, params.workOrderData.objType);
       if (result.isSuccess) {
         // {
-        //   "orderId": props.workOrderData.orderId,
-        //   "objType": props.workOrderData.objType,
-        //   "type": props.workOrderData.type,
+        //   "orderId": params.workOrderData.orderId,
+        //   "objType": params.workOrderData.objType,
+        //   "type": params.workOrderData.type,
         //   "imageBefore": imageBeforeFromData,
         //   "imageAfter": imageAfterFromData
         // }
