@@ -12,6 +12,7 @@ import {
   TextInput,
   TouchableHighlight,
   TouchableOpacity,
+  useWindowDimensions,
   View,
 } from 'react-native';
 import { Checkbox, DataTable, RadioButton } from 'react-native-paper';
@@ -90,6 +91,7 @@ const InspectorWorkOrderDetailsWorkPage = (props) => {
   const [screenInfo, setScreenInfo] = useState(Dimensions.get('screen'))
   const [localStyle, setStyles] = useState<any>({});
   const navigation = useNavigation();
+  const dimensions = useWindowDimensions();
 
   useEffect(() => {
     console.log(screenInfo)
@@ -899,7 +901,7 @@ const InspectorWorkOrderDetailsWorkPage = (props) => {
           <Modal
             transparent
             maskClosable
-            style={{ width: screenInfo.width > 500 ? 690 : '98%', height: screenInfo.width > 500 ? 580 : 0, borderRadius: 15 }}
+            style={{ borderRadius: 15, width: dimensions.width - 50 }}
             visible={visibleSelect}>
             <View>
               <View style={{ alignItems: 'flex-end' }}>
@@ -909,11 +911,10 @@ const InspectorWorkOrderDetailsWorkPage = (props) => {
                   <Icon name="close" size={30} />
                 </TouchableHighlight>
               </View>
-              <View style={{ paddingLeft: screenInfo.width > 500 ? 40 : 5, paddingRight: screenInfo.width >500 ? 40 : 5}}>
+              <View style={{ maxHeight: dimensions.height / 1.5 }}>
                 <RadioButton.Group
                   onValueChange={newValue => { }}
                   value={dataSelect}>
-                  <SafeAreaView style={{ height: screenInfo.width > 500 ? 500 : '100%' }}>
                     <FlatList
                       data={listItem}
                       initialNumToRender={5}
@@ -922,7 +923,6 @@ const InspectorWorkOrderDetailsWorkPage = (props) => {
                         `dropdown-select-list-${index}`
                       }
                     />
-                  </SafeAreaView>
                 </RadioButton.Group>
               </View>
             </View>

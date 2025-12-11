@@ -3605,8 +3605,8 @@ const WorkOrderListPage: FC<InterfaceProps> = (props) => {
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
-          padding: 0,
-          marginBottom: 60,
+          padding: 10,
+          marginBottom: 120,
         }}
         key={generateKey('button-group-main')}>
         {isNotCheckActionMileage(params.type) && params.webStatus !== '4' && (
@@ -3635,7 +3635,6 @@ const WorkOrderListPage: FC<InterfaceProps> = (props) => {
 
   return (
     <>
-
       <BackGroundImage
         components={
           <Animated.View>
@@ -3671,7 +3670,8 @@ const WorkOrderListPage: FC<InterfaceProps> = (props) => {
               key={generateKey('scroll-view-main')}
               style={{
                 maxHeight: params.type === 'ZC01' ? screenHeight - 0 : screenHeight,
-              }}>
+              }}
+              >
               {renderWorkOrderList()}
               {ButtonGroupEvent()}
             </ScrollView>

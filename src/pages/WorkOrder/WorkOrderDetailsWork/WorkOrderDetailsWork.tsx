@@ -12,6 +12,7 @@ import {
   TextInput,
   TouchableHighlight,
   TouchableOpacity,
+  useWindowDimensions,
   View,
 } from 'react-native';
 import { Col, Grid, Row } from 'react-native-easy-grid';
@@ -98,6 +99,7 @@ const WorkOrderDetailsWorkPage = (props) => {
   const [screenInfo, setScreenInfo] = useState(Dimensions.get('screen'))
   const [styles, setStyles] = useState<any>({});
   const navigation = useNavigation();
+  const dimensions = useWindowDimensions();
 
   useEffect(() => {
     // console.log(screenInfo)
@@ -870,7 +872,7 @@ const WorkOrderDetailsWorkPage = (props) => {
           <Modal
             transparent
             maskClosable
-            style={{ width: 690, height: 580, borderRadius: 15 }}
+            style={{ borderRadius: 15, width: dimensions.width - 50 }}
             visible={visibleSelect}>
             <View>
               <View style={{ alignItems: 'flex-end' }}>
@@ -880,11 +882,10 @@ const WorkOrderDetailsWorkPage = (props) => {
                   <Icon name="close" size={30} />
                 </TouchableHighlight>
               </View>
-              <View style={{ paddingLeft: 40, paddingRight: 40 }}>
+              <View style={{ maxHeight: dimensions.height / 1.5 }}>
                 <RadioButton.Group
                   onValueChange={newValue => { }}
                   value={dataSelect}>
-                  <SafeAreaView style={{ height: 500 }}>
                     <FlatList
                       data={listItem}
                       initialNumToRender={5}
@@ -893,7 +894,6 @@ const WorkOrderDetailsWorkPage = (props) => {
                         `dropdown-select-list-${index}`
                       }
                     />
-                  </SafeAreaView>
                 </RadioButton.Group>
               </View>
             </View>

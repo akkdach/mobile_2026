@@ -7,6 +7,7 @@ import {
   Text,
   TouchableHighlight,
   TouchableOpacity,
+  useWindowDimensions,
   View,
 } from 'react-native';
 import moment from 'moment-timezone';
@@ -40,7 +41,8 @@ const WorkProcessPage = (props) => {
     { label: '9150084: แสงเพรช อาภาธร', value: '9150084', checked: false },
   ]);
   const [times, setTime] = useState<any>("00:00")
-
+  const dimensions = useWindowDimensions();
+  
   useEffect(() => {
     console.log('workOrderDetail =====>', workOrderDetail);
   }, [workOrderDetail]);
@@ -236,7 +238,7 @@ const WorkProcessPage = (props) => {
       <Modal
         transparent
         maskClosable
-        style={{ width: 690, height: 580, borderRadius: 15 }}
+        style={{ borderRadius: 15, width: dimensions.width - 50 }}
         visible={visibleModal}>
         <View>
           <View style={{ alignItems: 'flex-end' }}>
