@@ -130,7 +130,7 @@ type InputMovementEquipment = {
   contactTelNumber: string;
 };
 
-const WorkOrderListPage: FC<InterfaceProps> = (props) => {
+const WorkOrderListPage = (props) => {
   const navigation = useNavigation();
   console.log('props ====>', props);
   const params = props.route?.params as InterfaceProps

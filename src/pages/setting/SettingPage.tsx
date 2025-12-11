@@ -8,6 +8,7 @@ import { ROUTE } from '../../constants/RoutePath';
 import { signOut, updateTokenNotify } from '../../services/auth';
 import { _getData, _storeData } from '../../utils/AsyncStorage';
 import { useNavigation, StackActions } from '@react-navigation/native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const SettingPage = () => {
   const [notifyAction, setNotifyAction] = useState<boolean>(false);
@@ -167,9 +168,9 @@ const SettingPage = () => {
   );
 
   return (
-    <>
+    <SafeAreaView>
       <BackGroundImage components={startListBuild()}></BackGroundImage>
-    </>
+    </SafeAreaView>
   );
 };
 

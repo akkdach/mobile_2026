@@ -55,6 +55,7 @@ import styles from './WorkOrderPageCss';
 const coca_logo = require('../../../assets/images/coca_logo.png');
 import CountDown from 'react-native-countdown-component';
 import { useNavigation, StackActions } from '@react-navigation/native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
 type Inputs = {
   searchText: string;
@@ -305,6 +306,8 @@ const WorkOrderPage = (props: any) => {
 
   const [screenInfo, setScreenInfo] = useState(Dimensions.get('screen'))
   const [styles, setStyles] = useState<any>({});
+  const insets = useSafeAreaInsets();
+
   useEffect(() => {
     console.log(screenInfo)
     if (screenInfo.width < 500) {
@@ -1663,7 +1666,7 @@ const WorkOrderPage = (props: any) => {
           key={'app-bar-work-order'}
           replacePath={ROUTE.APP_MAIN}></AppBar>
       ) : null,
-      <View key={'scroll-view-work-order'}>
+      <View key={'scroll-view-work-order'} style={{ marginTop: props.appBar ? 0 : insets.top }}>
         {BuildWorkCenter()}
         {SearchItem()}
         {DrawHorizontalWidget()}
