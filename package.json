@@ -52,6 +52,7 @@
     "react-native-responsive-screen": "^1.4.2",
     "react-native-safe-area-context": "^5.5.2",
     "react-native-screens": "^4.18.0",
+    "react-native-signature-capture": "^0.4.12",
     "react-native-super-grid": "^6.0.2",
     "react-native-swipeout": "^2.3.6",
     "react-native-tab-view": "^4.2.0",
