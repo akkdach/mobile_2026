@@ -144,7 +144,7 @@ function StartWorkPage() {
   };
 
   const startWorkBuild = () => {
-    const date = new Date();
+    const date = moment()
 
     return (
       <ScrollView>
