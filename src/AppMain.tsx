@@ -37,63 +37,63 @@ const AppMain = () => {
         newsCount: 0,
         workOrderCount: 1,
       });
-      /* O N E S I G N A L  H A N D L E R S */
-      OneSignal.setNotificationWillShowInForegroundHandler(
-        async notifReceivedEvent => {
-          console.log(
-            'OneSignal: notification will show in foreground:',
-            notifReceivedEvent,
-          );
-          let notif = notifReceivedEvent.getNotification();
-          _storeData({
-            key: LocalStorageKey.workNotify,
-            value: {type: 'work_notify', value: 1},
-          });
-          const notificationInfo = await getNotificationService();
-          if (notificationInfo.isSuccess) {
-            setWorkNotify(notificationInfo.dataResult);
-          }
-        },
-      );
-      OneSignal.setNotificationOpenedHandler(async notification => {
-        console.log('OneSignal: notification opened:', notification);
-        const notificationInfo = await getNotificationService();
-        if (notificationInfo.isSuccess) {
-          setWorkNotify(notificationInfo.dataResult);
-        }
-      });
-      OneSignal.setInAppMessageClickHandler(async event => {
-        console.log('OneSignal IAM clicked:', event);
-        const notificationInfo = await getNotificationService();
-        if (notificationInfo.isSuccess) {
-          setWorkNotify(notificationInfo.dataResult);
-        }
-      });
-      OneSignal.addSubscriptionObserver(async event => {
-        console.log('OneSignal: subscription changed:', event);
-        _storeData({
-          key: LocalStorageKey.workNotify,
-          value: {type: 'work_notify', value: 1},
-        });
-        const notificationInfo = await getNotificationService();
-        if (notificationInfo.isSuccess) {
-          setWorkNotify(notificationInfo.dataResult);
-        }
-      });
-      OneSignal.addPermissionObserver(async event => {
-        console.log('OneSignal: permission changed:', event);
-        const notificationInfo = await getNotificationService();
-        if (notificationInfo.isSuccess) {
-          setWorkNotify(notificationInfo.dataResult);
-        }
-      });
+      // /* O N E S I G N A L  H A N D L E R S */
+      // OneSignal.setNotificationWillShowInForegroundHandler(
+      //   async notifReceivedEvent => {
+      //     console.log(
+      //       'OneSignal: notification will show in foreground:',
+      //       notifReceivedEvent,
+      //     );
+      //     let notif = notifReceivedEvent.getNotification();
+      //     _storeData({
+      //       key: LocalStorageKey.workNotify,
+      //       value: {type: 'work_notify', value: 1},
+      //     });
+      //     const notificationInfo = await getNotificationService();
+      //     if (notificationInfo.isSuccess) {
+      //       setWorkNotify(notificationInfo.dataResult);
+      //     }
+      //   },
+      // );
+      // OneSignal.setNotificationOpenedHandler(async notification => {
+      //   console.log('OneSignal: notification opened:', notification);
+      //   const notificationInfo = await getNotificationService();
+      //   if (notificationInfo.isSuccess) {
+      //     setWorkNotify(notificationInfo.dataResult);
+      //   }
+      // });
+      // OneSignal.setInAppMessageClickHandler(async event => {
+      //   console.log('OneSignal IAM clicked:', event);
+      //   const notificationInfo = await getNotificationService();
+      //   if (notificationInfo.isSuccess) {
+      //     setWorkNotify(notificationInfo.dataResult);
+      //   }
+      // });
+      // OneSignal.addSubscriptionObserver(async event => {
+      //   console.log('OneSignal: subscription changed:', event);
+      //   _storeData({
+      //     key: LocalStorageKey.workNotify,
+      //     value: {type: 'work_notify', value: 1},
+      //   });
+      //   const notificationInfo = await getNotificationService();
+      //   if (notificationInfo.isSuccess) {
+      //     setWorkNotify(notificationInfo.dataResult);
+      //   }
+      // });
+      // OneSignal.addPermissionObserver(async event => {
+      //   console.log('OneSignal: permission changed:', event);
+      //   const notificationInfo = await getNotificationService();
+      //   if (notificationInfo.isSuccess) {
+      //     setWorkNotify(notificationInfo.dataResult);
+      //   }
+      // });
 
-      const deviceState = await OneSignal.getDeviceState();
+      // const deviceState = await OneSignal.getDeviceState();
 
-      _storeData({
-        key: LocalStorageKey.oneSignalUserId,
-        value: deviceState.userId,
-      }).catch(_ => {});
+      // _storeData({
+      //   key: LocalStorageKey.oneSignalUserId,
+      //   value: deviceState.userId,
+      // }).catch(_ => {});
     } catch (err) {
       console.log('🚀 ~ file: App.tsx ~ line 22 ~ initOneSignal ~ err', err);
     }
