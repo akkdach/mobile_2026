@@ -5,7 +5,14 @@
             "label": "Build Android Release",
             "type": "npm",
             "script": "build:android",
-            "group": "build",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "icon": {
+                "color": "terminal.ansiGreen",
+                "id": "package"
+            },
             "presentation": {
                 "echo": true,
                 "reveal": "always",
@@ -21,6 +28,10 @@
             "type": "npm",
             "script": "android:release",
             "group": "build",
+            "icon": {
+                "color": "terminal.ansiBlue",
+                "id": "play"
+            },
             "presentation": {
                 "echo": true,
                 "reveal": "always",
@@ -36,6 +47,10 @@
             "type": "npm",
             "script": "android",
             "group": "build",
+            "icon": {
+                "color": "terminal.ansiYellow",
+                "id": "debug"
+            },
             "presentation": {
                 "echo": true,
                 "reveal": "always",
