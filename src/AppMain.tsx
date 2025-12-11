@@ -5,7 +5,7 @@ import Geolocation, {
 } from '@react-native-community/geolocation';
 import React, {useContext, useEffect, useState} from 'react';
 import {PermissionsAndroid, Text, TouchableHighlight, View} from 'react-native';
-import OneSignal from 'react-native-onesignal';
+import {LogLevel, OneSignal} from 'react-native-onesignal';
 import {
   default as LocalStorage,
   default as LocalStorageKey,
@@ -29,9 +29,9 @@ const AppMain = () => {
   const [isGranted, setIsGranted] = useState(false);
   async function initOneSignal() {
     try {
-      OneSignal.setLogLevel(6, 0);
-      OneSignal.setAppId('0d27683d-e7dc-4511-8c10-8942172ac8b7');
-      OneSignal.setRequiresUserPrivacyConsent(false);
+      OneSignal.Debug.setLogLevel(LogLevel.Verbose);
+      OneSignal.initialize('0d27683d-e7dc-4511-8c10-8942172ac8b7');
+      OneSignal.setConsentRequired(false);
       setWorkNotify({
         knowledgeCount: 0,
         newsCount: 0,
