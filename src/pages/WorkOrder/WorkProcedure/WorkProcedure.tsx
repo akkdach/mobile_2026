@@ -32,7 +32,7 @@ import { _getData, _removeData, _storeData } from '../../../utils/AsyncStorage';
 import { customLog } from '../../../utils/CustomConsole';
 import { styleLg, styleSm } from './WorkProcedureCss';
 const defaultImage = require('../../../../assets/images/default.jpeg');
-import Exify from '@lodev09/react-native-exify';
+import { readAsync} from '@lodev09/react-native-exify';
 import { useNavigation, StackActions } from '@react-navigation/native';
 
 type InterfaceProps = {
@@ -211,7 +211,7 @@ const WorkProcedurePage = (props) => {
       (async () => {
         if (!response.didCancel && response.assets && response.assets.length > 0) {
           const asset = response.assets[0];
-          const metadata = await Exify.readAsync(asset.uri as string);
+          const metadata = await readAsync(asset.uri as string);
           const gpsTracking = _getData({ key: 'gpsTracking' });
           // console.log('metadata=>>>>>>>>>>>>>>>>>>>>', metadata, 'gpsTracking', gpsTracking);
           if (!metadata) {

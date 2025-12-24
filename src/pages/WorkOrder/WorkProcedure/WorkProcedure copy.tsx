@@ -32,7 +32,7 @@ import { _getData, _storeData } from '../../../utils/AsyncStorage';
 import { customLog } from '../../../utils/CustomConsole';
 import styles from './WorkProcedureCss';
 const defaultImage = require('../../../../assets/images/default.jpeg');
-import Exify from '@lodev09/react-native-exify';
+import { readAsync } from '@lodev09/react-native-exify';
 import { useNavigation, StackActions } from '@react-navigation/native';
 
 type InterfaceProps = {
@@ -198,7 +198,7 @@ const WorkProcedurePage = (props: InterfaceProps) => {
       (async () => {
         if (!response.didCancel && response.assets && response.assets.length > 0) {
           const asset = response.assets[0];
-          const metadata = await Exify.readAsync(asset.uri as string);
+          const metadata = await readAsync(asset.uri as string);
           // Alert.alert('lattued',lattued);
           let exiflat = metadata.GPSLatitude?.split(',', 3);
           let latDegree: number[] = exiflat[0].split('\/', 2);

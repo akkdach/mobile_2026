@@ -34,9 +34,9 @@ import { useNavigation, StackActions } from '@react-navigation/native'
 const screenHeight = Dimensions.get('window').height;
 
 function ToolAddRequestTransferPage(props: any) {
+  props = props.route?.params ? props.route.params : props;
   const {control, setValue, watch, getValues} =
     useForm<{search: string; countRetrive: string}>();
-  const {wk_ctr} = props;
   const [valueOrderCode, setValueOrderCode] = useState<any>(null);
   const [itemsOrderCode, setItemsOrderCode] = useState<any[]>([]);
   const [visible, setVisible] = useState(false);

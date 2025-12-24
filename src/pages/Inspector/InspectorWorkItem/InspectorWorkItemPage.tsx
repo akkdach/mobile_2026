@@ -47,10 +47,10 @@ type InterfaceProps = {
 type InspectorWorkItemProps = { workDetail: any };
 
 const InspectorWorkItemPage = (props) => {
-  const params = props.route.params;
+  const { workDetail } = props.route?.params ? props.route?.params : props as InspectorWorkItemProps;
   // const workOrder = getWorkOrder('000041178498');
   const [checkInModal, setStateCheckInModal] = useState(false);
-  const [workOrderDetail, setWorkOrderDetail] = useState<any>(JSON.parse(params.workDetail));
+  const [workOrderDetail, setWorkOrderDetail] = useState<any>(JSON.parse(workDetail));
   const [visibleModal, setStateVisibleModal] = useState(false);
   const [workIn, setWorkIn] = useState(false);
   const [nextPage, setNextPage] = useState(false);
@@ -130,9 +130,9 @@ const InspectorWorkItemPage = (props) => {
       //           //     workDetail: JSON.stringify(workOrderDetail),
       //           //   };
       //           // } else {
-      //             console.log(JSON.stringify(params.workDetail, null, 2))
+      //             console.log(JSON.stringify(workDetail, null, 2))
       //             data = {
-      //               workOrderData: JSON.parse(params.workDetail),
+      //               workOrderData: JSON.parse(workDetail),
       //             };
       //           // }
       //           router.Actions.push(args?.route, data);
@@ -189,7 +189,7 @@ const InspectorWorkItemPage = (props) => {
                   setNextPage(true);
                   let data: any;
                   data = {
-                    workOrderData: JSON.parse(params.workDetail),
+                    workOrderData: JSON.parse(workDetail),
                   };
                   navigation.dispatch(StackActions.push(args?.route, data));
                 }
@@ -222,7 +222,7 @@ const InspectorWorkItemPage = (props) => {
 
   const renderWorkOrderList = () => {
     const listOrder: any = [];
-    const workOrderData = JSON.parse(params.workDetail)
+    const workOrderData = JSON.parse(workDetail)
     const workType = workOrderData.workType.replace(/(^|\s)\S/g, function (t: any) { return t.toUpperCase() })
     const orderData: CardWorkItemTypes[] = [
       {
@@ -311,7 +311,7 @@ const InspectorWorkItemPage = (props) => {
   };
 
   const ButtonGroupEvent = () => {
-    let workDetails = JSON.parse(params.workDetail)
+    let workDetails = JSON.parse(workDetail)
     return (
       <View
         style={{
