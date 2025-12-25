@@ -582,6 +582,7 @@ const WorkOrderSparePartsListPage = (
                     orderId,
                     componentVal: componentsValue,
                     componentMasterVal: componentsMasterValue,
+                    workOrderData: params.workOrderData
                   }));
                 }}
                 style={{

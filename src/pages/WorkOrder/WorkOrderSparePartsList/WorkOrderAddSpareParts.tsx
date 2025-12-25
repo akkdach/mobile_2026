@@ -45,7 +45,7 @@ function WorkOrderAddSparePartsPage(props: any) {
   const params = props.route.params;
   const { control, setValue, watch, getValues } =
     useForm<{ search: string; countRetrive: any }>();
-  const { orderId } = params;
+  const { orderId, workOrderData } = params;
   const [valueOrderCode, setValueOrderCode] = useState<any>(null);
   const [itemsOrderCode, setItemsOrderCode] = useState<any[]>([]);
   const [visible, setVisible] = useState(false);
@@ -229,6 +229,7 @@ function WorkOrderAddSparePartsPage(props: any) {
       });
     navigation.dispatch(StackActions.replace(ROUTE.WORKORDER_SPARE_PART_LIST, {
       componentStorageSelected,
+      workOrderData
     }));
   };
 
