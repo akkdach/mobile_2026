@@ -205,6 +205,7 @@ function SparePartAddRequestTransferPage(props: any) {
     navigation.dispatch(StackActions.replace(ROUTE.SPARE_PART_REQUEST_TRANSFER, {
       profile: params.profile,
       componentStorageSelected,
+      stge_loc: params.stge_loc,
     }));
   };
 

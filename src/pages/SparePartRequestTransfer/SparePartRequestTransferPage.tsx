@@ -42,7 +42,7 @@ const getUniqueListBy = (arr: any[], key: string) => {
 const screenHeight = Dimensions.get('window').height;
 
 const SparePartRequestTransferPage = (props) => {
-  const { profile, componentStorageSelected } = props.route.params
+  const { profile, componentStorageSelected, stge_loc } = props.route.params
   const [visible, setVisible] = useState(false);
   const [componentsMasterValue, setComponentsMasterValue] = useState<
     ISparePartRequest[]
@@ -53,7 +53,7 @@ const SparePartRequestTransferPage = (props) => {
   const [componentByItem, setComponentByItem] = useState<any>();
   const [selectTransferTo, setSelectTransferTo] = useState<
     string | undefined
-  >();
+  >(stge_loc || undefined);
   const [transferToList, setTransferToList] = useState<
     ItemProps[]
   >([]);
