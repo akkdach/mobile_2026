@@ -1,4 +1,4 @@
-package com.mobilebpa
+package com.thainamthipdev.bevpromobile
 
 import android.app.Application
 import com.facebook.react.PackageList

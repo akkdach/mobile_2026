@@ -86,9 +86,9 @@ android {
        pickFirst 'lib/armeabi-v7a/libc++_shared.so'
     }
 
-    namespace "com.mobilebpa"
+    namespace "com.thainamthipdev.bevpromobile"
     defaultConfig {
-        applicationId "com.mobilebpa"
+        applicationId "com.thainamthipdev.bevpromobile"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

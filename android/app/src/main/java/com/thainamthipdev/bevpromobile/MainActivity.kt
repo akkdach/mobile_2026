@@ -1,4 +1,4 @@
-package com.mobilebpa
+package com.thainamthipdev.bevpromobile
 
 import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
